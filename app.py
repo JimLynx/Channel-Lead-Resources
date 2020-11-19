@@ -25,8 +25,8 @@ def resources():
     return render_template('resources.html', resources=resources)
 
 
-if __name__ == '__main__':
-    app.run(host=os.environ.get('IP', '127.0.0.1'),
-            port=os.environ.get('PORT', '5000'),
+if __name__ == "__main__":
+    app.run(host=os.environ.get("IP"),
+            port=int(os.environ.get("PORT")),
             debug=True)
 
