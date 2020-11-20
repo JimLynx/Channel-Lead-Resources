@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h1>Superuser Page</h1>
+
+    <p>Welcome, {{ user }}</p><br><br><hr>
+
+    <form action="{{ url_for('superuser', user=session.user) }}" method="post">
+        <label for="username">New Username</label>
+        <input type="text" name="username" id="username">
+        <br><br>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password">
+        <br><br>
+        <button type="submit">Add New User</button>
+    </form>
+
+{% endblock %}
