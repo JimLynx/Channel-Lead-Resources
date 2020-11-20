@@ -21,12 +21,42 @@ mongo = PyMongo(app)
 @app.route('/')
 @app.route('/resources')
 def resources():
-    resources = mongo.db.cl_resources.find()
+    resources = list(mongo.db.cl_resources.find())
     return render_template('resources.html', resources=resources)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    user_types = list(mongo.db.users.find())
+    if request.method == 'POST':
+        username = mongo.db.users.find_one({'user_type': request.form.get('username')})
+        if check_password_hash(username['password'], request.form.get('password')):
+            session['user'] = request.form.get('username')
+            if request.form.get('username') == 'superuser':
+                return redirect(url_for('superuser', user=session['user']))
+            return redirect(url_for('resources'))
+    return render_template('login.html', users=user_types)
+
+
+@app.route('/logout')
+def logout():
+    session.pop('user')
+    return redirect(url_for('login'))
+
+
+@app.route('/<user>', methods=['GET', 'POST'])
+def superuser(user):
+    if session['user'] == 'superuser' or session['user'] == 'assessor':
+        if request.method == 'POST':
+            mongo.db.users.insert_one(
+                {'user_type': request.form.get('username'),
+                'password': generate_password_hash(request.form.get('password'))}
+                )
+        return render_template('superuser.html', user=session['user'])
+    return redirect(url_for('resources'))
 
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
             debug=True)
-
