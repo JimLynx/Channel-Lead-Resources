@@ -17,6 +17,17 @@
 
 <body>
 
+    <a href="{{ url_for('home') }}">Home</a><br><br>
+    {% if session.user %}
+        <a href="{{ url_for('resources') }}">Channel Lead Resources</a>
+        <a href="{{ url_for('logout') }}">Log Out</a><br><br>
+        {% if session.user == 'superuser' or session.user == 'assessor' %}
+            <a href="{{ url_for('superuser', user=session.user) }}">Superuser</a><br><br>
+        {% endif %}
+    {% else %}
+        <a href="{{ url_for('login') }}">Log In</a><br><br>
+    {% endif %}
+
     {% block content %}
 
     {% endblock %}
