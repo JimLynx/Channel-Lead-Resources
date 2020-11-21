@@ -25,3 +25,41 @@ body {
     letter-spacing: 1px;
     text-align: justify;
 }
+
+/* -- NAVIGATION -- */
+.navbar {
+    background-color: var(--primary-bg);
+}
+
+/* -- INTRO -- */
+.logo {
+    width: 60vw;
+}
+
+.jumbotron {
+    background-color: var(--primary-bg);
+    color: var(--secondary-bg);
+}
+
+.note-success {
+    color: var(--primary-bg);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.jumbotron p em {
+    color: var(--secondary-bg);
+}
+
+.btn {
+    background-color: var(--buttons);
+    border: 2px solid var(--primary-bg);
+}
+
+/* -- MEDIA QUERIES -- */
+
+@media only screen and (min-width: 992px) {
+    .logo {
+        width: 40vw;
+    }
+}
