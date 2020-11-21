@@ -3,7 +3,7 @@
 
 <form action="{{ url_for('login') }}" method="post">
     <label for="username">Username</label>
-    <select name="username" id="username">
+    <select name="username" id="username" required> 
         <option value="" disabled selected>Select User</option>
         {% for user in users %}
             <option value="{{ user.user_type }}">{{ user.user_type }}</option>
@@ -11,7 +11,7 @@
     </select>
     <br><br>
     <label for="password">Password</label>
-    <input type="password" name="password" id="password">
+    <input type="password" name="password" id="password" required>
     <br><br>
     <button type="submit">Log In</button>
 </form>
