@@ -1,6 +1,6 @@
 <h1 align="center">Code Institute Slack - Channel Lead Resources</h1>
 
-###### (TBA - IMAGE HERE)
+![Image](static/img/lead-logo.png)
 
 ###### DEPLOYED ON HEROKU [HERE](https://git.heroku.com/channel-lead-resources.git)
 
