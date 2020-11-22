@@ -74,7 +74,7 @@ def login():
             session['user'] = request.form.get('username')
             if request.form.get('username') == 'superuser':
                 return redirect(url_for('superuser', user=session['user']))
-            return redirect(url_for('resources'))
+            return redirect(url_for('add_resource'))
     return render_template('login.html', users=user_types)
 
 
@@ -94,6 +94,11 @@ def superuser(user):
                 )
         return render_template('superuser.html', user=session['user'])
     return redirect(url_for('resources'))
+
+
+@app.route('/add_resource')
+def add_resource():
+    return render_template('add_resource.html')
 
 
 if __name__ == "__main__":
