@@ -9,12 +9,21 @@
 
 
                 <form class="text-center" action="" method="post">
+                    
                     <div class="container">
                         <p class="h4 mb-4"><b>Add Material</b></p>
                         <p>Hi {{ user }}, please post in call sections and be as detailed as possible</p>
 
                         <div class="row">
-
+                            <label for="category_name"><i class="fas fa-book-open"></i><b> Category Name</b></i></label>
+                            <select name="category_name"id="category_name" class="browser-default custom-select validate" required>
+                                <option value="" disabled selected>Select a Category</option>
+                                {% for category in categories  %}
+                                <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                                {% endfor  %}
+                            </select>
+                        </div><br>
+                        <div class="row">
                             <label for="title"><i class="fas fa-book-open"></i><b> Post Title</b></i></label>
                             <input type="text" name="title" id="title" class="form-control  validate mb-4"
                                 placeholder="Title" minlength="5" maxlength="50" required>

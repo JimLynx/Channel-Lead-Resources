@@ -98,7 +98,8 @@ def superuser(user):
 
 @app.route('/add_resource')
 def add_resource():
-    return render_template('add_resource.html')
+    categories = mongo.db.categories.find().sort('category_name', 1)
+    return render_template('add_resource.html', categories=categories)
 
 
 if __name__ == "__main__":
