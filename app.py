@@ -93,11 +93,25 @@ def superuser(user):
                 'password': generate_password_hash(request.form.get('password'))}
                 )
         return render_template('superuser.html', user=session['user'])
-    return redirect(url_for('resources'))
+    return redirect(url_for('home'))
 
 
-@app.route('/add_resource')
+@app.route('/add_resource', methods=['GET', 'POST'])
 def add_resource():
+    if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
+        if request.method == 'POST':
+            upload = {
+                "category_name": request.form.get("category_name"),
+                "title": request.form.get("title"),
+                "description": request.form.get("description"),
+                "url": request.form.get("url"),
+                "created_by": request.form.get("created_by"),
+                "date": request.form.get("date")
+            }
+            mongo.db.ci_resources.insert_one(upload)
+            return redirect(url_for(''))
+
+
     categories = mongo.db.categories.find().sort('category_name', 1)
     return render_template('add_resource.html', categories=categories)
 
