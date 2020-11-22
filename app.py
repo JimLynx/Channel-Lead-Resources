@@ -24,10 +24,45 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/resources')
-def resources():
+@app.route('/ms1')
+def ms1():
     resources = list(mongo.db.cl_resources.find())
-    return render_template('resources.html', resources=resources)
+    return render_template('ms1.html', resources=resources)
+
+
+@app.route('/ms2')
+def ms2():
+    resources = list(mongo.db.cl_resources.find())
+    return render_template('ms2.html', resources=resources)
+
+
+@app.route('/ms3')
+def ms3():
+    resources = list(mongo.db.cl_resources.find())
+    return render_template('ms3.html', resources=resources)
+
+
+@app.route('/ms4')
+def ms4():
+    resources = list(mongo.db.cl_resources.find())
+    return render_template('ms4.html', resources=resources)
+
+
+@app.route('/version_control')
+def version_control():
+    resources = list(mongo.db.cl_resources.find())
+    return render_template('version-control.html', resources=resources)
+
+
+@app.route('/general')
+def general():
+    resources = list(mongo.db.cl_resources.find({'category_name': request.form.get('topic')}))
+    return render_template('general.html', resources=resources)
+
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
