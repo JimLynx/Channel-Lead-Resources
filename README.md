@@ -327,7 +327,7 @@ This project has been deployed on GitHub Pages with the following process:
 >
 > ##### Code Snippets
 >
-> - TBA
+> - Setting active class to navigation items in Flask, resolution found on Stack Overflow [HERE](https://stackoverflow.com/a/55895621)
 > 
 
 ---

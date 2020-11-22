@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% set active_page = 'add_resource' %}
 {% block content %}
 
 <h3>Add Resource</h3>
@@ -8,46 +9,49 @@
             <div class="col-md-8">
 
 
-                <form class="text-center" action="" method="post">
-                    
+                <form class="text-center" action="{{ url_for('add_resource') }}" method="post">
+
                     <div class="container">
                         <p class="h4 mb-4"><b>Add Material</b></p>
-                        <p>Hi {{ user }}, please post in call sections and be as detailed as possible</p>
+                        <p>Hi {{ session.user }}, please post in call sections and be as detailed as possible</p>
 
                         <div class="row">
+                            <!-- category -->
                             <label for="category_name"><i class="fas fa-book-open"></i><b> Category Name</b></i></label>
-                            <select name="category_name"id="category_name" class="browser-default custom-select validate" required>
+                            <select name="category_name" id="category_name"
+                                class="browser-default custom-select validate" required>
                                 <option value="" disabled selected>Select a Category</option>
                                 {% for category in categories  %}
                                 <option value="{{ category.category_name }}">{{ category.category_name }}</option>
                                 {% endfor  %}
                             </select>
                         </div><br>
+                        <!-- title -->
                         <div class="row">
                             <label for="title"><i class="fas fa-book-open"></i><b> Post Title</b></i></label>
                             <input type="text" name="title" id="title" class="form-control  validate mb-4"
                                 placeholder="Title" minlength="5" maxlength="50" required>
                         </div>
-
+                        <!-- description -->
                         <div class="row">
                             <label for="description"><i class="fas fa-file-word"></i><b> Resource
                                     Description</b></i></label>
                             <textarea type="text" name="description" id="description" class="form-control mb-4 validate"
                                 rows="3" minlength="5" maxlength="200" required></textarea>
                         </div>
-
+                        <!-- channel lead name -->
                         <div class="row">
                             <label for="title"><i class="fas fa-users"><b> Slack Lead Name</b></i></label>
                             <input type="text" name="created_by" id="created_by" class="form-control validate mb-4"
                                 placeholder="Slack Lead Name" minlength="5" maxlength="20" required>
                         </div>
-
+                        <!-- url location -->
                         <div class="row">
                             <label for="title"><i class="fas fa-cloud-upload-alt"><b> Hosted Location:</b></i></label>
                             <input type="url" name="url" id="url" class="form-control validate mb-4"
                                 placeholder="https://" minlength="5" maxlength="50" required>
                         </div>
-
+                        <!-- date picker -->
                         <div class="row">
                             <label for="date"><i class="far fa-calendar-alt"><b> Date Posted:</b></i></label>
                             <input name="date" type="text" id="date" class="form-control validate mb-4"
@@ -55,6 +59,7 @@
                         </div>
 
                     </div>
+                    <!-- submit button -->
                     <button class="btn btn-block my-4" type="submit">
                         <i class="fas fa-rocket"></i>
                         Add Awesome Resource!
