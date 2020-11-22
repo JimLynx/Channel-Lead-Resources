@@ -37,7 +37,6 @@ body {
 /* -- NAVIGATION -- */
 .navbar {
     background-color: #fff;
-    margin-bottom: 50px;
 }
 
 .navbar-brand img {
@@ -50,20 +49,20 @@ body {
 
 /* -- INTRO -- */
 .jumbotron {
-    width: 85vw;
+    width: 75vw;
     align-self: center;
     text-align: center;
 }
 
 .btn {
     background-color: var(--buttons);
-    border: 2px solid var(--primary-txt);
+    border: 1px solid var(--primary-txt);
     color: var(--secondary-bg);
 }
 
 /* -- LOGIN FORM -- */
 .form-container {
-    width: 85vw;
+    width: 75vw;
 }
 
 
