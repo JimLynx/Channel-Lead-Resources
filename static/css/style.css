@@ -8,8 +8,8 @@
 
 /* --- SITE COLOURS ---*/
 :root {
-    --primary-bg: #4a4a4a;
-    --primary-txt: #fff;
+    --primary-bg: #f5f5f5;
+    --primary-txt: #4a4a4f;
     --secondary-bg: #e6ecf0;
     --buttons: #e84610;
     --links: #007cba;
@@ -19,47 +19,56 @@
 
 /* -- GENERAL -- */
 body {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--primary-txt);
     font-family: 'Montserrat', sans-serif;
+    color: var(--primary-txt);
     font-size: 1.1rem;
     font-weight: 400;
     letter-spacing: 1px;
     text-align: justify;
 }
 
+.container {
+    background-color: #fff;
+}
+
 /* -- NAVIGATION -- */
 .navbar {
-    background-color: var(--primary-bg);
+    background-color: #fff;
+    margin-bottom: 50px;
+}
+
+.navbar-brand img {
+    width: 200px;
+}
+
+#mainNav {
+    justify-content: flex-end;
 }
 
 /* -- INTRO -- */
-.logo {
-    width: 60vw;
-}
-
 .jumbotron {
-    background-color: var(--primary-bg);
-    color: var(--secondary-bg);
-}
-
-.note-success {
-    color: var(--primary-bg);
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.jumbotron p em {
-    color: var(--secondary-bg);
+    width: 85vw;
+    align-self: center;
+    text-align: center;
 }
 
 .btn {
     background-color: var(--buttons);
-    border: 2px solid var(--primary-bg);
+    border: 2px solid var(--primary-txt);
+    color: var(--secondary-bg);
 }
+
+/* -- LOGIN FORM -- */
+.form-container {
+    width: 85vw;
+}
+
 
 /* -- MEDIA QUERIES -- */
 
 @media only screen and (min-width: 992px) {
-    .logo {
-        width: 40vw;
-    }
+    
 }
