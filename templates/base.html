@@ -40,13 +40,16 @@
                     <a class="nav-link dropdown-toggle" id="navDropdown" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">Resources</a>
                     <div class="dropdown-menu dropdown-primary" aria-labelledby="navDropdown">
-                        <a class="dropdown-item" href="{{ url_for('resources') }}">Milestone 1</a>
-                        <a class="dropdown-item" href="{{ url_for('resources') }}">Milestone 2</a>
-                        <a class="dropdown-item" href="{{ url_for('resources') }}">Milestone 3</a>
-                        <a class="dropdown-item" href="{{ url_for('resources') }}">Milestone 4</a>
-                        <a class="dropdown-item" href="{{ url_for('resources') }}">Version Control</a>
-                        <a class="dropdown-item" href="{{ url_for('resources') }}">General</a>
+                        <a class="dropdown-item" href="{{ url_for('ms1') }}">Milestone 1</a>
+                        <a class="dropdown-item" href="{{ url_for('ms2') }}">Milestone 2</a>
+                        <a class="dropdown-item" href="{{ url_for('ms3') }}">Milestone 3</a>
+                        <a class="dropdown-item" href="{{ url_for('ms4') }}">Milestone 4</a>
+                        <a class="dropdown-item" href="{{ url_for('version_control') }}">Version Control</a>
+                        <a class="dropdown-item" href="{{ url_for('general') }}">General</a>
                     </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
