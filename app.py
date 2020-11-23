@@ -26,37 +26,37 @@ def home():
 
 @app.route('/ms1')
 def ms1():
-    resources = list(mongo.db.cl_resources.find())
+    resources = list(mongo.db.cl_resources.find({'category_name': {'$eq':'Milestone 1'}}))
     return render_template('ms1.html', resources=resources)
 
 
 @app.route('/ms2')
 def ms2():
-    resources = list(mongo.db.cl_resources.find())
+    resources = list(mongo.db.cl_resources.find({'category_name': {'$eq':'Milestone 2'}}))
     return render_template('ms2.html', resources=resources)
 
 
 @app.route('/ms3')
 def ms3():
-    resources = list(mongo.db.cl_resources.find())
+    resources = list(mongo.db.cl_resources.find({'category_name': {'$eq':'Milestone 3'}}))
     return render_template('ms3.html', resources=resources)
 
 
 @app.route('/ms4')
 def ms4():
-    resources = list(mongo.db.cl_resources.find())
+    resources = list(mongo.db.cl_resources.find({'category_name': {'$eq':'Milestone 4'}}))
     return render_template('ms4.html', resources=resources)
 
 
 @app.route('/version_control')
 def version_control():
-    resources = list(mongo.db.cl_resources.find())
-    return render_template('version-control.html', resources=resources)
+    resources = list(mongo.db.cl_resources.find({'category_name': {'$eq':'Version Control'}}))
+    return render_template('version_control.html', resources=resources)
 
 
 @app.route('/general')
 def general():
-    resources = list(mongo.db.cl_resources.find({'category_name': request.form.get('topic')}))
+    resources = list(mongo.db.cl_resources.find({'category_name': {'$eq':'General'}}))
     return render_template('general.html', resources=resources)
 
 
