@@ -98,7 +98,8 @@ def superuser(user):
 
 @app.route('/add_resource', methods=['GET', 'POST'])
 def add_resource():
-    if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
+    if session['user'] and session['user'] != 'student':
+
         if request.method == 'POST':
             upload = {
                 "category_name": request.form.get("category_name"),
@@ -108,8 +109,10 @@ def add_resource():
                 "created_by": request.form.get("created_by"),
                 "date": request.form.get("date")
             }
-            mongo.db.ci_resources.insert_one(upload)
-            return redirect(url_for(''))
+            mongo.db.cl_resources.insert_one(upload)
+            return redirect(url_for('home'))
+    else:
+        return redirect(url_for('home'))
 
 
     categories = mongo.db.categories.find().sort('category_name', 1)
