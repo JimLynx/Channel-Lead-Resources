@@ -14,7 +14,7 @@
     --buttons: #e84610;
     --links: #007cba;
     --off-white: #fafafa;
-    --box-shadow: 4px 4px 12px 0px rgba(0, 0, 0, 0.2);
+    --box-shadow: 4px 4px 12px 0px rgba(0, 0, 0, 0.1);
 }
 
 /* -- GENERAL -- */
@@ -51,6 +51,7 @@ em {
 
 .navbar-brand img {
     height: 50px;
+    padding: 0 15px;
 }
 
 #mainNav {
@@ -58,11 +59,19 @@ em {
 }
 
 .nav-item.active>.nav-link {
-    background-color: #007cba52 !important;
+    background-color: #fff !important;
     border-radius: 5px;
-    border: 1px solid var(--primary-txt);
+    border: 1px solid var(--buttons);
 }
 
+.nav-link {
+    border-radius: 5px;
+    transition: transform .4s;
+    box-shadow: var(--box-shadow);
+}
+.nav-link:hover {
+    transform: scale(1.05);
+}
 /* -- INTRO -- */
 
 .jumbotron {
@@ -93,7 +102,7 @@ footer hr {
 }
 
 .grey-bg {
-    background-color: var(--primary-txt)
+    background-color: var(--primary-txt);
 }
 
 footer {
