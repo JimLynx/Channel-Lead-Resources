@@ -99,16 +99,17 @@ def superuser(user):
 @app.route('/add_resource', methods=['GET', 'POST'])
 def add_resource():
     if session['user'] and session['user'] != 'student':
-
         if request.method == 'POST':
             upload = {
                 "category_name": request.form.get("category_name"),
                 "title": request.form.get("title"),
                 "description": request.form.get("description"),
-                "url": request.form.get("url"),
+                "video_url": request.form.get("video_url"),
+                "document_url": request.form.get("document_url"),
                 "created_by": request.form.get("created_by"),
                 "date": request.form.get("date")
             }
+
             mongo.db.cl_resources.insert_one(upload)
             return redirect(url_for('home'))
     else:
