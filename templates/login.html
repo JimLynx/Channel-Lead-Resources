@@ -5,7 +5,7 @@
 <div class="container my-5">
     <div class="jumbotron card-image">
         <div>
-            <h1 class="card-title h3-responsive pt-3 mb-5 font-bold"><b>Sign In</b></h1>
+            <h1 class="card-title pt-3 mb-5 font-bold"><b>Sign In</b></h1>
             <form class="text-center" action="{{ url_for('login') }}" method="post">
 
                 <select type="username" name="username" id="username" class="form-control mb-4" placeholder="Username"
@@ -16,7 +16,6 @@
                     {% endfor %}
                     <input type="password" name="password" id="password" class="form-control mb-4"
                         placeholder="Password" required>
-
                     <div class="d-flex justify-content-around">
                         <div>
                             <div class="custom-control custom-checkbox">
