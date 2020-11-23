@@ -2,12 +2,60 @@
 {% set active_page = 'resources' %}
 {% block content %}
 
-    {% for resource in resources %}
-        {{ resource.category_name }}<br>
-        {{ resource.title }}<br>
-        {{ resource.description }}<br>
-        {{ resource.created_by }}<br>
-        {{ resource.created_on }}<br>
-    {% endfor %}
-    
+<div class="container my-5">
+
+    <div class="jumbotron card-image">
+        <h1 class="card-title pt-3 mb-5 font-bold">Resources</h1>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis beatae totam itaque, ratione ipsam dolore
+            eveniet doloribus veniam quibusdam fugiat officiis, ducimus blanditiis impedit, sit inventore ut esse. Aut,
+            assumenda.</p>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis beatae totam itaque, ratione ipsam dolore
+            eveniet doloribus veniam quibusdam fugiat officiis, ducimus blanditiis impedit, sit inventore ut esse. Aut,
+            assumenda.</p>
+        <div class="px-4">
+
+            <div class="md-form my-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            </div>
+            {% for resource in resources %}
+
+            <!-- collapsible heading button -->
+            <button type="button" class="post-btn btn btn-info" data-toggle="collapse"
+                data-target={{ "#resource-content" + loop.index|string }}>
+                <h5 class="mt-2 mb-2">{{ resource.title }}</h5>
+            </button>
+
+            <!-- post content -->
+            <div id={{ "resource-content" + loop.index|string }} class="collapse resource-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <!-- post document url -->
+                            <embed src={{ resource.document_url }} width="100%" height="98%" />
+                        </div>
+
+                        <!-- post video url -->
+                        <div class="col-12 col-md-6 resource video">
+                            {{ resource.video_url|safe }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- post description -->
+                        <div class="col-12 resource-description">
+                            <p>{{ resource.description }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- by/date -->
+                <p><em stye="text-transform: capitalize;">Created on {{ resource.date }} by
+                        {{ resource.created_by }}</em></p>
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
 {% endblock %}

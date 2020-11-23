@@ -85,12 +85,14 @@ em {
 
 /* -- TOPIC PAGES -- */
 
-.padding-off {
-    padding: 0;
+.resource-content {
+    padding: 10px;
+    border: 2px solid var(--p-orange);
 }
 
 .post-btn {
     width: 100%;
+    margin: 20px 0;
 }
 
 iframe {
