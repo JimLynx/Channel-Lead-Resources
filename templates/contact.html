@@ -2,4 +2,92 @@
 {% set active_page = 'contact' %}
 {% block content %}
 
+<div class="container my-5">
+    <div class="jumbotron card-image">
+        <div>
+            <h1 class="card-title pt-3 mb-5 font-bold"><b>Contact</b></h1>
+
+            <form class="text-center" action="{{ url_for('add_resource') }}" method="post">
+
+                <div class="container">
+                    <p>We'd love to hear from you and any feedback you have on how we're doing.</p>
+                    <p>Please feel free to post suggestions of what you'd like covered in the future.</p>
+                    <br>
+                    <hr><br>
+                    <div class="row">
+
+                        <!-- category -->
+                        <label for="category_name"><i class="fas fa-folder-open"></i><b>Category Name:<span
+                                    class="red-asterisk"> *</span></b>
+                        </label>
+
+                        <select name="category_name" id="category_name" class="browser-default custom-select validate"
+                            required>
+                            <option value="" disabled selected>-Select a Category-</option>
+                            {% for category in categories  %}
+                            <option value={{ category.category_name }}>{{ category.category_name }}</option>
+                            {% endfor  %}
+                        </select>
+                    </div><br>
+
+                    <!-- title -->
+                    <div class="row">
+                        <label for="title"><i class="fas fa-file-alt"></i><b>Subject:<span class="red-asterisk">
+                                    *</span></b></label>
+                        <input type="text" name="title" id="title" class="form-control  validate mb-4"
+                            placeholder="Subject" minlength="5" maxlength="50" required>
+                    </div>
+
+                    <!-- feedback/resource suggestion description -->
+                    <div class="row">
+                        <label for="description"><i class="fas fa-comments"></i><b>Feedback/Suggestions:<span class="red-asterisk">
+                                    *</span></b></label>
+                        <textarea type="text" name="description" id="description" class="form-control mb-4 validate"
+                            rows="5"
+                            placeholder="Your feedback and/or suggestions for resources are greatly appreciated!"
+                            minlength="5" maxlength="200" required></textarea>
+                    </div>
+
+                    <!-- resource url location -->
+                    <div class="row">
+                        <label for="title"><i class="fas fa-cloud-upload-alt"></i><b>Resource url
+                                (optional):</b></label>
+                        <input type="url" name="document_url" id="document_url" class="form-control validate mb-4"
+                            placeholder="https://www.<resource>.com" minlength=" 5">
+                    </div>
+
+                    <!-- name -->
+                    <div class="row">
+                        <label for="yourName"><i class="fas fa-user-circle"></i><b>Name:<span class="red-asterisk">
+                            *</span></b></label>
+                        <input type="text" id="yourName" class="form-control validate mb-4"
+                            placeholder="Name" minlength=" 5" maxlength="50" required>
+                    </div>
+
+                    <!-- slack name -->
+                    <div class="row">
+                        <label for="yourName"><i class="fab fa-slack"></i><b>Slack Username (optional):</b></label>
+                        <input type="text" id="yourName" class="form-control validate mb-4"
+                            placeholder="Slack Username" minlength=" 5" maxlength="50" required>
+                    </div>
+
+                    <!-- email -->
+                    <div class="row">
+                        <label for="emailAddress"><i class="fas fa-at"></i><b>Email:<span class="red-asterisk">
+                            *</span></b></label>
+                        <input type="email" id="emailAddress" class="form-control validate mb-4"
+                            placeholder="@Email Address" minlength=" 5" maxlength="50" required>
+                    </div>
+ 
+                </div>
+
+                <!-- submit button -->
+                <button class="btn btn-block my-4 feedback-submit-btn" type="submit">
+                    <i class="fas fa-paper-plane"></i>
+                    SUBMIT FEEDBACK
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
