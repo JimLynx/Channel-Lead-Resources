@@ -32,7 +32,9 @@ def resources():
 
 @app.route('/contact')
 def contact():
-    return render_template('contact.html')
+    resources = list(mongo.db.cl_resources.find())
+    categories = mongo.db.categories.find().sort('category_name', 1)
+    return render_template('contact.html', resources=resources, categories=categories)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -63,7 +65,7 @@ def superuser(user):
                 'password': generate_password_hash(request.form.get('password'))}
                 )
         return render_template('superuser.html', user=session['user'])
-    return redirect(url_for('home'))
+    return redirect(url_for('resources'))
 
 
 @app.route('/add_resource', methods=['GET', 'POST'])
@@ -81,10 +83,7 @@ def add_resource():
             }
 
             mongo.db.cl_resources.insert_one(upload)
-            return redirect(url_for('home'))
-    else:
-        return redirect(url_for('home'))
-
+            return redirect(url_for('resources'))
 
     categories = mongo.db.categories.find().sort('category_name', 1)
     return render_template('add_resource.html', categories=categories)
