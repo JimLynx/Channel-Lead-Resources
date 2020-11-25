@@ -14,9 +14,30 @@
             assumenda.</p>
         <div class="px-4">
 
-            <div class="md-form my-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            </div>
+
+            <form action="{{ url_for('search') }}" method="POST" class="col-12">
+                <div class="row">
+                    <div class="col-12 col-md-8">
+                        <label for="query">
+                            Search Resources
+                        </label>
+                        <input type="text" name="query" id="query" class="form-control mr-sm-2 validate" placeholder="Search"
+                            aria-label="Search"required>
+                    </div>
+                    <div class="col-12 col-md4">
+                        <a href="{{ url_for('resources') }}" class="btn btn-block my-4 btn-primary">
+                            <i class="fas fa-edit"></i>
+                            Reset
+                        </a>
+                        <button class="btn btn-block my-4" type="submit">
+                            <i class="fas fa-edit"></i>
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            {% if resources|length > 0 %}
             {% for resource in resources %}
 
             <!-- collapsible heading button -->
@@ -79,7 +100,9 @@
             </div>
 
             {% endfor %}
-
+            {% else %}
+            <h3 class="card-title pt-3 mb-5 font-bold">No results found, please try another search</h3>
+            {% endif %}
         </div>
     </div>
 </div>

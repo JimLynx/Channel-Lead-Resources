@@ -42,6 +42,18 @@ def resources():
     return render_template('resources.html', resources=resources)
 
 
+'''
+Search function
+'''
+
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    query = request.form.get('query')
+    resources = list(mongo.db.cl_resources.find({'$text': {'$search': query}}))
+    return render_template('resources.html', resources=resources)
+
+
 @app.route('/contact')
 def contact():
     resources = list(mongo.db.cl_resources.find())
