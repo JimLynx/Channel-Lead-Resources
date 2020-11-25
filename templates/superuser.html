@@ -7,7 +7,7 @@
         <h1 class="card-title pt-3 mb-5 font-bold">
             <b>Admin Dashboard</b>
         </h1>
-        <form class="text-center" action="{{ url_for('superuser', user=session.user) }}" method="post">
+        <form class="text-center" action="{{ url_for('superuser', user=session.user) }}" method="POST">
             <div class="container">
                 <p>Welcome, {{ user }}</p>
                 <br>

@@ -6,10 +6,10 @@
     <div class="jumbotron card-image">
         <div>
             <h1 class="card-title pt-3 mb-5 font-bold"><b>Contact</b></h1>
-            <form class="text-center" action="" method="">
+            <form class="text-center" action="" method="POST">
                 <div class="container">
                     <p>We'd love to hear from you and any feedback you have on how we're doing.</p>
-                    <p>Please feel free to post suggestions of what you'd like covered in the future.</p>
+                    <p>Please feel free to make suggestions of what you'd like covered in future.</p>
                     <br>
                     <hr><br>
                     <div class="row">
@@ -24,7 +24,7 @@
                             required>
                             <option value="" disabled selected>-Select a Category-</option>
                             {% for category in categories  %}
-                            <option value={{ category.category_name }}>{{ category.category_name }}</option>
+                            <option value="{{ category.category_name }}">{{ category.category_name }}</option>
                             {% endfor  %}
                         </select>
                     </div><br>
