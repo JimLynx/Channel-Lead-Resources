@@ -6,7 +6,7 @@
     box-sizing: border-box;
 }
 
-/* --- SITE COLOURS ---*/
+/* -- SITE COLOURS --*/
 :root {
     --p-light-grey: #f5f5f5;
     --p-dark-grey: #4a4a4f;
@@ -70,7 +70,6 @@ body {
 }
 
 /* -- INTRO -- */
-
 .jumbotron {
     align-self: center;
     text-align: center;
@@ -89,7 +88,6 @@ body {
 }
 
 /* -- FORMS -- */
-
 form {
     padding: 0px 1rem;
 }
@@ -106,7 +104,6 @@ label {
 }
 
 /* -- RESOURCE PAGE -- */
-
 .resource-content {
     padding: 10px;
     border: 2px solid var(--p-orange);
@@ -116,8 +113,6 @@ label {
     width: 100%;
     margin-top: 20px;
     padding: 5px;
-    /* display: flex;
-    justify-content: center; */
     align-items: center;
 }
 
@@ -140,7 +135,6 @@ label {
     margin: 2px;
     width: 3.5rem;
     font-size: .6rem;
-    /* height: 20px; */
 }
 
 .edit-btn {
@@ -163,8 +157,27 @@ iframe {
     height: 250px;
 }
 
-/* -- FOOTER -- */
+/* -- CATEGORY PAGE -- */
+.category-card {
+    width: 90%;
+    height: 100%;
+    margin: 10px auto;
+    border: 1px solid var(--p-orange);
+    box-shadow: var(--box-shadow);
+}
 
+.category-btn-row {
+    align-items: center;
+}
+
+.category-card .card-title {
+    line-height: 3;
+}
+.category-btn-row .btn {
+    width: 100%;
+}
+
+/* -- FOOTER -- */
 footer hr {
     background-color: var(--off-white);
 }
