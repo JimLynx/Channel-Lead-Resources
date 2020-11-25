@@ -20,9 +20,24 @@
             {% for resource in resources %}
 
             <!-- collapsible heading button -->
-            <button type="button" class="post-btn btn btn-info" data-toggle="collapse"
+            <button type="button" class="resource-btn btn btn-info" data-toggle="collapse"
                 data-target={{ "#resource-content" + loop.index|string }}>
-                <h5 class="mt-2 mb-2">{{ resource.title }}</h5>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h6 class="resource_title mt-2 mb-2">{{ resource.title }}</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 edit-col">
+                            <a href="" class="btn edit-btn">Edit</a>
+                        </div>    
+                        <div class="col-2"><i class="fas fa-angle-double-down"></i></div>                    
+                        <div class="col-5 delete-col">
+                            <a href="" type="button" class="btn delete-btn">Delete</a>
+                        </div>
+                    </div>
+                </div>
             </button>
 
             <!-- post content -->
