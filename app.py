@@ -120,12 +120,25 @@ def edit_resource(resource_id):
                 "created_by": request.form.get("created_by"),
                 "date": request.form.get("date")
             }
-            mongo.db.cl_resources.update({'_id': ObjectId(resource_id)}, upload)
+            mongo.db.cl_resources.update(
+                {'_id': ObjectId(resource_id)}, upload)
             flash("Thanks, your resource has been updated!")
 
     resource = mongo.db.cl_resources.find_one({'_id': ObjectId(resource_id)})
     categories = mongo.db.categories.find().sort('category_name', 1)
     return render_template('edit_resource.html', resource=resource, categories=categories)
+
+
+'''
+Delete resources
+'''
+
+
+@app.route('/delete_resource/<resource_id>')
+def delete_resource(resource_id):
+    mongo.db.cl_resources.remove({'_id': ObjectId(resource_id)})
+    flash("Your resource has been Deleted. Please add new material soon!")
+    return redirect(url_for('resources'))
 
 
 if __name__ == "__main__":
