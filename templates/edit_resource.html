@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% set active_page = 'edit_resource' %}
+{% block content %}
+
+<div class="container my-5">
+    <div class="jumbotron card-image">
+        <div>
+            <h1 class="card-title pt-3 mb-5 font-bold"><b>Edit Resource</b></h1>
+            <form class="text-center" action="{{ url_for('edit_resource', resource_id=resource._id) }}" method="POST">
+                <div class="container">
+                    <p>Hi {{ session.user }}, please post in all sections and be as detailed as possible</p>
+                    <br>
+                    <hr><br>
+                    <div class="row">
+
+                        <!-- category -->
+                        <label for="category_name"><i class="fas fa-folder-open"></i><b>Category Name:<span
+                                    class="red-asterisk"> *</span></b>
+                        </label>
+
+                        <select name="category_name" id="category_name" class="browser-default custom-select validate"
+                            required>
+                            <option value="" disabled selected>-Select a Category-</option>
+                            {% for category in categories  %}
+                            <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            {% endfor  %}
+                        </select>
+                    </div><br>
+
+                    <!-- title -->
+                    <div class="row">
+                        <label for="title"><i class="fas fa-file-alt"></i><b>Title:<span class="red-asterisk">
+                                    *</span></b></label>
+                        <input type="text" name="title" id="title" class="form-control  validate mb-4"
+                            placeholder="Resource Title" minlength="5" maxlength="50" required>
+                    </div>
+
+                    <!-- description -->
+                    <div class="row">
+                        <label for="description"><i class="fas fa-comments"></i><b>Resource
+                                Description:<span class="red-asterisk"></span></b></i></label>
+                        <textarea type="text" name="description" id="description" class="form-control mb-4 validate"
+                        placeholder="Please be detailed" rows="5" minlength="5" maxlength="200" required></textarea>
+                    </div>
+
+                    <!-- channel lead name -->
+                    <div class="row">
+                        <label for="yourName"><i class="fab fa-slack"></i><b>Slack Lead Username:</b></label>
+                        <input type="text" id="yourName" class="form-control validate mb-4"
+                            placeholder="Slack Username" minlength=" 5" maxlength="50" required>
+                    </div>
+
+                    <!-- document url location -->
+                    <div class="row">
+                        <label for="title"><i class="fas fa-cloud-upload-alt"></i><b> Document Location:</b></label>
+                        <input type="url" name="document_url" id="document_url" class="form-control validate mb-4"
+                            placeholder="https:// (url for hosted PDF/Image/Slideshow)" minlength="5" maxlength="50"
+                            required>
+                    </div>
+
+                    <!-- video url location -->
+                    <div class="row">
+                        <label for="title"><i class="fas fa-cloud-upload-alt"></i><b>Video Embed Code:</b></label>
+                        <textarea type="text" name="video_url" id="video_url" class="form-control validate mb-4"
+                            rows="4" placeholder="<iframe> Paste embed code from video source" minlength="5"
+                            required></textarea>
+                    </div>
+
+                    <!-- date picker -->
+                    <div class="row">
+                        <label for="date"><i class="far fa-calendar-alt"></i><b> Date Posted:</b></label>
+                        <input name="date" type="text" id="date" class="form-control validate mb-4"
+                            placeholder="dd/mm/yy" required>
+                    </div>
+                </div>
+
+                <!-- submit button -->
+                <button class="btn btn-block my-4" type="submit">
+                    <i class="fas fa-rocket"></i>
+                    Edit Resource
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -17,11 +17,23 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+'''
+Renders Home page
+'''
+
 
 @app.route('/')
 @app.route('/home')
 def home():
     return render_template('home.html')
+
+
+'''
+Renders Resources page. 
+Finds all key and values 
+in the  cl_resources 
+collection on MongoDB
+'''
 
 
 @app.route('/resources')
@@ -41,7 +53,8 @@ def contact():
 def login():
     user_types = list(mongo.db.users.find())
     if request.method == 'POST':
-        username = mongo.db.users.find_one({'user_type': request.form.get('username')})
+        username = mongo.db.users.find_one(
+            {'user_type': request.form.get('username')})
         if check_password_hash(username['password'], request.form.get('password')):
             session['user'] = request.form.get('username')
             if request.form.get('username') == 'superuser':
@@ -62,8 +75,8 @@ def superuser(user):
         if request.method == 'POST':
             mongo.db.users.insert_one(
                 {'user_type': request.form.get('username'),
-                'password': generate_password_hash(request.form.get('password'))}
-                )
+                 'password': generate_password_hash(request.form.get('password'))}
+            )
         return render_template('superuser.html', user=session['user'])
     return redirect(url_for('resources'))
 
@@ -86,6 +99,19 @@ def add_resource():
 
     categories = mongo.db.categories.find().sort('category_name', 1)
     return render_template('add_resource.html', categories=categories)
+
+
+'''
+Editing tasks
+'''
+
+
+@app.route('/edit_resource/<resource_id>', methods=['GET', 'POST'])
+def edit_resource(resource_id):
+    resource = mongo.db.cl_resources.find_one({'_id': ObjectId(resource_id)})
+
+    categories = mongo.db.categories.find().sort('category_name', 1)
+    return render_template('edit_resource.html', resource=resource, categories=categories)
 
 
 if __name__ == "__main__":
