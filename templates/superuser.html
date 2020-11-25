@@ -5,11 +5,11 @@
 <div class="container my-5">
     <div class="jumbotron card-image">
         <h1 class="card-title pt-3 mb-5 font-bold">
-            <b>Admin Dashboard</b>
+            <b>Superuser Dashboard</b>
         </h1>
         <form class="text-center" action="{{ url_for('superuser', user=session.user) }}" method="POST">
             <div class="container">
-                <p>Welcome, {{ user }}</p>
+                <p>Welcome, {{ session.user|title }}</p>
                 <br>
                 <p class="h4 mb-4">Add New User</p>
 
