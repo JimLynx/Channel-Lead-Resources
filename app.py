@@ -159,6 +159,7 @@ def resource_categories():
 Add new category
 '''
 
+
 @app.route('/add_category', methods=['GET', 'POST'])
 def add_category():
     if request.method == "POST":
@@ -170,6 +171,25 @@ def add_category():
         return redirect(url_for('resource_categories'))
 
     return render_template('add_category.html')
+
+
+'''
+Edit category
+'''
+
+
+@app.route('/edit_category/<category_id>', methods=['GET', 'POST'])
+def edit_category(category_id):
+    if request.method == "POST":
+        submit = {
+            "category_name": request.form.get('category_name')
+        }
+        mongo.db.categories.update({'_id': ObjectId(category_id)}, submit)
+        flash("Category Updated!")
+        return redirect(url_for('resource_categories'))
+
+    category = mongo.db.categories.find_one({'_id': ObjectId(category_id)})
+    return render_template('edit_category.html', category=category)
 
 
 if __name__ == "__main__":
