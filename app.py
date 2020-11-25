@@ -141,6 +141,21 @@ def delete_resource(resource_id):
     return redirect(url_for('resources'))
 
 
+'''
+Manage Categories
+'''
+
+
+@app.route('/resource_categories')
+def resource_categories():
+    if session['user'] == 'superuser' or session['user'] == 'assessor':
+
+        categories = list(mongo.db.categories.find().sort('category_name', 1))
+        return render_template('resource_categories.html', categories=categories)
+    return redirect(url_for('resources'))
+
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
