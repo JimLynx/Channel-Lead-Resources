@@ -29,13 +29,25 @@
                         </div>
                     </div>
                     <div class="row">
+                        
                         <div class="col-5 edit-col">
-                            <a href="{{ url_for('edit_resource', resource_id=resource._id) }}" class="btn edit-btn">Edit</a>
-                        </div>    
+                            {% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
+                            <a href="{{ url_for('edit_resource', resource_id=resource._id) }}" class="btn edit-btn">
+                                Edit
+                            </a>
+                            {% endif %} 
+                        </div>   
+                        
                         <div class="col-2"><i class="fas fa-angle-double-down"></i></div>                    
+                        
                         <div class="col-5 delete-col">
-                            <a href="" type="button" class="btn delete-btn">Delete</a>
+                            {% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
+                            <a href="" type="button" class="btn delete-btn">
+                                Delete
+                            </a>
+                            {% endif %}
                         </div>
+                  
                     </div>
                 </div>
             </button>

@@ -95,6 +95,7 @@ def add_resource():
                 "date": request.form.get("date")
             }
             mongo.db.cl_resources.insert_one(upload)
+            flash("Thanks, your resource has been added!")
             return redirect(url_for('resources'))
 
     categories = mongo.db.categories.find().sort('category_name', 1)
@@ -108,8 +109,21 @@ Editing tasks
 
 @app.route('/edit_resource/<resource_id>', methods=['GET', 'POST'])
 def edit_resource(resource_id):
-    resource = mongo.db.cl_resources.find_one({'_id': ObjectId(resource_id)})
+    if session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead':
+        if request.method == 'POST':
+            upload = {
+                "category_name": request.form.get("category_name"),
+                "title": request.form.get("title"),
+                "description": request.form.get("description"),
+                "video_url": request.form.get("video_url"),
+                "document_url": request.form.get("document_url"),
+                "created_by": request.form.get("created_by"),
+                "date": request.form.get("date")
+            }
+            mongo.db.cl_resources.update({'_id': ObjectId(resource_id)}, upload)
+            flash("Thanks, your resource has been updated!")
 
+    resource = mongo.db.cl_resources.find_one({'_id': ObjectId(resource_id)})
     categories = mongo.db.categories.find().sort('category_name', 1)
     return render_template('edit_resource.html', resource=resource, categories=categories)
 
