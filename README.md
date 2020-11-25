@@ -1,5 +1,3 @@
-<h1 align="center">Code Institute Slack - Channel Lead Resources</h1>
-
 <p align="center">
 <img src="static/img/ms3-logo.png" />
 </p>
