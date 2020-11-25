@@ -14,71 +14,112 @@
                     <div class="row">
 
                         <!-- category -->
-                        <label for="category_name"><i class="fas fa-folder-open"></i><b>Category Name:<span
-                                    class="red-asterisk"> *</span></b>
+                        <label for="category_name">
+                            <i class="fas fa-folder-open"></i>
+                            <b>Category Name:<span class="red-asterisk"> *</span></b>
                         </label>
-
                         <select name="category_name" id="category_name" class="browser-default custom-select validate"
                             required>
-                            <option value="" disabled selected>-Select a Category-</option>
+                            <option value="" disabled>
+                                -Select a Category-
+                            </option>
                             {% for category in categories  %}
-                            <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            {% if category.category_name == resource.category_name %}
+                            <option value="{{ category.category_name }}" selected>{{ category.category_name }}
+                            </option>
+                            {% else %}
+                            <option value="{{ category.category_name }}">{{ category.category_name }}
+                            </option>
+                            {% endif %}
                             {% endfor  %}
                         </select>
-                    </div><br>
+                    </div>
+                    </br>
 
                     <!-- title -->
                     <div class="row">
-                        <label for="title"><i class="fas fa-file-alt"></i><b>Title:<span class="red-asterisk">
-                                    *</span></b></label>
+                        <label for="title">
+                            <i class="fas fa-file-alt"></i>
+                            <b>Title:<span class="red-asterisk"> *</span></b></label>
                         <input type="text" name="title" id="title" class="form-control  validate mb-4"
-                            placeholder="Resource Title" minlength="5" maxlength="50" required>
+                            value="{{ resource.title }}" placeholder="Resource Title" minlength="5" maxlength="50"
+                            required>
                     </div>
 
                     <!-- description -->
                     <div class="row">
-                        <label for="description"><i class="fas fa-comments"></i><b>Resource
-                                Description:<span class="red-asterisk"></span></b></i></label>
+                        <label for="description">
+                            <i class="fas fa-comments"></i>
+                            <b>Resource Description:<span class="red-asterisk"></span></b>
+                        </label>
                         <textarea type="text" name="description" id="description" class="form-control mb-4 validate"
-                        placeholder="Please be detailed" rows="5" minlength="5" maxlength="200" required></textarea>
+                            placeholder="Please be detailed" rows="5" minlength="5" maxlength="200" required>
+                            {{- resource.description -}}
+                        </textarea>
                     </div>
 
                     <!-- channel lead name -->
                     <div class="row">
-                        <label for="yourName"><i class="fab fa-slack"></i><b>Slack Lead Username:</b></label>
-                        <input type="text" id="yourName" class="form-control validate mb-4"
-                            placeholder="Slack Username" minlength=" 5" maxlength="50" required>
+                        <label for="slackname">
+                            <i class="fab fa-slack"></i>
+                            <b>Slack Lead Username:</b>
+                        </label>
+                        <input type="text" name="slackname" id="slackname" class="form-control validate mb-4"
+                            value="{{ resource.document_url }}" placeholder="Slack Username" minlength=" 5"
+                            maxlength="50" required>
                     </div>
 
                     <!-- document url location -->
                     <div class="row">
-                        <label for="title"><i class="fas fa-cloud-upload-alt"></i><b> Document Location:</b></label>
+                        <label for="title">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <b>Document Location:</b>
+                        </label>
                         <input type="url" name="document_url" id="document_url" class="form-control validate mb-4"
+                            value="{{ resource.document_url }}"
                             placeholder="https:// (url for hosted PDF/Image/Slideshow)" minlength="5" maxlength="50"
                             required>
                     </div>
 
                     <!-- video url location -->
                     <div class="row">
-                        <label for="title"><i class="fas fa-cloud-upload-alt"></i><b>Video Embed Code:</b></label>
+                        <label for="title">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <b>Video Embed Code:</b>
+                        </label>
                         <textarea type="text" name="video_url" id="video_url" class="form-control validate mb-4"
-                            rows="4" placeholder="<iframe> Paste embed code from video source" minlength="5"
-                            required></textarea>
+                            rows="4" placeholder="<iframe> Paste embed code from video source" minlength="5" required>
+                                {{- resource.video_url -}}
+                        </textarea>
                     </div>
 
                     <!-- date picker -->
                     <div class="row">
-                        <label for="date"><i class="far fa-calendar-alt"></i><b> Date Posted:</b></label>
-                        <input name="date" type="text" id="date" class="form-control validate mb-4"
-                            placeholder="dd/mm/yy" required>
+                        <label for="date">
+                            <i class="far fa-calendar-alt"></i>
+                            <b>Date Posted:</b>
+                        </label>
+                        <input type="text" name="date" id="date" class="form-control validate mb-4"
+                            value="{{ resource.date }}" placeholder="dd/mm/yy" required>
                     </div>
                 </div>
 
                 <!-- submit button -->
-                <button class="btn btn-block my-4" type="submit">
-                    <i class="fas fa-rocket"></i>
-                    Edit Resource
-                </button>
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-primary btn-block my-4" type="submit">
+                            <i class="fas fa-rocket"></i>
+                            Edit Resource
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <a href="{{ url_for('resources') }}" class="btn btn-danger btn-block my-4"><i
+                                class="fas fa-times-circle"></i>
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+
             </form>
         </div>
     </div>

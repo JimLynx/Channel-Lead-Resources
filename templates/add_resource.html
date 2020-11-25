@@ -5,8 +5,8 @@
 <div class="container my-5">
     <div class="jumbotron card-image">
         <div>
-            <h1 class="card-title pt-3 mb-5 font-bold"><b>Add Resource Material</b></h1>
-            <form class="text-center" action="{{ url_for('add_resource') }}" method="post">
+            <h1 class="card-title pt-3 mb-5 font-bold"><b>Add Resource</b></h1>
+            <form class="text-center" action="{{ url_for('add_resource') }}" method="POST">
                 <div class="container">
                     <p>Hi {{ session.user }}, please post in all sections and be as detailed as possible</p>
                     <br>
@@ -22,7 +22,7 @@
                             required>
                             <option value="" disabled selected>-Select a Category-</option>
                             {% for category in categories  %}
-                            <option value={{ category.category_name }}>{{ category.category_name }}</option>
+                            <option value="{{ category.category_name }}">{{ category.category_name }}</option>
                             {% endfor  %}
                         </select>
                     </div><br>
