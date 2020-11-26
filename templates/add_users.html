@@ -1,13 +1,10 @@
 {% extends "base.html" %}
-{% set active_page = 'superuser' %}
+{% set active_page = 'add_users' %}
 {% block content %}
 
 <div class="container my-5">
     <div class="jumbotron card-image">
-        <h1 class="card-title pt-3 mb-5 font-bold">
-            <b>Superuser Dashboard</b>
-        </h1>
-        <form class="text-center" action="{{ url_for('superuser', user=session.user) }}" method="POST">
+        <form class="text-center" action="{{ url_for('add_users', user=session.user) }}" method="POST">
             <div class="container">
                 <p>Welcome, {{ session.user|title }}</p>
                 <br>
