@@ -57,10 +57,10 @@
                         aria-expanded="false">Admin Dashboard</a>
                     <div class="dropdown-menu dropdown-primary" aria-labelledby="navDropdown">
                         {% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
-                        <a class="nav-link" href="{{ url_for('superuser', user=session.user) }}">Manage Users</a>
+                        <a class="nav-link" href="{{ url_for('manage_users', user=session.user) }}">Manage Users</a>
                         {% endif %}
                         <a class="nav-link" href="{{ url_for('add_resource', user=session.user) }}">Add Resource</a>
-                        <a class="nav-link" href="{{ url_for('resource_categories', user=session.user) }}">Manage
+                        <a class="nav-link" href="{{ url_for('manage_categories', user=session.user) }}">Manage
                             Categories</a>
                     </div>
                 </li>
