@@ -54,11 +54,21 @@ def search():
     return render_template('resources.html', resources=resources)
 
 
+'''
+Contact page 
+'''
+
+
 @app.route('/contact')
 def contact():
     resources = list(mongo.db.cl_resources.find())
     categories = mongo.db.categories.find().sort('category_name', 1)
     return render_template('contact.html', resources=resources, categories=categories)
+
+
+'''
+Login
+'''
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -70,15 +80,33 @@ def login():
         if check_password_hash(username['password'], request.form.get('password')):
             session['user'] = request.form.get('username')
             if request.form.get('username') == 'superuser':
+                flash(
+                    "You have successfully logged in", "success")
                 return redirect(url_for('superuser', user=session['user']))
+            flash(
+                "You have successfully logged in", "success")
             return redirect(url_for('resources'))
+        else:
+            flash("Incorrect password please try again", "danger")
     return render_template('login.html', users=user_types)
+
+
+'''
+Logout
+'''
 
 
 @app.route('/logout')
 def logout():
-    session.pop('user')
+    session.pop('user', None)
+    flash("Successfully LOGGED OUT - Please visit again soon!", "success")
     return redirect(url_for('login'))
+
+
+'''
+Allow superuser or assessor
+to access superuser page
+'''
 
 
 @app.route('/<user>', methods=['GET', 'POST'])
@@ -91,6 +119,11 @@ def superuser(user):
             )
         return render_template('superuser.html', user=session['user'])
     return redirect(url_for('resources'))
+
+
+'''
+add resource
+'''
 
 
 @app.route('/add_resource', methods=['GET', 'POST'])
@@ -107,7 +140,7 @@ def add_resource():
                 "date": request.form.get("date")
             }
             mongo.db.cl_resources.insert_one(upload)
-            flash("Thanks, your resource has been added!")
+            flash("Thanks! - Your Awesome New Resource Was Successfully Added.", "success")
             return redirect(url_for('resources'))
 
     categories = mongo.db.categories.find().sort('category_name', 1)
@@ -115,7 +148,7 @@ def add_resource():
 
 
 '''
-Editing tasks
+Editing resources
 '''
 
 
@@ -134,7 +167,7 @@ def edit_resource(resource_id):
             }
             mongo.db.cl_resources.update(
                 {'_id': ObjectId(resource_id)}, upload)
-            flash("Thanks, your resource has been updated!")
+            flash("Selected Resource Successfully Updated.", "success")
 
     resource = mongo.db.cl_resources.find_one({'_id': ObjectId(resource_id)})
     categories = mongo.db.categories.find().sort('category_name', 1)
@@ -149,7 +182,7 @@ Delete resources
 @app.route('/delete_resource/<resource_id>')
 def delete_resource(resource_id):
     mongo.db.cl_resources.remove({'_id': ObjectId(resource_id)})
-    flash("Your resource has been Deleted. Please add new material soon!")
+    flash("Selected Resource Successfuly Deleted.", "info")
     return redirect(url_for('resources'))
 
 
@@ -160,7 +193,7 @@ Manage Categories
 
 @app.route('/resource_categories')
 def resource_categories():
-    if session['user'] == 'superuser' or session['user'] == 'assessor':
+    if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
 
         categories = list(mongo.db.categories.find().sort('category_name', 1))
         return render_template('resource_categories.html', categories=categories)
@@ -179,7 +212,7 @@ def add_category():
             "category_name": request.form.get('category_name')
         }
         mongo.db.categories.insert_one(category)
-        flash("New Category Added")
+        flash("New Category Added!", "success")
         return redirect(url_for('resource_categories'))
 
     return render_template('add_category.html')
@@ -197,7 +230,7 @@ def edit_category(category_id):
             "category_name": request.form.get('category_name')
         }
         mongo.db.categories.update({'_id': ObjectId(category_id)}, submit)
-        flash("Category Updated!")
+        flash("Selected Category Successfully Updated.", "success")
         return redirect(url_for('resource_categories'))
 
     category = mongo.db.categories.find_one({'_id': ObjectId(category_id)})
@@ -212,7 +245,7 @@ Delete Category
 @app.route('/delete_category/<category_id>')
 def delete_category(category_id):
     mongo.db.categories.remove({'_id': ObjectId(category_id)})
-    flash("Category Deleted")
+    flash("Selected Category Successfully Deleted.", "info")
     return redirect(url_for('resource_categories'))
 
 

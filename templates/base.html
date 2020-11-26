@@ -25,7 +25,8 @@
     <!--Navbar-->
     <!-- CREDIT: Navbar template customised from MDBootstrap https://mdbootstrap.com/-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-        <a class="navbar-brand" href="{{ url_for('home') }}"><img src="static/img/circle-logo.png" alt="Code Institute and Slack circle logo"></a>
+        <a class="navbar-brand" href="{{ url_for('home') }}"><img src="static/img/circle-logo.png"
+                alt="Code Institute and Slack circle logo"></a>
         <!-- Collapse button -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav"
             aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,18 +52,19 @@
 
                 <!-- Admin Dropdown -->
                 {% if session.user|lower == 'lead' or session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navDropdown" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">Admin Dashboard</a>
-                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navDropdown">
-                                {% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
-                            <a class="nav-link" href="{{ url_for('superuser', user=session.user) }}">Manage Users</a>
-                            {% endif %}
-                            <a class="nav-link" href="{{ url_for('add_resource', user=session.user) }}">Add Resource</a>
-                            <a class="nav-link" href="{{ url_for('resource_categories', user=session.user) }}">Manage Categories</a>
-                        </div>
-                    </li>
-                    {% endif %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navDropdown" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">Admin Dashboard</a>
+                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navDropdown">
+                        {% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
+                        <a class="nav-link" href="{{ url_for('superuser', user=session.user) }}">Manage Users</a>
+                        {% endif %}
+                        <a class="nav-link" href="{{ url_for('add_resource', user=session.user) }}">Add Resource</a>
+                        <a class="nav-link" href="{{ url_for('resource_categories', user=session.user) }}">Manage
+                            Categories</a>
+                    </div>
+                </li>
+                {% endif %}
                 {% else %}
                 <li class="nav-item {{ 'active' if active_page == 'login' }}">
                     <a class="nav-link" href="{{ url_for('login') }}">Log In</a>
@@ -71,6 +73,21 @@
             </ul>
         </div>
     </nav>
+
+    <section>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="text-center alert alert-{{ category }} alert-dismissible" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+    </section>
 
     {% block content %}
 
