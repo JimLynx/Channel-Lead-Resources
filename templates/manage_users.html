@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% set active_page = 'manage_users' %}
+{% block content %}
+
+<div class="container my-5">
+    <div class="jumbotron card-image">
+        <h1 class="card-title pt-3 mb-5 font-bold"><b>Manage Users</b></h1>
+        <div class="row">
+            <div class="col-12">
+                <a href="{{ url_for('add_users') }}" type="button" class="btn btn-block my-4 cat-btn">
+                    <i class="fas fa-lock"></i>
+                    Add User
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            {% for user in users %}
+            <div class="col-12 col-md-6">
+                <div>
+                    <div class="card-body category-card">
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class="card-title">{{ user.user_type }}</h5>
+                            </div>
+                        </div>
+                        <div class="row category-btn-row">
+                            <div class="col-6">
+                                <a href="" class="btn btn-primary edit-btn">Edit</a>
+                            </div>
+                            <div class="col-6">
+                                <a href="{{ url_for('delete_user', user_id=user._id) }}" class="btn btn-danger delete-btn">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -82,7 +82,8 @@ def login():
             if request.form.get('username') == 'superuser':
                 flash(
                     "You have successfully logged in", "success")
-                return redirect(url_for('superuser', user=session['user']))
+                # change redirect when manage dashboard is ready
+                return redirect(url_for('manage_users', user=session['user']))
             flash(
                 "You have successfully logged in", "success")
             return redirect(url_for('resources'))
@@ -104,21 +105,47 @@ def logout():
 
 
 '''
-Allow superuser or assessor
-to access superuser page
+Manage Users
 '''
 
 
-@app.route('/<user>', methods=['GET', 'POST'])
-def superuser(user):
+@app.route('/manage_users')
+def manage_users():
     if session['user'] == 'superuser' or session['user'] == 'assessor':
+
+        users = list(mongo.db.users.find().sort('user_type', 1))
+        return render_template('manage_users.html', users=users)
+    return redirect(url_for('resources'))
+
+
+'''
+Add User
+'''
+
+
+@app.route('/add_users', methods=['GET', 'POST'])
+def add_users():
+    if session['user'] == 'superuser' or session['user'] == 'assessor':
+        
         if request.method == 'POST':
             mongo.db.users.insert_one(
                 {'user_type': request.form.get('username'),
                  'password': generate_password_hash(request.form.get('password'))}
             )
-        return render_template('superuser.html', user=session['user'])
+        return render_template('add_users.html')
     return redirect(url_for('resources'))
+
+
+'''
+Delete User
+'''
+
+
+@app.route('/delete_user/<user_id>')
+def delete_user(user_id):
+    mongo.db.users.remove({'_id': ObjectId(user_id)})
+    flash("Selected User Successfully Deleted.", "info")
+    return redirect(url_for('manage_users'))
 
 
 '''
@@ -140,7 +167,8 @@ def add_resource():
                 "date": request.form.get("date")
             }
             mongo.db.cl_resources.insert_one(upload)
-            flash("Thanks! - Your Awesome New Resource Was Successfully Added.", "success")
+            flash(
+                "Thanks! - Your Awesome New Resource Was Successfully Added.", "success")
             return redirect(url_for('resources'))
 
     categories = mongo.db.categories.find().sort('category_name', 1)
@@ -191,12 +219,12 @@ Manage Categories
 '''
 
 
-@app.route('/resource_categories')
-def resource_categories():
+@app.route('/manage_categories')
+def manage_categories():
     if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
 
         categories = list(mongo.db.categories.find().sort('category_name', 1))
-        return render_template('resource_categories.html', categories=categories)
+        return render_template('manage_categories.html', categories=categories)
     return redirect(url_for('resources'))
 
 
@@ -213,7 +241,7 @@ def add_category():
         }
         mongo.db.categories.insert_one(category)
         flash("New Category Added!", "success")
-        return redirect(url_for('resource_categories'))
+        return redirect(url_for('manage_categories'))
 
     return render_template('add_category.html')
 
@@ -231,7 +259,7 @@ def edit_category(category_id):
         }
         mongo.db.categories.update({'_id': ObjectId(category_id)}, submit)
         flash("Selected Category Successfully Updated.", "success")
-        return redirect(url_for('resource_categories'))
+        return redirect(url_for('manage_categories'))
 
     category = mongo.db.categories.find_one({'_id': ObjectId(category_id)})
     return render_template('edit_category.html', category=category)
@@ -246,7 +274,7 @@ Delete Category
 def delete_category(category_id):
     mongo.db.categories.remove({'_id': ObjectId(category_id)})
     flash("Selected Category Successfully Deleted.", "info")
-    return redirect(url_for('resource_categories'))
+    return redirect(url_for('manage_categories'))
 
 
 if __name__ == "__main__":
