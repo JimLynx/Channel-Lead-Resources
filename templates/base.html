@@ -46,9 +46,7 @@
                 <li class="nav-item {{ 'active' if active_page == 'contact' }}">
                     <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
                 </li>
-                <li class="nav-item {{ 'active' if active_page == 'logout' }}">
-                    <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
-                </li>
+                
 
                 <!-- Admin Dropdown -->
                 {% if session.user|lower == 'lead' or session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
@@ -63,6 +61,9 @@
                         <a class="nav-link" href="{{ url_for('manage_categories', user=session.user) }}">Manage
                             Categories</a>
                     </div>
+                </li>
+                <li class="nav-item {{ 'active' if active_page == 'logout' }}">
+                    <a class="nav-link" href="{{ url_for('logout') }}"><i class="fas fa-power-off"></i>Log Out</a>
                 </li>
                 {% endif %}
                 {% else %}
