@@ -31,6 +31,25 @@ body {
     padding-top: 75px;
 }
 
+h1 {
+    text-align: center;
+    font-weight: 400;
+    letter-spacing: 5px;
+    margin-bottom: 3rem;
+    animation: 1s header-slider 1s forwards;
+    transform: translateY(-250%);
+}
+
+@keyframes header-slider {
+    to {
+        transform: translateY(0);
+    }
+}
+
+.container {
+    margin: 3rem auto;
+}
+
 .red-asterisk {
     color: red;
 }
@@ -89,6 +108,7 @@ body {
 
 /* -- FORMS -- */
 form {
+    text-align: center;
     padding: 0px 1rem;
 }
 
@@ -121,7 +141,7 @@ label {
 }
 
 .resource-btn i:hover {
-    color:  var(--p-orange);
+    color: var(--p-orange);
 }
 
 .resource-btn .col-5,
@@ -145,16 +165,18 @@ label {
     background-color: red;
 }
 
+.search-btn {
+    font-size: 75%;
+    height: fit-content;
+    padding: 0 20px;
+}
+
 .edit-col {
     text-align: start;
 }
 
 .delete-col {
     text-align: end;
-}
-iframe {
-    width: 100%;
-    height: 250px;
 }
 
 /* -- CATEGORY PAGE -- */
@@ -173,6 +195,7 @@ iframe {
 .category-card .card-title {
     line-height: 3;
 }
+
 .category-btn-row .btn {
     width: 100%;
 }
