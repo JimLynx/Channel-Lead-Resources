@@ -2,46 +2,43 @@
 {% set active_page = 'add_resource' %}
 {% block content %}
 
-<div class="container my-5">
-    <div class="jumbotron card-image">
-        <div>
-            <h1 class="card-title pt-3 mb-5 font-bold"><b>Edit Category</b></h1>
-            <form class="text-center" action="{{ url_for('edit_category', category_id=category._id) }}" method="POST">
+<div class="container">
+    <div class="jumbotron">
+        <h1>Edit Category</h1>
+        <form action="{{ url_for('edit_category', category_id=category._id) }}" method="POST">
+            <div class="container">
+                <p>Hi {{ session.user|title }}, please post in all fields and be as detailed as possible</p>
+                <!-- <p>Video/PDF are optional, but please at least enter one</p> -->
+                <br>
+                <hr><br>
 
-                <div class="container">
-                    <p>Hi {{ session.user|title }}, please post in all sections and be as detailed as possible</p>
-                    <br>
-                    <hr><br>
+                <!-- title -->
+                <div class="row">
+                    <label for="category_name">
+                        <i class="fas fa-file-alt"></i>
+                        <b>Category Name:</b>
+                    </label>
+                    <input type="text" name="category_name" id="category_name" class="form-control  validate mb-4"
+                        value="{{ category.category_name }}" placeholder="Resource Title" minlength="5" maxlength="20"
+                        required>
+                </div>
 
-                    <!-- title -->
-                    <div class="row">
-                        <label for="category_name">
-                            <i class="fas fa-file-alt"></i>
-                            <b>Category Name:</b>
-                        </label>
-                        <input type="text" name="category_name" id="category_name" class="form-control  validate mb-4"
-                            value="{{ category.category_name }}" placeholder="Resource Title" minlength="5"
-                            maxlength="20" required>
+                <!-- submit button -->
+                <div class="row">
+                    <div class="col-6">
+                        <a href="{{ url_for('manage_categories') }}" class="btn btn-block my-4 btn-primary">
+                            <i class="fas fa-edit"></i>
+                            Cancel
+                        </a>
                     </div>
-
-                    <!-- submit button -->
-                    <div class="row">
-                        <div class="col-6">
-                            <a href="{{ url_for('manage_categories') }}" class="btn btn-block my-4 btn-primary">
-                                <i class="fas fa-edit"></i>
-                                Cancel
-                            </a>
-                        </div>
-                        <div class="col-6">
-                            <button class="btn btn-block my-4" type="submit">
-                                <i class="fas fa-edit"></i>
-                                Edit Category
-                            </button>
-                        </div>
+                    <div class="col-6">
+                        <button class="btn btn-block my-4" type="submit">
+                            <i class="fas fa-edit"></i>
+                            Edit Category
+                        </button>
                     </div>
-
-            </form>
-        </div>
+                </div>
+        </form>
     </div>
 </div>
 {% endblock %}

@@ -2,13 +2,13 @@
 {% set active_page = 'add_users' %}
 {% block content %}
 
-<div class="container my-5">
-    <div class="jumbotron card-image">
-        <form class="text-center" action="{{ url_for('add_users', user=session.user) }}" method="POST">
+<div class="container">
+    <div class="jumbotron">
+        <h1>Add User</h1>
+        <form action="{{ url_for('add_users', user=session.user) }}" method="POST">
             <div class="container">
-                <p>Welcome, {{ session.user|title }}</p>
-                <br>
-                <p class="h4 mb-4">Add New User</p>
+                <p>Hi {{ session.user|title }}, please add a New User in the field below.</p>
+                <br><hr><br>
 
                 <!-- username -->
                 <div class="row">

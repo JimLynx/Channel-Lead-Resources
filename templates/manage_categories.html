@@ -2,9 +2,11 @@
 {% set active_page = 'manage_categories' %}
 {% block content %}
 
-<div class="container my-5">
-    <div class="jumbotron card-image">
-        <h1 class="card-title pt-3 mb-5 font-bold"><b>Manage Categories</b></h1>
+<div class="container">
+    <div class="jumbotron">
+        <h1>Manage Categories</h1>
+
+        <!-- add category -->
         <div class="row">
             <div class="col-12">
                 <a href="{{ url_for('add_category') }}" type="button" class="btn btn-block my-4 cat-btn">
@@ -13,6 +15,7 @@
                 </a>
             </div>
         </div>
+
         <div class="row">
             {% for category in categories %}
             <div class="col-12 col-md-6">
@@ -25,10 +28,12 @@
                         </div>
                         <div class="row category-btn-row">
                             <div class="col-6">
-                                <a href="{{ url_for('edit_category', category_id=category._id) }}" class="btn btn-primary edit-btn">Edit</a>
+                                <a href="{{ url_for('edit_category', category_id=category._id) }}"
+                                    class="btn btn-primary edit-btn">Edit</a>
                             </div>
                             <div class="col-6">
-                                <a href="{{ url_for('delete_category', category_id=category._id) }}" class="btn btn-danger delete-btn">Delete</a>
+                                <a href="{{ url_for('delete_category', category_id=category._id) }}"
+                                    class="btn btn-danger delete-btn">Delete</a>
                             </div>
                         </div>
                     </div>

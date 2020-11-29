@@ -2,121 +2,121 @@
 {% set active_page = 'edit_resource' %}
 {% block content %}
 
-<div class="container" my-5">
-    <div class="jumbotron card-image">
-        <h1 class="card-title pt-3 mb-5 font-bold"><b>Edit Resource</b></h1>
-        <form class="text-center" action="{{ url_for('edit_resource', resource_id=resource._id) }}" method="POST">
-            <div class="container">
-                <p>Hi {{ session.user|title }}, please post in all sections and be as detailed as possible</p>
-                <br>
-                <hr><br>
-                <div class="row">
+<div class="container>
+    <div class=" jumbotron">
+    <h1>Edit Resource</h1>
+    <form action="{{ url_for('edit_resource', resource_id=resource._id) }}" method="POST">
+        <div class="container">
+            <p>Hi {{ session.user|title }}, please post in all sections and be as detailed as possible</p>
+            <br>
+            <hr><br>
 
-                    <!-- category -->
-                    <label for="category_name">
-                        <i class="fas fa-folder-open"></i>
-                        <b>Category Name:<span class="red-asterisk"> *</span></b>
-                    </label>
-                    <select name="category_name" id="category_name" class="browser-default custom-select validate"
-                        required>
-                        <option value="" disabled>
-                            -Select a Category-
-                        </option>
-                        {% for category in categories  %}
-                        {% if category.category_name == resource.category_name %}
-                        <option value="{{ category.category_name }}" selected>{{ category.category_name }}
-                        </option>
-                        {% else %}
-                        <option value="{{ category.category_name }}">{{ category.category_name }}
-                        </option>
-                        {% endif %}
-                        {% endfor  %}
-                    </select>
-                </div>
-                </br>
+            <!-- category -->
+            <div class="row">
+                <label for="category_name">
+                    <i class="fas fa-folder-open"></i>
+                    <b>Category Name:</b>
+                    <span class="red-asterisk"> *</span>
+                </label>
+                <select name="category_name" id="category_name" class="browser-default custom-select validate" required>
+                    <option value="" disabled>
+                        -Select a Category-
+                    </option>
+                    {% for category in categories  %}
+                    {% if category.category_name == resource.category_name %}
+                    <option value="{{ category.category_name }}" selected>{{ category.category_name }}
+                    </option>
+                    {% else %}
+                    <option value="{{ category.category_name }}">{{ category.category_name }}
+                    </option>
+                    {% endif %}
+                    {% endfor  %}
+                </select>
+            </div>
+            </br>
 
-                <!-- title -->
-                <div class="row">
-                    <label for="title">
-                        <i class="fas fa-file-alt"></i>
-                        <b>Title:<span class="red-asterisk"> *</span></b></label>
-                    <input type="text" name="title" id="title" class="form-control  validate mb-4"
-                        value="{{ resource.title }}" placeholder="Resource Title" minlength="5" maxlength="50" required>
-                </div>
+            <!-- title -->
+            <div class="row">
+                <label for="title">
+                    <i class="fas fa-file-alt"></i>
+                    <b>Title:<span class="red-asterisk"> *</span></b></label>
+                <input type="text" name="title" id="title" class="form-control  validate mb-4"
+                    value="{{ resource.title }}" placeholder="Resource Title" minlength="5" maxlength="50" required>
+            </div>
 
-                <!-- description -->
-                <div class="row">
-                    <label for="description">
-                        <i class="fas fa-comments"></i>
-                        <b>Resource Description:<span class="red-asterisk"></span></b>
-                    </label>
-                    <textarea type="text" name="description" id="description" class="form-control mb-4 validate"
-                        placeholder="Please be detailed" rows="5" minlength="5" maxlength="200" required>
+            <!-- description -->
+            <div class="row">
+                <label for="description">
+                    <i class="fas fa-comments"></i>
+                    <b>Resource Description:<span class="red-asterisk"></span></b>
+                </label>
+                <textarea type="text" name="description" id="description" class="form-control mb-4 validate"
+                    placeholder="Please be detailed" rows="5" minlength="5" maxlength="200" required>
                             {{- resource.description -}}
                         </textarea>
-                </div>
+            </div>
 
-                <!-- channel lead name -->
-                <div class="row">
-                    <label for="slackname">
-                        <i class="fab fa-slack"></i>
-                        <b>Slack Lead Username:</b>
-                    </label>
-                    <input type="text" name="slackname" id="slackname" class="form-control validate mb-4"
-                        value="{{ resource.document_url }}" placeholder="Slack Username" minlength=" 5" maxlength="50"
-                        required>
-                </div>
+            <!-- channel lead name -->
+            <div class="row">
+                <label for="slackname">
+                    <i class="fab fa-slack"></i>
+                    <b>Slack Lead Username:</b>
+                </label>
+                <input type="text" name="slackname" id="slackname" class="form-control validate mb-4"
+                    value="{{ resource.document_url }}" placeholder="Slack Username" minlength=" 5" maxlength="50"
+                    required>
+            </div>
 
-                <!-- document url location -->
-                <div class="row">
-                    <label for="title">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <b>Document Location:</b>
-                    </label>
-                    <input type="url" name="document_url" id="document_url" class="form-control validate mb-4"
-                        value="{{ resource.document_url }}" placeholder="https:// (url for hosted PDF/Image/Slideshow)"
-                        minlength="5" maxlength="50" required>
-                </div>
+            <!-- document url location -->
+            <div class="row">
+                <label for="title">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <b>Document Location:</b>
+                </label>
+                <input type="url" name="document_url" id="document_url" class="form-control validate mb-4"
+                    value="{{ resource.document_url }}" placeholder="https:// (url for hosted PDF/Image/Slideshow)"
+                    minlength="5" maxlength="50" required>
+            </div>
 
-                <!-- video url location -->
-                <div class="row">
-                    <label for="title">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <b>Video Embed Code:</b>
-                    </label>
-                    <textarea type="text" name="video_url" id="video_url" class="form-control validate mb-4" rows="4"
-                        placeholder="<iframe> Paste embed code from video source" minlength="5" required>
+            <!-- video url location -->
+            <div class="row">
+                <label for="title">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <b>Video Embed Code:</b>
+                </label>
+                <textarea type="text" name="video_url" id="video_url" class="form-control validate mb-4" rows="4"
+                    placeholder="<iframe> Paste embed code from video source" minlength="5" required>
                                 {{- resource.video_url -}}
                         </textarea>
-                </div>
-
-                <!-- date picker -->
-                <div class="row">
-                    <label for="date">
-                        <i class="far fa-calendar-alt"></i>
-                        <b>Date Posted:</b>
-                    </label>
-                    <input type="text" name="date" id="date" class="form-control validate mb-4"
-                        value="{{ resource.date }}" placeholder="dd/mm/yy" required>
-                </div>
             </div>
 
-            <!-- submit button -->
+            <!-- date picker -->
             <div class="row">
-                <div class="col-6">
-                    <button class="btn btn-primary btn-block my-4" type="submit">
-                        <i class="fas fa-rocket"></i>
-                        Edit Resource
-                    </button>
-                </div>
-                <div class="col-6">
-                    <a href="{{ url_for('resources') }}" class="btn btn-danger btn-block my-4"><i
-                            class="fas fa-times-circle"></i>
-                        Cancel
-                    </a>
-                </div>
+                <label for="date">
+                    <i class="far fa-calendar-alt"></i>
+                    <b>Date Posted:</b>
+                </label>
+                <input type="text" name="date" id="date" class="form-control validate mb-4" value="{{ resource.date }}"
+                    placeholder="dd/mm/yy" required>
             </div>
-        </form>
-    </div>
+        </div>
+
+        <!-- submit button -->
+        <div class="row">
+            <div class="col-6">
+                <button class="btn btn-primary btn-block my-4" type="submit">
+                    <i class="fas fa-rocket"></i>
+                    Edit Resource
+                </button>
+            </div>
+            <div class="col-6">
+                <a href="{{ url_for('resources') }}" class="btn btn-danger btn-block my-4">
+                    <i class="fas fa-times-circle"></i>
+                    Cancel
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
 </div>
 {% endblock %}

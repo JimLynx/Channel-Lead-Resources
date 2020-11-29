@@ -2,19 +2,20 @@
 {% set active_page = 'home' %}
 {% block content %}
 
-<div class="container my-5">
-    <div class="jumbotron card-image">
-            <h1 class="card-title pt-3 mb-5 font-bold"><strong>Welcome to the Code Institute Channel
-                    Lead Resources platform</strong></h1>
-            <hr><br>
-            <p class="mb-5">Every 6 weeks a current student (from each of the four Milestone sections of the
-                course), is selected as a Channel Lead for their respective channel.<br><br>
-                Channel Leads assist other students by creating learning material in a variety of topics, and
-                presenting via Slideshow, image or PDF uploads and/or scheduling Slack calls and webinars.<br><br>
-                This site provides a central platform for Students to easily access these resources.
-            </p>
-            <a class="btn btn-md" href="{{ url_for('login') }}"><i class="fas fa-lock left"></i>
-                Proceed to Login</a><br><br>
+<div class="container">
+    <div class="jumbotron">
+        <h1>Welcome to the Code Institute <strong>Channel
+                Lead Resources</strong> platform</h1>
+        <hr><br>
+        
+        <p class="mb-5">Every 6 weeks a current student (from each of the four Milestone sections of the
+            course), is selected as a Channel Lead for their respective channel.<br><br>
+            Channel Leads assist other students by creating learning material in a variety of topics, and
+            presenting via Slideshow, image or PDF uploads and/or scheduling Slack calls and webinars.<br><br>
+            This site provides a central platform for Students to easily access these resources.
+        </p>
+        <a class="btn btn-md" href="{{ url_for('login') }}"><i class="fas fa-lock left"></i>
+            Proceed to Login</a><br><br>
     </div>
 </div>
 

@@ -2,17 +2,17 @@
 {% set active_page = 'resources' %}
 {% block content %}
 
-<div class="container my-5">
-
-    <div class="jumbotron card-image">
-        <h1 class="card-title pt-3 mb-5 font-bold">Resources</h1>
+<div class="container">
+    <div class="jumbotron">
+        <h1>Channel Lead Resources</h1>
+ 
         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis beatae totam itaque, ratione ipsam dolore
             eveniet doloribus veniam quibusdam fugiat officiis, ducimus blanditiis impedit, sit inventore ut esse. Aut,
             assumenda.</p>
         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis beatae totam itaque, ratione ipsam dolore
             eveniet doloribus veniam quibusdam fugiat officiis, ducimus blanditiis impedit, sit inventore ut esse. Aut,
             assumenda.</p>
-        <div class="px-4">
+        
 
 
             <form action="{{ url_for('search') }}" method="POST" class="col-12">
@@ -36,6 +36,7 @@
                     </div>
                 </div>
             </form>
+            
 
             {% if resources|length > 0 %}
             {% for resource in resources %}
@@ -103,7 +104,7 @@
             {% else %}
             <h3 class="card-title pt-3 mb-5 font-bold">No results found, please try another search</h3>
             {% endif %}
-        </div>
+
     </div>
 </div>
 

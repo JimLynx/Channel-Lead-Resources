@@ -2,9 +2,9 @@
 {% set active_page = 'login' %}
 {% block content %}
 
-<div class="container my-5">
-    <div class="jumbotron card-image">
-        <h1 class="card-title pt-3 mb-5 font-bold"><b>Sign In</b></h1>
+<div class="container">
+    <div class="jumbotron">
+        <h1>Sign In</h1>
         <form action="{{ url_for('login') }}" method="POST">
             <div class="container">
                 <p>Please request login details from any Channel Lead on Slack</p>
@@ -22,7 +22,7 @@
                     <select type="username" name="username" id="username" class="form-control mb-4"
                         placeholder="Username" required>
                         <option value="" disabled selected>
-                            Select User
+                            - Select User -
                         </option>
                         {% for user in users %}
                         <option value="{{ user.user_type }}">{{ user.user_type }}
