@@ -5,26 +5,47 @@
 <div class="container">
     <div class="jumbotron">
         <h1>Manage Categories</h1>
-
-        <!-- add category -->
-        <div class="row">
-            <div class="col-12">
-                <h3 class="mt-4 mb-4">Add New Category</h3>
-                <a href="{{ url_for('add_category') }}" type="button" class="btn btn-block my-4 cat-btn">
-                    <i class="fas fa-plus-square"></i>
-                    Add Category
-                </a>
-            </div>
-        </div>
+        <p>Hi {{ session.user|title }}, you're on the category management page.</p>
+        <br>
         <hr>
+        <br>
+        <!-- Add new category -->
+        <h2>Add Resource Category</h2>
+        <form action="{{ url_for('add_category') }}" method="POST">
+            <div class="row">
+                <label for="category_name">
+                    <i class="fas fa-folder-open"></i>
+                    <b>New Category Name:
+                        <span class="red-asterisk"> *</span>
+                    </b>
+                </label>
+                <!-- new category name -->
+                <div class="col-12 col-md-8">
+                    <input type="text" name="category_name" id="category_name"
+                        class="add-cat-input form-control validate" placeholder="Category Name" minlength="5"
+                        maxlength="20" required>
+                    <!-- submit button -->
+                </div>
+                <div class="col-12 col-md-4">
+                    <span class="input-group-btn">
+                        <button class="btn add-cat-btn" type="submit">
+                            <i class="fas fa-folder-plus"></i>
+                            Add Category
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </form>
+        <hr>
+        <!-- Edit existing categories -->
         {% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
         <div class="row">
             <div class="col-12">
-                <h3 class="mt-4 mb-4">Manage existing categories</h3>
+                <h2 class="mt-4 mb-4">Manage Existing Categories</h2>
                 <table>
                     <tr>
                         <th class="cat-name-col">
-                           <strong>Category Name</strong> 
+                            <strong>Category Name</strong>
                         </th>
                         <th class="table-btn-col">
                             <a href="" class="btn btn-primary edit-btn">
