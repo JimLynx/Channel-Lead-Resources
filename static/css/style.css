@@ -101,7 +101,6 @@ h1 {
     color: var(--s-light-grey);
 }
 
-
 .btn i {
     color: var(--s-light-grey)
 }
@@ -179,25 +178,44 @@ label {
     text-align: end;
 }
 
-/* -- CATEGORY PAGE -- */
-.category-card {
-    width: 90%;
-    height: 100%;
-    margin: 10px auto;
-    border: 1px solid var(--p-orange);
-    box-shadow: var(--box-shadow);
-}
+/* -- MANAGE CATEGORY PAGE -- */
 
-.category-btn-row {
-    align-items: center;
-}
-
-.category-card .card-title {
-    line-height: 3;
-}
-
-.category-btn-row .btn {
+table {
     width: 100%;
+    height: 60px;
+    margin: 15px 0;
+}
+
+table td,
+table th {
+    border: 1px solid var(--p-orange);
+    padding: .5rem;
+    font-weight: 500;
+}
+
+th {
+    background-color: var(--p-dark-grey);
+    color: white;
+}
+
+.cat-name-col {
+    text-align: center;
+}
+
+.cat-title-col {
+    text-align: left; 
+}
+.cat-name-col,
+.cat-title-col {
+    width: 70%;
+}
+.table-btn-col {
+    width: 15%;
+}
+
+table .btn {
+    text-align: center;
+    min-width: 55px;
 }
 
 /* -- FOOTER -- */
@@ -293,6 +311,10 @@ footer i:hover {
 
     form {
         padding: 0px 2rem;
+    }
+
+    table .btn {
+        width: 80px;
     }
 
     footer {
