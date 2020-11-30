@@ -38,7 +38,8 @@ collection on MongoDB
 
 @app.route('/resources')
 def resources():
-    resources = list(mongo.db.cl_resources.find())
+    if session['user']:
+        resources = list(mongo.db.cl_resources.find())
     return render_template('resources.html', resources=resources)
 
 
@@ -61,7 +62,8 @@ Contact page
 
 @app.route('/contact')
 def contact():
-    resources = list(mongo.db.cl_resources.find())
+    if session['user']:
+        resources = list(mongo.db.cl_resources.find())
     categories = mongo.db.categories.find().sort('category_name', 1)
     return render_template('contact.html', resources=resources, categories=categories)
 
@@ -126,12 +128,12 @@ Add User
 @app.route('/add_users', methods=['GET', 'POST'])
 def add_users():
     if session['user'] == 'superuser' or session['user'] == 'assessor':
-        
         if request.method == 'POST':
             mongo.db.users.insert_one(
                 {'user_type': request.form.get('username'),
                  'password': generate_password_hash(request.form.get('password'))}
             )
+            return redirect(url_for('manage_users'))
         return render_template('add_users.html')
     return redirect(url_for('resources'))
 
@@ -143,13 +145,16 @@ Delete User
 
 @app.route('/delete_user/<user_id>')
 def delete_user(user_id):
-    mongo.db.users.remove({'_id': ObjectId(user_id)})
-    flash("Selected User Successfully Deleted.", "info")
-    return redirect(url_for('manage_users'))
+    if session['user'] == 'superuser' or session['user'] == 'assessor':
+
+        mongo.db.users.remove({'_id': ObjectId(user_id)})
+        flash("Selected User Successfully Deleted.", "info")
+        return redirect(url_for('manage_users'))
+    return redirect(url_for('resources'))
 
 
 '''
-add resource
+Add resource
 '''
 
 
@@ -171,8 +176,9 @@ def add_resource():
                 "Thanks! - Your Awesome New Resource Was Successfully Added.", "success")
             return redirect(url_for('resources'))
 
-    categories = mongo.db.categories.find().sort('category_name', 1)
-    return render_template('add_resource.html', categories=categories)
+        categories = mongo.db.categories.find().sort('category_name', 1)
+        return render_template('add_resource.html', categories=categories)
+    return redirect(url_for('resources'))
 
 
 '''
@@ -197,9 +203,10 @@ def edit_resource(resource_id):
                 {'_id': ObjectId(resource_id)}, upload)
             flash("Selected Resource Successfully Updated.", "success")
 
-    resource = mongo.db.cl_resources.find_one({'_id': ObjectId(resource_id)})
-    categories = mongo.db.categories.find().sort('category_name', 1)
-    return render_template('edit_resource.html', resource=resource, categories=categories)
+        resource = mongo.db.cl_resources.find_one({'_id': ObjectId(resource_id)})
+        categories = mongo.db.categories.find().sort('category_name', 1)
+        return render_template('edit_resource.html', resource=resource, categories=categories)
+    return redirect(url_for('resources'))
 
 
 '''
@@ -209,8 +216,10 @@ Delete resources
 
 @app.route('/delete_resource/<resource_id>')
 def delete_resource(resource_id):
-    mongo.db.cl_resources.remove({'_id': ObjectId(resource_id)})
-    flash("Selected Resource Successfuly Deleted.", "info")
+    if session['user'] == 'superuser' or session['user'] == 'assessor':
+        mongo.db.cl_resources.remove({'_id': ObjectId(resource_id)})
+        flash("Selected Resource Successfuly Deleted.", "info")
+        return redirect(url_for('resources'))
     return redirect(url_for('resources'))
 
 
@@ -235,15 +244,16 @@ Add new category
 
 @app.route('/add_category', methods=['GET', 'POST'])
 def add_category():
-    if request.method == "POST":
-        category = {
-            "category_name": request.form.get('category_name')
-        }
-        mongo.db.categories.insert_one(category)
-        flash("New Category Added!", "success")
-        return redirect(url_for('manage_categories'))
-
-    return render_template('add_category.html')
+    if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
+        if request.method == "POST":
+            category = {
+                "category_name": request.form.get('category_name')
+            }
+            mongo.db.categories.insert_one(category)
+            flash("New Category Added!", "success")
+            return redirect(url_for('manage_categories'))
+        return render_template('add_category.html')
+    return redirect(url_for('resources'))
 
 
 '''
@@ -253,13 +263,15 @@ Edit category
 
 @app.route('/edit_category/<category_id>', methods=['GET', 'POST'])
 def edit_category(category_id):
-    if request.method == "POST":
-        submit = {
-            "category_name": request.form.get('category_name')
-        }
-        mongo.db.categories.update({'_id': ObjectId(category_id)}, submit)
-        flash("Selected Category Successfully Updated.", "success")
-        return redirect(url_for('manage_categories'))
+
+    if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
+        if request.method == "POST":
+            submit = {
+                "category_name": request.form.get('category_name')
+            }
+            mongo.db.categories.update({'_id': ObjectId(category_id)}, submit)
+            flash("Selected Category Successfully Updated.", "success")
+            return redirect(url_for('manage_categories'))
 
     category = mongo.db.categories.find_one({'_id': ObjectId(category_id)})
     return render_template('edit_category.html', category=category)
@@ -272,9 +284,12 @@ Delete Category
 
 @app.route('/delete_category/<category_id>')
 def delete_category(category_id):
-    mongo.db.categories.remove({'_id': ObjectId(category_id)})
-    flash("Selected Category Successfully Deleted.", "info")
-    return redirect(url_for('manage_categories'))
+
+    if session['user'] == 'superuser' or session['user'] == 'assessor':
+        mongo.db.categories.remove({'_id': ObjectId(category_id)})
+        flash("Selected Category Successfully Deleted.", "info")
+        return redirect(url_for('manage_categories'))
+    return redirect(url_for('resources'))
 
 
 if __name__ == "__main__":
