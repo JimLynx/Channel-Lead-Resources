@@ -8,40 +8,38 @@
         <h1>Manage Users</h1>
         <p>Hi {{ session.user|title }}, you're on the user management page.</p>
         <hr>
-        <!-- Add new category -->
+        <!-- Add new user -->
         <h2>Add New User</h2>
         <form action="{{ url_for('add_users', user=session.user) }}" method="POST">
             <div class="row">
-                
                 <!-- New username -->
-                <label for="username">
-                    <i class="fas fa-user-circle"></i>
-                    Add New Username:
-                    <span class="red-asterisk"> *</span>
-                </label>
-                <div class="col-12 col-md-8">
-                    <input type="text" name="username" id="username" class="add-cat-input form-control validate"
+                <div class="col-12 col-md-6">
+                    <label for="username">
+                        <i class="fas fa-user-circle"></i>
+                        Add New Username:
+                        <span class="red-asterisk"> *</span>
+                    </label>
+                    <input type="text" name="username" id="username" class="form-control validate mb-4"
                         placeholder="Category Name" minlength="5" maxlength="20" required>
                 </div>
-            </div>
 
-            <!-- New password -->
-            <div class="row">
-                <label for="password">
-                    <i class="fas fa-key"></i>
-                    Add New Password:
-                    <span class="red-asterisk"> *</span>
-                </label>
-                <div class="col-12 col-md-8">
-                    <input type="password" name="password" id="password" class="add-cat-input form-control mb-4"
-                        placeholder="New Password" required>
+                <!-- New password -->
+                <div class="col-12 col-md-6">
+                    <label for="password">
+                        <i class="fas fa-key"></i>
+                        Add New Password:
+                        <span class="red-asterisk"> *</span>
+                    </label>
+                    <input type="password" name="password" id="password" class="form-control validate mb-4"
+                        placeholder="New Password" minlength="5" required>
                 </div>
-
+            </div>
+            <div class="row">
                 <!-- submit button -->
-                <div class="col-12 col-md-4">
+                <div class="col-12">
                     <span class="input-group-btn">
                         <!-- submit button -->
-                        <button class="btn add-cat-btn" type="submit">
+                        <button class="btn add-btn" type="submit">
                             <i class="fas fa-user-plus"></i>
                             Add User
                         </button>

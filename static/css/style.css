@@ -114,6 +114,14 @@ hr {
     color: var(--s-light-grey)
 }
 
+/* for add user and add category */
+.add-btn {
+    height: 40px;
+    text-align: center;
+    padding: 0px;
+    width: 150px;
+}
+
 /* -- FORMS -- */
 form {
     text-align: center;
@@ -188,23 +196,6 @@ label {
 }
 
 /* -- MANAGE CATEGORY PAGE -- */
-
-.input-group {
-    align-items: center;
-}
-
-.add-cat-input {
-    height: 50px;
-}
-
-.add-cat-btn {
-    height: 50px;
-    text-align: center;
-    padding: 0px;
-    width: 100%;
-    margin: 15px 0;
-}
-
 
 table {
     width: 100%;
@@ -330,8 +321,9 @@ footer i:hover {
 /* -- MEDIA QUERIES -- */
 
 @media only screen and (min-width: 768px) {
-    .add-cat-btn {
-        margin: 0;
+    .add-btn {
+        height: 60px;
+        width: 250px;
     }
     form i {
         font-size: 150%;

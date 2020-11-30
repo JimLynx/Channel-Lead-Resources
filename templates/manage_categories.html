@@ -6,29 +6,31 @@
     <div class="jumbotron">
         <h1>Manage Categories</h1>
         <p>Hi {{ session.user|title }}, you're on the category management page.</p>
-        <br>
         <hr>
-        <br>
         <!-- Add new category -->
         <h2>Add Resource Category</h2>
         <form action="{{ url_for('add_category') }}" method="POST">
             <div class="row">
-                <label for="category_name">
-                    <i class="fas fa-folder-open"></i>
-                    <b>New Category Name:
-                        <span class="red-asterisk"> *</span>
-                    </b>
-                </label>
+
                 <!-- new category name -->
-                <div class="col-12 col-md-8">
-                    <input type="text" name="category_name" id="category_name"
-                        class="add-cat-input form-control validate" placeholder="Category Name" minlength="5"
-                        maxlength="20" required>
-                    <!-- submit button -->
+                <div class="col-12">
+                    <label for="category_name">
+                        <i class="fas fa-folder-open"></i>
+                        New Category Name:
+                        <span class="red-asterisk"> *</span>
+                    </label>
+
+
+                    <input type="text" name="category_name" id="category_name" class="form-control validate mb-4"
+                        placeholder="Category Name" minlength="5" maxlength="20" required>
+
                 </div>
-                <div class="col-12 col-md-4">
+            </div>
+            <div class="row">
+                <!-- submit button -->
+                <div class="col-12 ">
                     <span class="input-group-btn">
-                        <button class="btn add-cat-btn" type="submit">
+                        <button class="btn add-btn" type="submit">
                             <i class="fas fa-folder-plus"></i>
                             Add Category
                         </button>
@@ -37,6 +39,7 @@
             </div>
         </form>
         <hr>
+
         <!-- Edit existing categories -->
         {% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
         <div class="row">
@@ -59,7 +62,7 @@
                         </th>
                     </tr>
                 </table>
-                <hr>
+
                 {% for category in categories %}
                 <table>
                     <tr>
@@ -75,7 +78,6 @@
                         </td>
                     </tr>
                 </table>
-
                 {% endfor %}
             </div>
         </div>
