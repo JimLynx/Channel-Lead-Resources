@@ -2,10 +2,11 @@
 {% set active_page = 'manage_users' %}
 {% block content %}
 
+{% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
 <div class="container">
     <div class="jumbotron">
         <h1>Manage Users</h1>
-        
+
         <div class="row">
             <div class="col-12">
                 <a href="{{ url_for('add_users') }}" type="button" class="btn btn-block my-4 cat-btn">
@@ -14,30 +15,44 @@
                 </a>
             </div>
         </div>
+        <!-- Edit existing users -->
         <div class="row">
-            {% for user in users %}
-            <div class="col-12 col-md-6">
-                <div>
-                    <div class="card-body category-card">
-                        <div class="row">
-                            <div class="col-12">
-                                <h5 class="card-title">{{ user.user_type }}</h5>
-                            </div>
-                        </div>
-                        <div class="row category-btn-row">
-                            <div class="col-6">
-                                <a href="" class="btn btn-primary edit-btn">Edit</a>
-                            </div>
-                            <div class="col-6">
-                                <a href="{{ url_for('delete_user', user_id=user._id) }}" class="btn btn-danger delete-btn">Delete</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-12">
+                <h2 class="mt-4 mb-4">Manage Existing Users</h2>
+                <table>
+                    <tr>
+                        <th class="cat-name-col">
+                            <strong>Username</strong>
+                        </th>
+                        <th class="table-btn-col">
+                            <a href="" class="btn btn-primary edit-btn">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </th>
+                        <th class="table-btn-col">
+                            <a href="" class="btn btn-danger delete-btn">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </th>
+                    </tr>
+                </table>
+                {% for user in users %}
+                <table>
+                    <tr>
+                        <td class="table-title-col">{{ user.user_type|title }}</td>
+                        <td class="table-btn-col">
+                            <a href="" class="btn btn-primary edit-btn">Edit</a>
+                        </td>
+                        <td class="table-btn-col">
+                            <a href="{{ url_for('delete_user', user_id=user._id) }}"
+                                class="btn btn-danger delete-btn">Delete</a>
+                        </td>
+                    </tr>
+                </table>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
     </div>
-</div>
 
-{% endblock %}
+    {% endif %}
+    {% endblock %}
