@@ -22,17 +22,19 @@
         <p class="mb-5">
             This site provides a central platform for Students to easily access these resources.
         </p>
-        {% if session.user|lower != session.user|lower %}
-        <a class="btn btn-md" href="{{ url_for('login') }}">
-            <i class="fas fa-lock left"></i>
-            Proceed to Login
-        </a>
-        {% endif %}
-        {% if session.user|lower == session.user|lower %}
-        <a class="btn btn-md" href="{{ url_for('resources') }}">
-            <i class="fas fa-lock left"></i>
-            Checkout Resources
-        </a>
+
+        {% if session.user %}
+            {% if session.user|lower == session.user|lower %}
+            <a class="btn {{ home_btn_resources }}" href="{{ url_for('resources') }}">
+                <i class="fas fa-lock left"></i>
+                Checkout Resources
+            </a>
+            {% endif %}
+            {% else %}
+            <a class="btn" href="{{ url_for('login') }}">
+                <i class="fas fa-lock left"></i>
+                Proceed to Login
+            </a>
         {% endif %}
         <br><br>
     </div>
