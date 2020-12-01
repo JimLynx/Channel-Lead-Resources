@@ -9,32 +9,30 @@
         <hr>
         <!-- Add new category -->
         <h2>Add Resource Category</h2>
-        <form action="{{ url_for('add_category') }}" method="POST">
-            <div class="row">
+        <form id="add-confirm" action="{{ url_for('add_category') }}" method="POST">
 
-                <!-- new category name -->
+            <!-- new category name -->
+            <div class="row">
                 <div class="col-12">
                     <label for="category_name">
                         <i class="fas fa-folder-open"></i>
                         New Category Name:
                         <span class="red-asterisk"> *</span>
                     </label>
-
-
                     <input type="text" name="category_name" id="category_name" class="form-control validate mb-4"
                         placeholder="Category Name" minlength="5" maxlength="20" required>
-
                 </div>
             </div>
+
+            <!-- submit button -->
             <div class="row">
-                <!-- submit button -->
                 <div class="col-12 ">
-                    <span class="input-group-btn">
-                        <button class="btn add-btn" type="submit">
-                            <i class="fas fa-folder-plus"></i>
-                            Add Category
-                        </button>
-                    </span>
+
+                    <!-- Button trigger modal-->
+                    <button type="button" class="btn add-btn" data-toggle="modal" data-target="#modalAdd">
+                        <i class="fas fa-folder-plus"></i>
+                        Add Category
+                    </button>
                 </div>
             </div>
         </form>
@@ -66,18 +64,32 @@
                 {% for category in categories %}
                 <table>
                     <tr>
+                        <!-- category heading -->
                         <td class="table-title-col">{{ category.category_name }}</td>
-                        <td class="table-btn-col">
-                            <a href="{{ url_for('edit_category', category_id=category._id) }}"
-                                class="btn btn-primary edit-btn">Edit</a>
-                        </td>
 
-                        <td class="table-btn-col">
-                            <a href="{{ url_for('delete_category', category_id=category._id) }}"
-                                class="btn btn-danger delete-btn">Delete</a>
-                        </td>
+                        
+                        <form id="delete-confirm" method="POST">
+
+                            <!-- edit button  -->
+                            <td class="table-btn-col">
+                                <a href="{{ url_for('edit_category', category_id=category._id) }}"
+                                    class="btn btn-primary edit-btn">
+                                    Edit
+                                </a>
+                            </td>
+
+                            <!-- delete button  -->
+                            <td class="table-btn-col">
+                                <!-- Button trigger modal-->
+                                <a type="button" href="{{ url_for('delete_category', category_id=category._id) }}" 
+                                    class="btn btn-danger delete-btn" data-toggle="modal" data-target="#modalDelete">
+                                    Delete
+                                </a>
+                            </td>
+                        </form>
                     </tr>
                 </table>
+
                 {% endfor %}
             </div>
         </div>

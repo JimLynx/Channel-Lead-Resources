@@ -5,18 +5,16 @@
 <div class="container">
     <div class="jumbotron">
         <h1>Edit Category</h1>
-        <form action="{{ url_for('edit_category', category_id=category._id) }}" method="POST">
+        <form id="form-confirm" action="{{ url_for('edit_category', category_id=category._id) }}" method="POST">
             <div class="container">
-                <p>Hi {{ session.user|title }}, please post in all fields and be as detailed as possible</p>
-                <!-- <p>Video/PDF are optional, but please at least enter one</p> -->
-                <br>
-                <hr><br>
+                <p>Hi {{ session.user|title }}, please edit Category name in the field below.</p>
+                <hr>
 
                 <!-- title -->
                 <div class="row">
                     <label for="category_name">
                         <i class="fas fa-file-alt"></i>
-                        <b>Category Name:</b>
+                        Category Name:
                     </label>
                     <input type="text" name="category_name" id="category_name" class="form-control  validate mb-4"
                         value="{{ category.category_name }}" placeholder="Resource Title" minlength="5" maxlength="20"
@@ -26,18 +24,21 @@
                 <!-- submit button -->
                 <div class="row">
                     <div class="col-6">
-                        <a href="{{ url_for('manage_categories') }}" class="btn btn-block my-4 btn-primary">
-                            <i class="fas fa-edit"></i>
+                        <!-- Button trigger modal-->
+                        <button type="button" class="btn btn-primary btn-block my-4" data-toggle="modal"
+                            data-target="#modalEdit">
+                            <i class="far fa-check-circle"></i>
+                            CONFIRM</button>
+                    </div>
+                    <!-- Cancel button - return to resource page -->
+                    <div class="col-6">
+                        <a href="{{ url_for('manage_categories') }}" class="btn btn-danger btn-block my-4">
+                            <i class="fas fa-times-circle"></i>
                             Cancel
                         </a>
                     </div>
-                    <div class="col-6">
-                        <button class="btn btn-block my-4" type="submit">
-                            <i class="fas fa-edit"></i>
-                            Edit Category
-                        </button>
-                    </div>
                 </div>
+            </div>
         </form>
     </div>
 </div>

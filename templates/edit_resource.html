@@ -4,8 +4,7 @@
 <div class="container">
     <div class="jumbotron">
         <h1>Edit Resource</h1>
-        <form action="{{ url_for('edit_resource', resource_id=resource._id) }}" method="POST">
-            <div class="container">
+        <form id="edit-confirm" action="{{ url_for('edit_resource', resource_id=resource._id) }}" method="POST">
                 <p>Hi {{ session.user|title }}, please edit neccessary fields below</p>
                 <hr>
 
@@ -104,24 +103,27 @@
                     <input type="text" name="date" id="date" class="form-control validate mb-4"
                         value="{{ resource.date }}" placeholder="dd/mm/yy" required>
                 </div>
-            </div>
 
-            <!-- submit button -->
-            <div class="row">
-                <div class="col-6">
-                    <button class="btn btn-primary btn-block my-4" type="submit">
-                        <i class="fas fa-edit"></i>
-                        Edit Resource
-                    </button>
+
+                <!-- submit button -->
+                <div class="row">
+                    <div class="col-6">
+                        <!-- Button trigger modal-->
+                        <button type="button" class="btn btn-primary btn-block my-4" data-toggle="modal"
+                            data-target="#modalEdit">
+                            <i class="far fa-check-circle"></i>
+                            EDIT</button>
+                    </div>
+                    <!-- Cancel button - return to resource page -->
+                    <div class="col-6">
+                        <a href="{{ url_for('resources') }}" class="btn btn-danger btn-block my-4">
+                            <i class="fas fa-times-circle"></i>
+                            Cancel
+                        </a>
+                    </div>
                 </div>
-                <div class="col-6">
-                    <a href="{{ url_for('resources') }}" class="btn btn-danger btn-block my-4">
-                        <i class="fas fa-times-circle"></i>
-                        Cancel
-                    </a>
-                </div>
-            </div>
         </form>
     </div>
 </div>
+
 {% endblock %}
