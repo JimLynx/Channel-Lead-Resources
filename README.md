@@ -47,21 +47,24 @@
 > 
 >###### :white_circle: Admin _(Code institute Slack Channel Leads)_
 > 
->- As an Admin I would like the ability to **log into an admin account**, so that I can **create resource posts**
+> - As an Admin I would like the ability to **log into an admin account**, so that I can **create resource posts**
 > - As an Admin I would like the ability to **upload my presentations**, so that I can **add new material to the site**
 > - As an Admin I would like the ability to **update my presentations**, so that I can **maintain material previously uploaded to most recent versions**
 > - As an Admin I would like the ability to **delete my presentations**, so that I can **remove outdated information, which may become irrelevant due to technological advances** 
 > - As an Admin I would like the **ability for users to review my presentations**, so that I can **be informed of how useful they are and if anything can be improved upon**
 > 
->###### :red_circle: Superuser _(Developer-Site Creator)_  
+>###### :red_circle: Superuser _(Developer-Site Creator)_ 
 > 
->- As a Superuser I would like to be able to **Create Admin accounts**, so that I can **assign them to new Channel Leads**
-> - As a Superuser  I would like to be able to **Delete old Admin accounts**, so that I can **keep the site Admin for current Channel Leads only**
-> - As a Superuser  I would like to be able to **Read presentation posts**, so that I can **ensure suitability for the site**
+> In addition to the above, 
 > - As a Superuser I would like to be able to **keep information aimed at Code Institute Students**, so that **material posted is not directly available to the general public**
+> - As a Superuser I would like to be able to **Create Admin accounts**, so that I can **assign them to ----------------------------**
+> - As a Superuser I would like to be able to **Delete User accounts**, so that I can **keep the site secure**
+> - As a Superuser I would like to be able to **Update Category names**, so that I can **ensure the site is kept neat**
+> - As a Superuser I would like to be able to **Delete Categories**, so that I can **keep the site clean and clutter free**
+
 > 
 >###### :large_blue_circle: Assessor (_Milestone Project Assessor account_)
-> - As an Assessor, I will require full access to all Superuser privileges, so that I can gain full access to assess all aspects of the project
+> - As an Assessor, I will require full access to all Superuser privileges, so that I can gain full access in order to assess all aspects of the project
 
 ---
 
