@@ -133,6 +133,7 @@ def add_users():
                 {'user_type': request.form.get('username'),
                  'password': generate_password_hash(request.form.get('password'))}
             )
+            flash("New User Added!", "success")
             return redirect(url_for('manage_users'))
         return render_template('add_users.html')
     return redirect(url_for('resources'))
@@ -202,6 +203,7 @@ def edit_resource(resource_id):
             mongo.db.cl_resources.update(
                 {'_id': ObjectId(resource_id)}, upload)
             flash("Selected Resource Successfully Updated.", "success")
+            return redirect(url_for('resources'))
 
         resource = mongo.db.cl_resources.find_one({'_id': ObjectId(resource_id)})
         categories = mongo.db.categories.find().sort('category_name', 1)
