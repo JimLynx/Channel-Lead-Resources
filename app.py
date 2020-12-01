@@ -126,6 +126,14 @@ def logout():
 
 # -------- RESOURCES -------- #
 
+# Manage Resources page
+@app.route('/manage_resources')
+def manage_resources():
+    if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
+
+        resources = list(mongo.db.cl_resources.find())
+    return render_template('manage_resources.html', resources=resources)
+
 
 # Add resource
 @app.route('/add_resource', methods=['GET', 'POST'])
@@ -211,7 +219,7 @@ def add_category():
             mongo.db.categories.insert_one(category)
             flash("New Category Added!", "success")
             return redirect(url_for('manage_categories'))
-        return render_template('add_category.html')
+        return render_template('manage_categories.html')
     return redirect(url_for('resources'))
 
 

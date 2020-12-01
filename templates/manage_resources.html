@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% set active_page = 'manage_resources' %}
+{% block content %}
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>Manage Resources</h1>
+        <p>Hi {{ session.user|title }}, you're on the resource management page.</p>
+        <hr>
+        <!-- Add new resource -->
+        <h2>Add Resource Category</h2>
+
+        <!-- link to add resource page -->
+        <div class="row">
+            <div class="col-12 ">
+                <a href="{{ url_for('add_resource') }}" class="btn" type="submit">
+                    <i class="fas fa-folder-plus"></i>
+                    Add New Resource
+                </a>
+            </div>
+        </div>
+        <hr>
+
+        <!-- Edit existing resources -->
+        {% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
+        <div class="row">
+            <div class="col-12">
+                <h2 class="mt-4 mb-4">Manage Existing Categories</h2>
+                <table>
+                    <tr>
+                        <th class="cat-name-col">
+                            <strong>Category Name</strong>
+                        </th>
+                        <th class="table-btn-col">
+                            <a href="" class="btn btn-primary edit-btn">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </th>
+                        <th class="table-btn-col">
+                            <a href="" class="btn btn-danger delete-btn">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </th>
+                    </tr>
+                </table>
+
+                {% for resource in resources %}
+                <table>
+                    <tr>
+                        <td class="table-title-col">{{ resource.title }}</td>
+                        <td class="table-btn-col">
+                            <a href="{{ url_for('edit_resource', resource_id=resource._id) }}"
+                                class="btn btn-primary edit-btn">Edit</a>
+                        </td>
+
+
+                        <!-- <form action=""> -->
+                            <td class="table-btn-col">
+                                <a href="{{ url_for('delete_resource', resource_id=resource._id) }}""
+                                class=" btn btn-danger delete-btn" type="button" data-toggle="modal"
+                                    data-target="#modalDelete">Delete</a>
+
+                        <!-- </form> -->
+
+
+                        </td>
+                    </tr>
+                </table>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
