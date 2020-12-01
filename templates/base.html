@@ -46,7 +46,7 @@
                 <li class="nav-item {{ 'active' if active_page == 'contact' }}">
                     <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
                 </li>
-                
+
 
                 <!-- Admin Dropdown -->
                 {% if session.user|lower == 'lead' or session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
@@ -77,16 +77,16 @@
 
     <section>
 
-            {% with messages = get_flashed_messages(with_categories=true) %}
-            <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="text-center alert alert-{{ category }} alert-dismissible" role="alert">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="text-center alert alert-{{ category }} alert-dismissible" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
 
     </section>
 
@@ -159,6 +159,100 @@
             </div>
         </div>
     </footer>
+
+    <!-- MODAL TEMPLATES -->
+
+    <!-- Add User Modal -->
+    <div class="modal fade" id="modalAddUser" tabindex="-1" role="dialog" aria-labelledby="addUserModal" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-notify modal-success" role="document">
+            <div class="modal-content text-center">
+                <div class="modal-header d-flex justify-content-center">
+                    <p class="heading">Are you sure you want to ADD a new user?</p>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-footer flex-center">
+                        <button class="btn btn-outline-success" type="submit" form="form-confirm">
+                            Confirm</span>
+                        </button>
+                        <button class="btn btn-danger waves-effect" type="button" data-dismiss="modal">
+                            <i class="fas fa-times animated rotateIn"></i>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Item Modal -->
+    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="addModal" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-notify modal-success" role="document">
+            <div class="modal-content text-center">
+                <div class="modal-header d-flex justify-content-center">
+                    <p class="heading">Are you sure you want to ADD this item?</p>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-footer flex-center">
+                        <button class="btn btn-outline-success" type="submit" form="form-confirm">
+                            Confirm</span>
+                        </button>
+                        <button class="btn btn-danger waves-effect" type="button" data-dismiss="modal">
+                            <i class="fas fa-times animated rotateIn"></i>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Item Modal -->
+    <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-notify modal-info" role="document">
+            <div class="modal-content text-center">
+                <!--Header-->
+                <div class="modal-header d-flex justify-content-center">
+                    <p class="heading">Are you sure you want to EDIT this item?</p>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-footer flex-center">
+                        <button class="btn btn-outline-info" type="submit" form="form-confirm">
+                            Confirm</span>
+                        </button>
+                        <button class="btn btn-danger waves-effect" type="button" data-dismiss="modal">
+                            <i class="fas fa-times animated rotateIn"></i>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Item Modal -->
+    <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="deleteModal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-md modal-notify modal-danger" role="document">
+            <div class="modal-content text-center">
+                <div class="modal-header d-flex justify-content-center">
+                    <p class="heading">Are you sure you want to DELETE this item?</p>
+                </div>
+                <div class="modal-body">
+                    <p><i class="fas fa-exclamation-circle"></i> WARNING:</i></p>
+                    <p>This action cannot be undone!</p>
+                    <div class="modal-footer flex-center">
+                        <button class="btn btn-outline-danger" type="submit" form="form-confirm">
+                            Confirm</span>
+                        </button>
+                        <button class="btn btn-danger waves-effect" type="button" data-dismiss="modal">
+                            <i class="fas fa-times animated rotateIn"></i>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js">
