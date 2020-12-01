@@ -284,6 +284,7 @@
 
 > - Used Git for version control.
 > - Branches were created to work on alternative layout and buttons.
+>     - user-confirmation branch > for implementing and testing confirmation modal dialogues
 > - The branches were then merged with the master branch after any conflicts were addressed.
 
 ---
@@ -337,11 +338,11 @@ This project has been deployed on GitHub Pages with the following process:
 >
 > I would like to thank:
 >
-> - My mentor, **Mark Railton** for his guidance and advice
-> - **Tim Nelson**, **Bim Williams**, **John Traas**, **Anthony O'Brien** for always being open to discussing, helping and generally being awesome people
-> - Everyone in Tutor support for always being patient and friendly when approaching with assistance during course material
-> - **CI staff** and **Slack Community** for always being on-hand with questions posted and assistance requests
-> - Everyone that takes part in the Slack calls, specifically from the **#In-It-Together** and **#Study-Group** channels
+> - My mentor, **Mark Railton** for his guidance and advice.
+> - **Tim Nelson**, **Bim Williams**, **John Traas**, **Anthony O'Brien** and **Sean Murphy** for always being open to discussing, helping and generally being awesome people.
+> - Everyone in Tutor support for always being patient and friendly when approaching with assistance during course material.
+> - **CI staff** and **Slack Community** for always being on-hand with questions posted and assistance requests.
+> - Everyone that takes part in the Slack calls, specifically from the **#In-It-Together** and **#Study-Group** channels.
 
 ## Support
 
