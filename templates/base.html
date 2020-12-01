@@ -46,8 +46,9 @@
                 <li class="nav-item {{ 'active' if active_page == 'contact' }}">
                     <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
                 </li>
-
-
+                <li class="nav-item {{ 'active' if active_page == 'logout' }}">
+                    <a class="nav-link" href="{{ url_for('logout') }}"><i class="fas fa-power-off"></i>Log Out</a>
+                </li>
                 <!-- Admin Dropdown -->
                 {% if session.user|lower == 'lead' or session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
                 <li class="nav-item dropdown">
@@ -57,13 +58,11 @@
                         {% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
                         <a class="nav-link" href="{{ url_for('manage_users', user=session.user) }}">Manage Users</a>
                         {% endif %}
-                        <a class="nav-link" href="{{ url_for('add_resource', user=session.user) }}">Add Resource</a>
+                        <a class="nav-link" href="{{ url_for('manage_resources', user=session.user) }}">Manage
+                            Resources</a>
                         <a class="nav-link" href="{{ url_for('manage_categories', user=session.user) }}">Manage
                             Categories</a>
                     </div>
-                </li>
-                <li class="nav-item {{ 'active' if active_page == 'logout' }}">
-                    <a class="nav-link" href="{{ url_for('logout') }}"><i class="fas fa-power-off"></i>Log Out</a>
                 </li>
                 {% endif %}
                 {% else %}
@@ -163,7 +162,8 @@
     <!-- MODAL TEMPLATES -->
 
     <!-- Add User Modal -->
-    <div class="modal fade" id="modalAddUser" tabindex="-1" role="dialog" aria-labelledby="addUserModal" aria-hidden="true">
+    <div class="modal fade" id="modalAddUser" tabindex="-1" role="dialog" aria-labelledby="addUserModal"
+        aria-hidden="true">
         <div class="modal-dialog modal-md modal-notify modal-success" role="document">
             <div class="modal-content text-center">
                 <div class="modal-header d-flex justify-content-center">
@@ -194,7 +194,7 @@
                 <div class="modal-body">
                     <div class="modal-footer flex-center">
                         <button class="btn btn-outline-success" type="submit" form="form-confirm">
-                            Confirm</span>
+                            YES</span>
                         </button>
                         <button class="btn btn-danger waves-effect" type="button" data-dismiss="modal">
                             <i class="fas fa-times animated rotateIn"></i>
@@ -215,9 +215,11 @@
                     <p class="heading">Are you sure you want to EDIT this item?</p>
                 </div>
                 <div class="modal-body">
+                    <i class="far fa-edit fa-4x animated rotateIn mb-4"></i>
                     <div class="modal-footer flex-center">
-                        <button class="btn btn-outline-info" type="submit" form="form-confirm">
-                            Confirm</span>
+                        <button class="btn btn-success" type="submit" form="form-confirm">
+                            <i class="fas fa-check"></i>
+                            YES
                         </button>
                         <button class="btn btn-danger waves-effect" type="button" data-dismiss="modal">
                             <i class="fas fa-times animated rotateIn"></i>
