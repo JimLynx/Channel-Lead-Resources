@@ -17,9 +17,7 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
-'''
-Renders Home page
-'''
+# Render Home page
 
 
 @app.route('/')
@@ -28,38 +26,27 @@ def home():
     return render_template('home.html')
 
 
-'''
-Renders Resources page. 
-Finds all key and values 
-in the  cl_resources 
-collection on MongoDB
-'''
-
-
+# Render Resources page.
 @app.route('/resources')
 def resources():
+    # If there is any logged in user
     if session['user']:
+        # Find all key and values in the  cl_resources
+        # collection on MongoDB
         resources = list(mongo.db.cl_resources.find())
     return render_template('resources.html', resources=resources)
 
 
-'''
-Search function
-'''
-
-
+# Search function
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     query = request.form.get('query')
+    # search through all on db
     resources = list(mongo.db.cl_resources.find({'$text': {'$search': query}}))
     return render_template('resources.html', resources=resources)
 
 
-'''
-Contact page 
-'''
-
-
+# Contact page
 @app.route('/contact')
 def contact():
     if session['user']:
@@ -68,11 +55,10 @@ def contact():
     return render_template('contact.html', resources=resources, categories=categories)
 
 
-'''
-Login
-'''
+# -------- USERS -------- #
 
 
+# Login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     user_types = list(mongo.db.users.find())
@@ -94,23 +80,7 @@ def login():
     return render_template('login.html', users=user_types)
 
 
-'''
-Logout
-'''
-
-
-@app.route('/logout')
-def logout():
-    session.pop('user', None)
-    flash("Successfully LOGGED OUT - Please visit again soon!", "success")
-    return redirect(url_for('login'))
-
-
-'''
-Manage Users
-'''
-
-
+# Manage Users page
 @app.route('/manage_users')
 def manage_users():
     if session['user'] == 'superuser' or session['user'] == 'assessor':
@@ -120,18 +90,14 @@ def manage_users():
     return redirect(url_for('resources'))
 
 
-'''
-Add User
-'''
-
-
+# Add User
 @app.route('/add_users', methods=['GET', 'POST'])
 def add_users():
     if session['user'] == 'superuser' or session['user'] == 'assessor':
         if request.method == 'POST':
             mongo.db.users.insert_one(
-                {'user_type': request.form.get('username'),
-                 'password': generate_password_hash(request.form.get('password'))}
+                {'user_type': request.form.get('username'), 'password': generate_password_hash(
+                    request.form.get('password'))}
             )
             flash("New User Added!", "success")
             return redirect(url_for('manage_users'))
@@ -139,11 +105,7 @@ def add_users():
     return redirect(url_for('resources'))
 
 
-'''
-Delete User
-'''
-
-
+# Delete User
 @app.route('/delete_user/<user_id>')
 def delete_user(user_id):
     if session['user'] == 'superuser' or session['user'] == 'assessor':
@@ -154,11 +116,18 @@ def delete_user(user_id):
     return redirect(url_for('resources'))
 
 
-'''
-Add resource
-'''
+# Logout
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    flash("Successfully LOGGED OUT - Please visit again soon!", "success")
+    return redirect(url_for('login'))
 
 
+# -------- RESOURCES -------- #
+
+
+# Add resource
 @app.route('/add_resource', methods=['GET', 'POST'])
 def add_resource():
     if session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead':
@@ -182,11 +151,7 @@ def add_resource():
     return redirect(url_for('resources'))
 
 
-'''
-Editing resources
-'''
-
-
+# Edit resources
 @app.route('/edit_resource/<resource_id>', methods=['GET', 'POST'])
 def edit_resource(resource_id):
     if session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead':
@@ -205,17 +170,14 @@ def edit_resource(resource_id):
             flash("Selected Resource Successfully Updated.", "success")
             return redirect(url_for('resources'))
 
-        resource = mongo.db.cl_resources.find_one({'_id': ObjectId(resource_id)})
+        resource = mongo.db.cl_resources.find_one(
+            {'_id': ObjectId(resource_id)})
         categories = mongo.db.categories.find().sort('category_name', 1)
         return render_template('edit_resource.html', resource=resource, categories=categories)
     return redirect(url_for('resources'))
 
 
-'''
-Delete resources
-'''
-
-
+# Delete resources
 @app.route('/delete_resource/<resource_id>')
 def delete_resource(resource_id):
     if session['user'] == 'superuser' or session['user'] == 'assessor':
@@ -225,11 +187,10 @@ def delete_resource(resource_id):
     return redirect(url_for('resources'))
 
 
-'''
-Manage Categories
-'''
+# -------- CATEGORIES -------- #
 
 
+# Manage Categories page
 @app.route('/manage_categories')
 def manage_categories():
     if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
@@ -239,11 +200,7 @@ def manage_categories():
     return redirect(url_for('resources'))
 
 
-'''
-Add new category
-'''
-
-
+# Add new category
 @app.route('/add_category', methods=['GET', 'POST'])
 def add_category():
     if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
@@ -258,11 +215,7 @@ def add_category():
     return redirect(url_for('resources'))
 
 
-'''
-Edit category
-'''
-
-
+# Edit category
 @app.route('/edit_category/<category_id>', methods=['GET', 'POST'])
 def edit_category(category_id):
 
@@ -279,9 +232,7 @@ def edit_category(category_id):
     return render_template('edit_category.html', category=category)
 
 
-'''
-Delete Category
-'''
+# Delete Category
 
 
 @app.route('/delete_category/<category_id>')
