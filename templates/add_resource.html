@@ -8,16 +8,14 @@
         <form action="{{ url_for('add_resource') }}" method="POST">
             <div class="container">
                 <p>Hi {{ session.user|title }}, please post in all sections and be as detailed as possible</p>
-                <br>
-                <hr><br>
-                <div class="row">
+                <hr>
 
-                    <!-- category -->
+                <!-- category selection -->
+                <div class="row">
                     <label for="category_name">
                         <i class="fas fa-folder-open"></i>
-                        <b>Category Name:
-                            <span class="red-asterisk"> *</span>
-                        </b>
+                        Category Name:
+                        <span class="red-asterisk"> *</span>
                     </label>
 
                     <select name="category_name" id="category_name" class="browser-default custom-select validate"
@@ -27,51 +25,76 @@
                         <option value="{{ category.category_name }}">{{ category.category_name }}</option>
                         {% endfor  %}
                     </select>
-                </div><br>
+                </div>
 
                 <!-- title -->
                 <div class="row">
-                    <label for="title"><i class="fas fa-file-alt"></i><b>Title:<span class="red-asterisk">
-                                *</span></b></label>
+                    <label for="title">
+                        <i class="fas fa-file-alt"></i>
+                        Title:
+                        <span class="red-asterisk"> *</span>
+                    </label>
                     <input type="text" name="title" id="title" class="form-control  validate mb-4"
                         placeholder="Resource Title" minlength="5" maxlength="50" required>
                 </div>
 
                 <!-- description -->
                 <div class="row">
-                    <label for="description"><i class="fas fa-comments"></i><b>Resource
-                            Description:<span class="red-asterisk"></span></b></i></label>
+                    <label for="description">
+                        <i class="fas fa-comments"></i>
+                        Resource Description:
+                        <span class="red-asterisk"> *</span>
+                    </label>
                     <textarea type="text" name="description" id="description" class="form-control mb-4 validate"
-                        placeholder="Please be detailed" rows="5" minlength="5" maxlength="200" required></textarea>
+                        placeholder="Please be detailed" rows="5" minlength="5" maxlength="200" required>
+                    </textarea>
                 </div>
 
                 <!-- channel lead name -->
                 <div class="row">
-                    <label for="yourName"><i class="fab fa-slack"></i><b>Slack Lead Username:</b></label>
+                    <label for="yourName">
+                        <i class="fab fa-slack"></i>
+                        Slack Lead Username:
+                        <span class="red-asterisk"> *</span>
+                    </label>
                     <input type="text" id="yourName" class="form-control validate mb-4" placeholder="Slack Username"
                         minlength=" 5" maxlength="50" required>
                 </div>
 
+                <hr>
+                
+                <h6>Please enter a PDF url <strong>and/or</strong> a video embed code to your hosted material</h6>
+                
                 <!-- document url location -->
                 <div class="row">
-                    <label for="title"><i class="fas fa-cloud-upload-alt"></i><b> Document Location:</b></label>
+                    <label for="document_url">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        Document Location:
+                    </label>
                     <input type="url" name="document_url" id="document_url" class="form-control validate mb-4"
                         placeholder="https:// (url for hosted PDF/Image/Slideshow)" minlength="5" maxlength="50">
                 </div>
 
                 <!-- video url location -->
                 <div class="row">
-                    <label for="title"><i class="fas fa-cloud-upload-alt"></i><b>Video Embed Code:</b></label>
+                    <label for="video_url">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        Video Embed Code:
+                    </label>
                     <textarea type="text" name="video_url" id="video_url" class="form-control validate mb-4" rows="4"
                         placeholder="<iframe> Paste embed code from video source" minlength="5"></textarea>
                 </div>
+                <hr>
 
                 <!-- date picker -->
                 <div class="row">
-                    <label for="date"><i class="far fa-calendar-alt"></i><b> Date Posted:</b></label>
+                    <label for="date">
+                        <i class="far fa-calendar-alt"></i>
+                        Date Posted:
+                        <span class="red-asterisk"> *</span>
+                    </label>
                     <input name="date" type="text" id="date" class="form-control validate mb-4" placeholder="dd/mm/yy"
                         required>
-
                 </div>
             </div>
 
