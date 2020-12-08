@@ -176,7 +176,7 @@ def edit_resource(resource_id):
             mongo.db.cl_resources.update(
                 {'_id': ObjectId(resource_id)}, upload)
             flash("Selected Resource Successfully Updated.", "success")
-            return redirect(url_for('resources'))
+            return redirect(url_for('manage_resources'))
 
         resource = mongo.db.cl_resources.find_one(
             {'_id': ObjectId(resource_id)})
@@ -191,7 +191,7 @@ def delete_resource(resource_id):
     if session['user'] == 'superuser' or session['user'] == 'assessor':
         mongo.db.cl_resources.remove({'_id': ObjectId(resource_id)})
         flash("Selected Resource Successfuly Deleted.", "info")
-        return redirect(url_for('resources'))
+        return redirect(url_for('manage_resources'))
     return redirect(url_for('resources'))
 
 
