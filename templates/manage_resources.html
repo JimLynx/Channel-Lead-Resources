@@ -26,6 +26,7 @@
         <div class="row">
             <div class="col-12">
                 <h2 class="mt-4 mb-4">Manage Existing Categories</h2>
+                <!-- table headings -->
                 <table>
                     <tr>
                         <th class="cat-name-col">
@@ -45,27 +46,55 @@
                 </table>
 
                 {% for resource in resources %}
+                <!-- populated table content -->
                 <table>
                     <tr>
                         <td class="table-title-col">{{ resource.title }}</td>
                         <td class="table-btn-col">
+
                             <a href="{{ url_for('edit_resource', resource_id=resource._id) }}"
                                 class="btn btn-primary edit-btn">Edit</a>
                         </td>
 
-
-                        <!-- <form action=""> -->
-                            <td class="table-btn-col">
-                                <a href="{{ url_for('delete_resource', resource_id=resource._id) }}""
-                                class=" btn btn-danger delete-btn" type="button" data-toggle="modal"
-                                    data-target="#modalDelete">Delete</a>
-
-                        <!-- </form> -->
-
-
+                        <td class="table-btn-col">
+                            <!-- Trigger delete confirmation modal-->
+                            <form id="deleteConfirm{{ resource._id }}"
+                                action="{{ url_for('delete_resource', resource_id=resource._id) }}">
+                                <button class=" btn btn-danger delete-btn" type="button" data-toggle="modal"
+                                    data-target="#modalDelete{{ resource._id }}">Delete
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 </table>
+
+                <!-- Delete Item Modal -->
+                <div class=" modal fade" id="modalDelete{{ resource._id }}" tabindex="-1" role="dialog"
+                    aria-labelledby="modalDelete" aria-hidden="true">
+                    <div class="modal-dialog modal-md modal-notify modal-danger" role="document">
+                        <div class="modal-content text-center">
+                            <div class="modal-header d-flex justify-content-center">
+                                <p class="heading">Are you sure you want to DELETE this item?</p>
+                            </div>
+                            <div class="modal-body">
+                                <p><i class="fas fa-exclamation-circle"></i> WARNING:</p>
+                                <p>This action cannot be undone!</p>
+                                <div class="modal-footer flex-center">
+
+                                    <button class="btn btn-outline-danger" type="submit"
+                                        form="deleteConfirm{{ resource._id }}">
+                                        Confirm
+                                    </button>
+
+                                    <button class="btn btn-danger waves-effect" type="button" data-dismiss="modal">
+                                        <i class="fas fa-times animated rotateIn"></i>
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {% endfor %}
             </div>
         </div>

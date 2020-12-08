@@ -10,7 +10,7 @@
         <hr>
         <!-- Add new user -->
         <h2>Add New User</h2>
-        <form action="{{ url_for('add_users', user=session.user) }}" method="POST">
+        <form id="addUserConfirm" action="{{ url_for('add_users', user=session.user) }}" method="POST">
             <div class="row">
                 <!-- New username -->
                 <div class="col-12 col-md-6">
@@ -35,15 +35,13 @@
                 </div>
             </div>
             <div class="row">
-                <!-- submit button -->
                 <div class="col-12">
-                    <span class="input-group-btn">
-                        <!-- submit button -->
-                        <button class="btn add-btn" type="submit">
-                            <i class="fas fa-user-plus"></i>
-                            Add User
-                        </button>
-                    </span>
+
+                    <!-- Button trigger modal-->
+                    <button type="button" class="btn add-btn" data-toggle="modal" data-target="#modalAddUser">
+                        <i class="fas fa-user-plus"></i>
+                        Add User
+                    </button>
                 </div>
             </div>
         </form>
@@ -53,41 +51,96 @@
         <div class="row">
             <div class="col-12">
                 <h2 class="mt-4 mb-4">Manage Existing Users</h2>
+                <!-- table headings -->
                 <table>
                     <tr>
                         <th class="cat-name-col">
                             <strong>Username</strong>
                         </th>
                         <th class="table-btn-col">
-                            <a href="" class="btn btn-primary edit-btn">
-                                <i class="fas fa-edit"></i>
-                            </a>
+                            <i class="fas fa-edit"></i>
                         </th>
                         <th class="table-btn-col">
-                            <a href="" class="btn btn-danger delete-btn">
-                                <i class="fas fa-trash-alt"></i>
-                            </a>
+                            <i class="fas fa-trash-alt"></i>
                         </th>
                     </tr>
                 </table>
+
                 {% for user in users %}
+                <!-- populated table content -->
                 <table>
                     <tr>
                         <td class="table-title-col">{{ user.user_type|title }}</td>
-                        <td class="table-btn-col">
+                        <!-- <td class="table-btn-col">
                             <a href="" class="btn btn-primary edit-btn">Edit</a>
-                        </td>
+                        </td> -->
                         <td class="table-btn-col">
-                            <a href="{{ url_for('delete_user', user_id=user._id) }}"
-                                class="btn btn-danger delete-btn">Delete</a>
+                            <form action="{{ url_for('delete_user', user_id=user._id) }}"
+                                id="deleteConfirm{{ user._id }}">
+                                <button class="btn btn-danger delete-btn" data-target="#modalDelete{{ user._id }}"
+                                    data-toggle="modal" type="button" ">DELETE
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 </table>
-                {% endfor %}
+            
+                <!-- Delete Item Modal -->
+                <div class="modal fade" id="modalDelete{{ user._id }}" tabindex="-1" role="dialog"
+                                    aria-labelledby="modalDelete" aria-hidden="true">
+                                    <div class="modal-dialog modal-md modal-notify modal-danger" role="document">
+                                        <div class="modal-content text-center">
+                                            <div class="modal-header d-flex justify-content-center">
+                                                <p class="heading">Are you sure you want to DELETE this user?</p>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><i class="fas fa-exclamation-circle"></i> WARNING:</p>
+                                                <p>This action cannot be undone!</p>
+                                                <div class="modal-footer flex-center">
+
+                                                    <button class="btn btn-outline-danger" type="submit"
+                                                        form="deleteConfirm{{ user._id }}">
+                                                        Confirm
+                                                    </button>
+
+                                                    <button class="btn btn-danger waves-effect" type="button"
+                                                        data-dismiss="modal">
+                                                        <i class="fas fa-times animated rotateIn"></i>
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
             </div>
+
+            <!-- Add User Modal -->
+            <div class="modal fade" id="modalAddUser" tabindex="-1" role="dialog" aria-labelledby="modalAddUser"
+                aria-hidden="true">
+                <div class="modal-dialog modal-md modal-notify modal-success" role="document">
+                    <div class="modal-content text-center">
+                        <div class="modal-header d-flex justify-content-center">
+                            <p class="heading">Are you sure you want to ADD a new user?</p>
+                        </div>
+                        <div class="modal-body">
+                            <div class="modal-footer flex-center">
+                                <button class="btn btn-outline-success" type="submit" form="addUserConfirm">
+                                    Confirm</span>
+                                </button>
+                                <button class="btn btn-danger waves-effect" type="button" data-dismiss="modal">
+                                    <i class="fas fa-times animated rotateIn"></i>
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
+    {% endif %}
+</div>
 </div>
 
-{% endif %}
 {% endblock %}

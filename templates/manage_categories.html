@@ -9,7 +9,7 @@
         <hr>
         <!-- Add new category -->
         <h2>Add Resource Category</h2>
-        <form id="add-confirm" action="{{ url_for('add_category') }}" method="POST">
+        <form id="addConfirm" action="{{ url_for('add_category') }}" method="POST">
 
             <!-- new category name -->
             <div class="row">
@@ -29,12 +29,13 @@
                 <div class="col-12 ">
 
                     <!-- Button trigger modal-->
-                    <button type="button" class="btn add-btn" data-toggle="modal" data-target="#modalAdd">
+                    <button type="button" class="btn add-btn" data-toggle="modal" data-target="#modalAddItem">
                         <i class="fas fa-folder-plus"></i>
                         Add Category
                     </button>
                 </div>
             </div>
+
         </form>
         <hr>
 
@@ -67,29 +68,60 @@
                         <!-- category heading -->
                         <td class="table-title-col">{{ category.category_name }}</td>
 
-                        
-                        <form id="delete-confirm" method="POST">
 
-                            <!-- edit button  -->
-                            <td class="table-btn-col">
-                                <a href="{{ url_for('edit_category', category_id=category._id) }}"
-                                    class="btn btn-primary edit-btn">
-                                    Edit
-                                </a>
-                            </td>
+                        <!-- edit button  -->
+                        <td class="table-btn-col">
 
-                            <!-- delete button  -->
-                            <td class="table-btn-col">
-                                <!-- Button trigger modal-->
-                                <a type="button" href="{{ url_for('delete_category', category_id=category._id) }}" 
-                                    class="btn btn-danger delete-btn" data-toggle="modal" data-target="#modalDelete">
+                            <a href="{{ url_for('edit_category', category_id=category._id) }}"
+                                class="btn btn-primary edit-btn">
+                                Edit
+                            </a>
+                        </td>
+
+
+                        <td class="table-btn-col">
+
+                            <!-- Trigger delete confirmation modal-->
+                            <form id="deleteConfirm{{ resource._id }}"
+                                action="{{ url_for('delete_category', category_id=category._id) }}">
+                                <button type="button" class="btn btn-danger delete-btn" data-toggle="modal"
+                                    data-target="#modalDelete{{ resource._id }}">
                                     Delete
-                                </a>
-                            </td>
-                        </form>
+                                </button>
+                            </form>
+
+                        </td>
+
                     </tr>
                 </table>
 
+                <!-- Delete Item Modal -->
+                <div class=" modal fade" id="modalDelete{{ category._id }}" tabindex="-1" role="dialog"
+                    aria-labelledby="modalDelete" aria-hidden="true">
+                    <div class="modal-dialog modal-md modal-notify modal-danger" role="document">
+                        <div class="modal-content text-center">
+                            <div class="modal-header d-flex justify-content-center">
+                                <p class="heading">Are you sure you want to DELETE this item?</p>
+                            </div>
+                            <div class="modal-body">
+                                <p><i class="fas fa-exclamation-circle"></i> WARNING:</p>
+                                <p>This action cannot be undone!</p>
+                                <div class="modal-footer flex-center">
+
+                                    <button class="btn btn-outline-danger" type="submit"
+                                        form="deleteConfirm{{ category._id }}">
+                                        Confirm
+                                    </button>
+
+                                    <button class="btn btn-danger waves-effect" type="button" data-dismiss="modal">
+                                        <i class="fas fa-times animated rotateIn"></i>
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {% endfor %}
             </div>
         </div>
