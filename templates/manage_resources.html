@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% set active_page = 'manage_resources' %}
 {% block content %}
-
+{% if session.user|lower == 'lead' or session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
 <div class="container">
     <div class="jumbotron">
         <h1>Manage Resources</h1>
@@ -22,40 +22,32 @@
         <hr>
 
         <!-- Edit existing resources -->
-        {% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
+        
         <div class="row">
             <div class="col-12">
-                <h2 class="mt-4 mb-4">Manage Existing Categories</h2>
+                <h2 class="mt-4 mb-4">Manage Existing Resources</h2>
                 <!-- table headings -->
                 <table>
                     <tr>
                         <th class="cat-name-col">
-                            <strong>Category Name</strong>
-                        </th>
-                        <th class="table-btn-col">
-                            <a href="" class="btn btn-primary edit-btn">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                        </th>
-                        <th class="table-btn-col">
-                            <a href="" class="btn btn-danger delete-btn">
-                                <i class="fas fa-trash-alt"></i>
-                            </a>
+                            <strong>Resource Name</strong>
                         </th>
                     </tr>
                 </table>
 
                 {% for resource in resources %}
+                
                 <!-- populated table content -->
                 <table>
                     <tr>
                         <td class="table-title-col">{{ resource.title }}</td>
+                        
                         <td class="table-btn-col">
 
                             <a href="{{ url_for('edit_resource', resource_id=resource._id) }}"
                                 class="btn btn-primary edit-btn">Edit</a>
                         </td>
-
+                        
                         <td class="table-btn-col">
                             <!-- Trigger delete confirmation modal-->
                             <form id="deleteConfirm{{ resource._id }}"
@@ -64,7 +56,9 @@
                                     data-target="#modalDelete{{ resource._id }}">Delete
                                 </button>
                             </form>
+                           
                         </td>
+                        
                     </tr>
                 </table>
 
@@ -98,8 +92,9 @@
                 {% endfor %}
             </div>
         </div>
-        {% endif %}
+        
     </div>
 </div>
+{% endif %}
 
 {% endblock %}
