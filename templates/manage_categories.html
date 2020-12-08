@@ -82,10 +82,10 @@
                         <td class="table-btn-col">
 
                             <!-- Trigger delete confirmation modal-->
-                            <form id="deleteConfirm{{ resource._id }}"
+                            <form id="deleteConfirm{{ category._id }}"
                                 action="{{ url_for('delete_category', category_id=category._id) }}">
                                 <button type="button" class="btn btn-danger delete-btn" data-toggle="modal"
-                                    data-target="#modalDelete{{ resource._id }}">
+                                    data-target="#modalDelete{{ category._id }}">
                                     Delete
                                 </button>
                             </form>
