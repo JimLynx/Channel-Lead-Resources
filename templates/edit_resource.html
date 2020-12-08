@@ -4,7 +4,7 @@
 <div class="container">
     <div class="jumbotron">
         <h1>Edit Resource</h1>
-        <form id="edit-confirm" action="{{ url_for('edit_resource', resource_id=resource._id) }}" method="POST">
+        <form id="editConfirm" action="{{ url_for('edit_resource', resource_id=resource._id) }}" method="POST">
                 <p>Hi {{ session.user|title }}, please edit neccessary fields below</p>
                 <hr>
 
@@ -112,7 +112,8 @@
                         <button type="button" class="btn btn-primary btn-block my-4" data-toggle="modal"
                             data-target="#modalEdit">
                             <i class="far fa-check-circle"></i>
-                            EDIT</button>
+                            EDIT
+                        </button>
                     </div>
                     <!-- Cancel button - return to resource page -->
                     <div class="col-6">
