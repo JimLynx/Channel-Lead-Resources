@@ -5,105 +5,93 @@
 <div class="container">
     <div class="jumbotron">
         <h1>Channel Lead Resources</h1>
- 
+
         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis beatae totam itaque, ratione ipsam dolore
             eveniet doloribus veniam quibusdam fugiat officiis, ducimus blanditiis impedit, sit inventore ut esse. Aut,
             assumenda.</p>
         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis beatae totam itaque, ratione ipsam dolore
             eveniet doloribus veniam quibusdam fugiat officiis, ducimus blanditiis impedit, sit inventore ut esse. Aut,
             assumenda.</p>
-        
 
 
-            <form action="{{ url_for('search') }}" method="POST" class="col-12">
+
+        <form action="{{ url_for('search') }}" method="POST" class="col-12">
+            <div class="row">
+                <div class="col-12 col-md-8">
+                    <label for="query">
+                        Search Resources
+                    </label>
+                    <input type="text" name="query" id="query" class="form-control mr-sm-2 validate"
+                        placeholder="Search" aria-label="Search" required>
+                </div>
+                <div class="col-12 col-md4">
+                    <a href="{{ url_for('resources') }}" class="btn btn-block my-4 btn-primary">
+                        <i class="fas fa-trash-restore"></i>
+                        Reset
+                    </a>
+                    <button class="btn btn-block my-4" type="submit">
+                        <i class="fas fa-search"></i>
+                        Search
+                    </button>
+                </div>
+            </div>
+        </form>
+
+
+        {% if resources|length > 0 %}
+        {% for resource in resources %}
+
+        <!-- collapsible heading button -->
+        <button type="button" class="resource-btn btn btn-info" data-toggle="collapse"
+            data-target={{ "#resource-content" + loop.index|string }}>
+            <div class="container">
                 <div class="row">
-                    <div class="col-12 col-md-8">
-                        <label for="query">
-                            Search Resources
-                        </label>
-                        <input type="text" name="query" id="query" class="form-control mr-sm-2 validate" placeholder="Search"
-                            aria-label="Search"required>
-                    </div>
-                    <div class="col-12 col-md4">
-                        <a href="{{ url_for('resources') }}" class="btn btn-block my-4 btn-primary">
-                            <i class="fas fa-trash-restore"></i>
-                            Reset
-                        </a>
-                        <button class="btn btn-block my-4" type="submit">
-                            <i class="fas fa-search"></i>
-                            Search
-                        </button>
+                    <div class="col-12">
+                        <h6 class="resource_title mt-2 mb-2">{{ resource.title }}</h6>
                     </div>
                 </div>
-            </form>
-            
+                <div class="row">
+                    <div class="col-12"><i class="fas fa-angle-double-down"></i></div>
+                </div>
+            </div>
+        </button>
 
-            {% if resources|length > 0 %}
-            {% for resource in resources %}
-
-            <!-- collapsible heading button -->
-            <button type="button" class="resource-btn btn btn-info" data-toggle="collapse"
-                data-target={{ "#resource-content" + loop.index|string }}>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <h6 class="resource_title mt-2 mb-2">{{ resource.title }}</h6>
-                        </div>
+        <!-- post content -->
+        <div id={{ "resource-content" + loop.index|string }} class="collapse resource-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <!-- post document url -->
+                        <embed src={{ resource.document_url }} width="100%" height="98%" />
                     </div>
-                    <div class="row">
-                        <div class="col-5 edit-col">
-                            {% if session.user|lower == 'lead' or session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
-                            <a href="{{ url_for('edit_resource', resource_id=resource._id) }}" class="btn edit-btn">
-                                Edit
-                            </a>
-                            {% endif %}
-                        </div>
-                        <div class="col-2"><i class="fas fa-angle-double-down"></i></div>
-                        <div class="col-5 delete-col">
-                            {% if session.user|lower == 'lead' or session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
-                            <a href="{{ url_for('delete_resource', resource_id=resource._id) }}" type="button"
-                                class="btn delete-btn">
-                                Delete
-                            </a>
-                            {% endif %}
+
+                    <!-- post video url -->
+                    <div class="col-12 col-md-6 resource-video">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            {{ resource.video_url|safe }}
                         </div>
                     </div>
                 </div>
-            </button>
-
-            <!-- post content -->
-            <div id={{ "resource-content" + loop.index|string }} class="collapse resource-content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 col-md-6">
-                            <!-- post document url -->
-                            <embed src={{ resource.document_url }} width="100%" height="98%" />
-                        </div>
-
-                        <!-- post video url -->
-                        <div class="col-12 col-md-6 resource-video">
-                            <div class="embed-responsive embed-responsive-16by9">
-                                {{ resource.video_url|safe }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <!-- post description -->
-                        <div class="col-12 resource-description">
-                            <p>{{ resource.description }}</p>
-                        </div>
+                <div class="row">
+                    <!-- post description -->
+                    <div class="col-12 resource-description">
+                        <p>{{ resource.description }}</p>
                     </div>
                 </div>
-
-                <!-- by/date -->
-                <p><em stye="text-transform: capitalize;">Created on {{ resource.date }} by
-                        {{ resource.created_by|title }}</em></p>
             </div>
 
-            {% endfor %}
-            {% else %}
-            <h3 class="card-title pt-3 mb-5 font-bold">No results found, please try another search</h3>
-            {% endif %}
+            <!-- post by/date -->
+            <p>
+                <em stye="text-transform: capitalize;">Created on {{ resource.date }} by
+                    {{ resource.created_by|title }}
+                </em>
+            </p>
+        </div>
+
+        {% endfor %}
+        {% else %}
+        <h3 class="card-title pt-3 mb-5 font-bold">No results found, please try another search</h3>
+        {% endif %}
 
     </div>
 </div>
