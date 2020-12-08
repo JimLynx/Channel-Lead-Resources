@@ -5,7 +5,7 @@
 <div class="container">
     <div class="jumbotron">
         <h1>Add Resource</h1>
-        <form id="addConfirm" action="{{ url_for('add_resource') }}" method="POST">
+        <form action="{{ url_for('add_resource') }}" method="POST">
             <div class="container">
                 <p>Hi {{ session.user|title }}, please post in all sections and be as detailed as possible</p>
                 <hr>
@@ -46,8 +46,8 @@
                         <span class="red-asterisk"> *</span>
                     </label>
                     <textarea type="text" name="description" id="description" class="form-control mb-4 validate"
-                        placeholder="Please be as detailed as possible" rows="5" minlength="5" maxlength="200" required>
-                    </textarea>
+                        placeholder="Please be as detailed as possible" rows="5" minlength="5" maxlength="200"
+                        required></textarea>
                 </div>
 
                 <!-- channel lead name -->
@@ -101,12 +101,11 @@
             <!-- submit button -->
             <div class="row">
                 <div class="col-6">
-                    <!-- Button trigger modal-->
-                    <button type="button" class="btn btn-primary btn-block my-4" data-toggle="modal"
-                        data-target="#modalAdd">
+                    <button type="submit" class="btn btn-primary btn-block my-4">
                         <i class="fas fa-plus-square"></i>
                         ADD
                     </button>
+
                 </div>
                 <!-- Cancel button - return to resource page -->
                 <div class="col-6">

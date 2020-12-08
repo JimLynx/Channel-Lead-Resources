@@ -29,7 +29,7 @@
                 <div class="col-12 ">
 
                     <!-- Button trigger modal-->
-                    <button type="button" class="btn add-btn" data-toggle="modal" data-target="#modalAdd">
+                    <button type="submit" class="btn add-btn">
                         <i class="fas fa-folder-plus"></i>
                         Add Category
                     </button>
@@ -40,7 +40,7 @@
         <hr>
 
         <!-- Edit existing categories -->
-        {% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
+        
         <div class="row">
             <div class="col-12">
                 <h2 class="mt-4 mb-4">Manage Existing Categories</h2>
@@ -48,16 +48,6 @@
                     <tr>
                         <th class="cat-name-col">
                             <strong>Category Name</strong>
-                        </th>
-                        <th class="table-btn-col">
-                            <a href="" class="btn btn-primary edit-btn">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                        </th>
-                        <th class="table-btn-col">
-                            <a href="" class="btn btn-danger delete-btn">
-                                <i class="fas fa-trash-alt"></i>
-                            </a>
                         </th>
                     </tr>
                 </table>
@@ -67,20 +57,15 @@
                     <tr>
                         <!-- category heading -->
                         <td class="table-title-col">{{ category.category_name }}</td>
-
-
+                        {% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
                         <!-- edit button  -->
                         <td class="table-btn-col">
-
                             <a href="{{ url_for('edit_category', category_id=category._id) }}"
                                 class="btn btn-primary edit-btn">
                                 Edit
                             </a>
                         </td>
-
-
                         <td class="table-btn-col">
-
                             <!-- Trigger delete confirmation modal-->
                             <form id="deleteConfirm{{ category._id }}"
                                 action="{{ url_for('delete_category', category_id=category._id) }}">
@@ -89,9 +74,8 @@
                                     Delete
                                 </button>
                             </form>
-
                         </td>
-
+                        {% endif %}
                     </tr>
                 </table>
 
@@ -125,7 +109,7 @@
                 {% endfor %}
             </div>
         </div>
-        {% endif %}
+        
     </div>
 
     {% endblock %}
