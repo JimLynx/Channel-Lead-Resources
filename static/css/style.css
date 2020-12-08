@@ -38,6 +38,10 @@ hr {
     margin: 40px auto;
 }
 
+.fas {
+    color: var(--p-orange);
+}
+
 .container {
     margin: 3rem auto;
 }
@@ -114,7 +118,7 @@ hr {
     color: var(--s-light-grey)
 }
 
-/* for add user and add category */
+/* TBC-style consistently */
 .add-btn {
     height: 40px;
     text-align: center;
@@ -165,26 +169,19 @@ label {
     padding: 5px;
 }
 
-.edit-btn,
-.delete-btn {
-    padding: 5px;
-    margin: 2px;
-    width: 3.5rem;
-    font-size: .6rem;
-}
-
-.edit-btn {
-    background-color: green;
-}
-
-.delete-btn {
-    background-color: red;
-}
-
 .search-btn {
     font-size: 75%;
     height: fit-content;
     padding: 0 20px;
+}
+
+
+/* Admin 'Manage' Pages */
+.edit-btn,
+.delete-btn {
+    padding: 5px;
+    width: 3.5rem;
+    font-size: .6rem;
 }
 
 .edit-col {
@@ -195,7 +192,9 @@ label {
     text-align: end;
 }
 
-/* -- MANAGE CATEGORY PAGE -- */
+.table-title-col {
+    overflow-wrap: anywhere;
+}
 
 table {
     width: 100%;
@@ -210,29 +209,12 @@ table th {
     font-weight: 500;
 }
 
-th {
-    background-color: var(--p-dark-grey);
-    color: white;
-}
-
-.cat-name-col {
-    text-align: center;
-}
-
-.cat-title-col {
-    text-align: left; 
-}
-.cat-name-col,
-.cat-title-col {
-    width: 70%;
-}
 .table-btn-col {
     width: 15%;
 }
 
-table .btn {
-    text-align: center;
-    min-width: 55px;
+.btn-col {
+    padding: 0;
 }
 
 /* -- FOOTER -- */
@@ -357,4 +339,4 @@ footer i:hover {
     form {
         padding: 0px 3rem;
     }
-}
+} 
