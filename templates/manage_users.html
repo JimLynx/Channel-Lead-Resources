@@ -8,15 +8,18 @@
         <h1>Manage Users</h1>
         <p>Hi {{ session.user|title }}, you're on the user management page.</p>
         <hr>
+        <h2 class="mt-4 mb-4">
+            <i class="fas fa-plus"></i>
+            Add New User
+        </h2>
         <!-- Add new user -->
-        <h2>Add New User</h2>
-        <form id="addUserConfirm" action="{{ url_for('add_users', user=session.user) }}" method="POST">
+        <form action="{{ url_for('add_users', user=session.user) }}" method="POST">
             <div class="row">
                 <!-- New username -->
                 <div class="col-12 col-md-6">
                     <label for="username">
                         <i class="fas fa-user-circle"></i>
-                        Add New Username:
+                        Username:
                         <span class="red-asterisk"> *</span>
                     </label>
                     <input type="text" name="username" id="username" class="form-control validate mb-4"
@@ -27,7 +30,7 @@
                 <div class="col-12 col-md-6">
                     <label for="password">
                         <i class="fas fa-key"></i>
-                        Add New Password:
+                        Password:
                         <span class="red-asterisk"> *</span>
                     </label>
                     <input type="password" name="password" id="password" class="form-control validate mb-4"
@@ -36,9 +39,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-
-                    <!-- Button trigger modal-->
-                    <button type="button" class="btn add-btn" data-toggle="modal" data-target="#modalAddUser">
+                    <button type="submit" class="btn add-btn">
                         <i class="fas fa-user-plus"></i>
                         Add User
                     </button>
@@ -50,97 +51,78 @@
         <!-- Edit existing users -->
         <div class="row">
             <div class="col-12">
-                <h2 class="mt-4 mb-4">Manage Existing Users</h2>
-                <!-- table headings -->
-                <table>
-                    <tr>
-                        <th class="cat-name-col">
-                            <strong>Username</strong>
-                        </th>
-                        <th class="table-btn-col">
-                            <i class="fas fa-edit"></i>
-                        </th>
-                        <th class="table-btn-col">
-                            <i class="fas fa-trash-alt"></i>
-                        </th>
-                    </tr>
-                </table>
+                <h2 class="mt-4 mb-4">
+                    <i class="fas fa-trash"></i>
+                    Delete Users
+                </h2>
 
-                {% for user in users %}
-                <!-- populated table content -->
-                <table>
-                    <tr>
-                        <td class="table-title-col">{{ user.user_type|title }}</td>
-                        <!-- <td class="table-btn-col">
-                            <a href="" class="btn btn-primary edit-btn">Edit</a>
-                        </td> -->
-                        <td class="table-btn-col">
-                            <form action="{{ url_for('delete_user', user_id=user._id) }}"
-                                id="deleteConfirm{{ user._id }}">
-                                <button class="btn btn-danger delete-btn" data-target="#modalDelete{{ user._id }}"
-                                    data-toggle="modal" type="button" ">DELETE
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                </table>
-            
-                <!-- Delete Item Modal -->
-                <div class="modal fade" id="modalDelete{{ user._id }}" tabindex="-1" role="dialog"
-                                    aria-labelledby="modalDelete" aria-hidden="true">
-                                    <div class="modal-dialog modal-md modal-notify modal-danger" role="document">
-                                        <div class="modal-content text-center">
-                                            <div class="modal-header d-flex justify-content-center">
-                                                <p class="heading">Are you sure you want to DELETE this user?</p>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p><i class="fas fa-exclamation-circle"></i> WARNING:</p>
-                                                <p>This action cannot be undone!</p>
-                                                <div class="modal-footer flex-center">
+                <div class="container">
+                    <div class="row">
+                        {% for user in users %}
+                        <!-- populated table content -->
+                        <table>
+                            <tr>
+                                <div class="col-12 col-md-8">
+                                    <!-- user heading -->
+                                    <td class="table-title-col">
+                                        {{ user.user_type|title }}
+                                    </td>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <td class="table-btn-col">
+                                        <form class="btn-col" id="deleteConfirm{{ user._id }}"
+                                            action="{{ url_for('delete_user', user_id=user._id) }}">
+                                            <!-- Trigger delete confirmation modal-->
+                                            <button class="btn btn-danger delete-btn"
+                                                data-target="#modalDelete{{ user._id }}" data-toggle="modal"
+                                                type="button" ">
+                                            DELETE
+                                            </button>
+                                        </form>
+                                    </td>
+                                </div>
+                            </tr>
 
-                                                    <button class="btn btn-outline-danger" type="submit"
-                                                        form="deleteConfirm{{ user._id }}">
-                                                        Confirm
-                                                    </button>
-
-                                                    <button class="btn btn-danger waves-effect" type="button"
-                                                        data-dismiss="modal">
-                                                        <i class="fas fa-times animated rotateIn"></i>
-                                                        Cancel
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                        </table>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
+        </div>
+                
+        <!-- Delete Item Modal -->
+        {% for user in users %}
+        <div class=" modal fade" id="modalDelete{{ user._id }}" tabindex="-1" role="dialog"
+            aria-labelledby="modalDelete" aria-hidden="true">
+            <div class="modal-dialog modal-md modal-notify modal-danger"
+                role="document">
+                <div class="modal-content text-center">
+                    <div class="modal-header d-flex justify-content-center">
+                        <p class="heading">Are you sure you want to DELETE this
+                            user?</p>
+                    </div>
+                    <div class="modal-body">
+                        <p><i class="fas fa-exclamation-circle"></i> WARNING:</p>
+                        <p>This action cannot be undone!</p>
+                        <div class="modal-footer flex-center">
 
-            <!-- Add User Modal -->
-            <div class="modal fade" id="modalAddUser" tabindex="-1" role="dialog" aria-labelledby="modalAddUser"
-                aria-hidden="true">
-                <div class="modal-dialog modal-md modal-notify modal-success" role="document">
-                    <div class="modal-content text-center">
-                        <div class="modal-header d-flex justify-content-center">
-                            <p class="heading">Are you sure you want to ADD a new user?</p>
-                        </div>
-                        <div class="modal-body">
-                            <div class="modal-footer flex-center">
-                                <button class="btn btn-outline-success" type="submit" form="addUserConfirm">
-                                    Confirm</span>
-                                </button>
-                                <button class="btn btn-danger waves-effect" type="button" data-dismiss="modal">
-                                    <i class="fas fa-times animated rotateIn"></i>
-                                    Cancel
-                                </button>
-                            </div>
+                            <button class="btn btn-outline-danger" type="submit"
+                                form="deleteConfirm{{ user._id }}">
+                                Confirm
+                            </button>
+
+                            <button class="btn btn-danger waves-effect"
+                                type="button" data-dismiss="modal">
+                                <i class="fas fa-times animated rotateIn"></i>
+                                Cancel
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-            {% endfor %}
         </div>
+        {% endfor %}
     </div>
-    {% endif %}
 </div>
-</div>
-
+{% endif %}
 {% endblock %}

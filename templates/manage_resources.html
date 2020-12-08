@@ -1,18 +1,21 @@
 {% extends "base.html" %}
 {% set active_page = 'manage_resources' %}
 {% block content %}
+
 {% if session.user|lower == 'lead' or session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
 <div class="container">
     <div class="jumbotron">
         <h1>Manage Resources</h1>
         <p>Hi {{ session.user|title }}, you're on the resource management page.</p>
         <hr>
+        <h2 class="mt-4 mb-4">
+            <i class="fas fa-plus"></i> 
+            Add New Resource
+        </h2>
         <!-- Add new resource -->
-        <h2 class="mt-4 mb-4"><i class="fas fa-plus"></i> Add New Resource</h2>
-
-        <!-- link to add resource page -->
         <div class="row">
             <div class="col-12 ">
+                <!-- link to add resource page -->
                 <a href="{{ url_for('add_resource') }}" class="btn" type="submit">
                     <i class="fas fa-folder-plus"></i>
                     Add New Resource
@@ -24,10 +27,13 @@
         <!-- Edit existing resources -->
         <div class="row">
             <div class="col-12">
-                <!-- table headings -->
-     
-                            <h2 class="mt-4 mb-4"><i class="fas fa-edit"></i> Edit / <i class="fas fa-trash"></i> Delete Resources</h2>
- 
+                <h2 class="mt-4 mb-4">
+                    <i class="fas fa-edit"></i> 
+                    Edit / 
+                    <i class="fas fa-trash"></i> 
+                    Delete Resources
+                </h2>
+                
                 <div class="container">
                     <div class="row">
                         {% for resource in resources %}
@@ -35,17 +41,24 @@
                         <table>
                             <tr>
                                 <div class="col-12 col-md-8">
-                                    <td class="table-title-col">{{ resource.title }}</td>
+                                    <!-- category heading -->
+                                    <td class="table-title-col">
+                                        {{ resource.title }}
+                                    </td>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <td class="table-btn-col">
+                                        <!-- edit button  -->
                                         <a href="{{ url_for('edit_resource', resource_id=resource._id) }}"
-                                            class="btn btn-primary edit-btn">Edit</a>
-                                        <!-- Trigger delete confirmation modal-->
+                                            class="btn btn-primary edit-btn">
+                                            Edit
+                                        </a>
                                         <form class="btn-col" id="deleteConfirm{{ resource._id }}"
                                             action="{{ url_for('delete_resource', resource_id=resource._id) }}">
+                                            <!-- Trigger delete confirmation modal-->
                                             <button class=" btn btn-danger delete-btn" type="button" data-toggle="modal"
-                                                data-target="#modalDelete{{ resource._id }}">Delete
+                                                data-target="#modalDelete{{ resource._id }}">
+                                                Delete
                                             </button>
                                         </form>
                                     </td>
@@ -59,7 +72,7 @@
         </div>
 
         <!-- Delete Item Modal -->
-        {% for resource in resources %}        
+        {% for resource in resources %}
         <div class=" modal fade" id="modalDelete{{ resource._id }}" tabindex="-1" role="dialog"
             aria-labelledby="modalDelete" aria-hidden="true">
             <div class="modal-dialog modal-md modal-notify modal-danger" role="document">
@@ -71,11 +84,9 @@
                         <p><i class="fas fa-exclamation-circle"></i> WARNING:</p>
                         <p>This action cannot be undone!</p>
                         <div class="modal-footer flex-center">
-
                             <button class="btn btn-outline-danger" type="submit" form="deleteConfirm{{ resource._id }}">
                                 Confirm
                             </button>
-
                             <button class="btn btn-danger waves-effect" type="button" data-dismiss="modal">
                                 <i class="fas fa-times animated rotateIn"></i>
                                 Cancel

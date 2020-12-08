@@ -2,114 +2,122 @@
 {% set active_page = 'manage_categories' %}
 {% block content %}
 
+{% if session.user|lower == 'lead' or session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
 <div class="container">
     <div class="jumbotron">
         <h1>Manage Categories</h1>
         <p>Hi {{ session.user|title }}, you're on the category management page.</p>
         <hr>
+        <h2 class="mt-4 mb-4">
+            <i class="fas fa-plus"></i> 
+            Add New Category
+        </h2>
         <!-- Add new category -->
-        <h2>Add Resource Category</h2>
-        <form id="addConfirm" action="{{ url_for('add_category') }}" method="POST">
-
-            <!-- new category name -->
-            <div class="row">
-                <div class="col-12">
-                    <label for="category_name">
-                        <i class="fas fa-folder-open"></i>
-                        New Category Name:
-                        <span class="red-asterisk"> *</span>
-                    </label>
-                    <input type="text" name="category_name" id="category_name" class="form-control validate mb-4"
-                        placeholder="Category Name" minlength="5" maxlength="20" required>
-                </div>
+        <div class="row">
+            <div class="col-12 ">
+                <form id="addConfirm" action="{{ url_for('add_category') }}" method="POST">
+                    <!-- new category name -->
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="category_name">
+                                <i class="fas fa-folder-open"></i>
+                                New Category Name:
+                                <span class="red-asterisk"> *</span>
+                            </label>
+                            <input type="text" name="category_name" id="category_name"
+                                class="form-control validate mb-4" placeholder="Category Name" minlength="5"
+                                maxlength="20" required>
+                        </div>
+                    </div>
+                    <!-- submit button -->
+                    <div class="row">
+                        <div class="col-12 ">
+                            <button type="submit" class="btn add-btn">
+                                <i class="fas fa-folder-plus"></i>
+                                Add Category
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-
-            <!-- submit button -->
-            <div class="row">
-                <div class="col-12 ">
-
-                    <!-- Button trigger modal-->
-                    <button type="submit" class="btn add-btn">
-                        <i class="fas fa-folder-plus"></i>
-                        Add Category
-                    </button>
-                </div>
-            </div>
-
-        </form>
+        </div>
         <hr>
-
         <!-- Edit existing categories -->
-        
         <div class="row">
             <div class="col-12">
-                <h2 class="mt-4 mb-4">Manage Existing Categories</h2>
-                <table>
-                    <tr>
-                        <th class="cat-name-col">
-                            <strong>Category Name</strong>
-                        </th>
-                    </tr>
-                </table>
-
-                {% for category in categories %}
-                <table>
-                    <tr>
-                        <!-- category heading -->
-                        <td class="table-title-col">{{ category.category_name }}</td>
-                        {% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
-                        <!-- edit button  -->
-                        <td class="table-btn-col">
-                            <a href="{{ url_for('edit_category', category_id=category._id) }}"
-                                class="btn btn-primary edit-btn">
-                                Edit
-                            </a>
-                        </td>
-                        <td class="table-btn-col">
-                            <!-- Trigger delete confirmation modal-->
-                            <form id="deleteConfirm{{ category._id }}"
-                                action="{{ url_for('delete_category', category_id=category._id) }}">
-                                <button type="button" class="btn btn-danger delete-btn" data-toggle="modal"
-                                    data-target="#modalDelete{{ category._id }}">
-                                    Delete
-                                </button>
-                            </form>
-                        </td>
-                        {% endif %}
-                    </tr>
-                </table>
-
-                <!-- Delete Item Modal -->
-                <div class=" modal fade" id="modalDelete{{ category._id }}" tabindex="-1" role="dialog"
-                    aria-labelledby="modalDelete" aria-hidden="true">
-                    <div class="modal-dialog modal-md modal-notify modal-danger" role="document">
-                        <div class="modal-content text-center">
-                            <div class="modal-header d-flex justify-content-center">
-                                <p class="heading">Are you sure you want to DELETE this item?</p>
-                            </div>
-                            <div class="modal-body">
-                                <p><i class="fas fa-exclamation-circle"></i> WARNING:</p>
-                                <p>This action cannot be undone!</p>
-                                <div class="modal-footer flex-center">
-
-                                    <button class="btn btn-outline-danger" type="submit"
-                                        form="deleteConfirm{{ category._id }}">
-                                        Confirm
-                                    </button>
-
-                                    <button class="btn btn-danger waves-effect" type="button" data-dismiss="modal">
-                                        <i class="fas fa-times animated rotateIn"></i>
-                                        Cancel
-                                    </button>
+                <h2 class="mt-4 mb-4">
+                    <i class="fas fa-edit"></i> 
+                    Edit / 
+                    <i class="fas fa-trash"></i> 
+                    Delete Categories
+                </h2>
+                <div class="container">
+                    <div class="row">
+                        {% for category in categories %}
+                        <!-- populated table content -->
+                        <table>
+                            <tr>
+                                <div class="col-12 col-md-8">
+                                    <!-- category heading -->
+                                    <td class="table-title-col">
+                                        {{ category.category_name }}
+                                    </td>
                                 </div>
-                            </div>
+                                <div class="col-12 col-md-4">
+                                    <td class="table-btn-col">
+                                        <!-- edit button  -->
+                                        <a href="{{ url_for('edit_category', category_id=category._id) }}"
+                                            class="btn btn-primary edit-btn">
+                                            Edit
+                                        </a>
+                                        {% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
+                                        <form class="btn-col" id="deleteConfirm{{ category._id }}"
+                                            action="{{ url_for('delete_category', category_id=category._id) }}">
+                                            <!-- Trigger delete confirmation modal-->
+                                            <button type="button" class="btn btn-danger delete-btn" data-toggle="modal"
+                                                data-target="#modalDelete{{ category._id }}">
+                                                Delete
+                                            </button>
+                                        </form>
+                                        {% endif %}
+                                    </td>
+
+                                </div>
+                            </tr>
+                        </table>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Item Modal -->
+        {% for category in categories %}
+        <div class=" modal fade" id="modalDelete{{ category._id }}" tabindex="-1" role="dialog"
+            aria-labelledby="modalDelete" aria-hidden="true">
+            <div class="modal-dialog modal-md modal-notify modal-danger" role="document">
+                <div class="modal-content text-center">
+                    <div class="modal-header d-flex justify-content-center">
+                        <p class="heading">Are you sure you want to DELETE this item?</p>
+                    </div>
+                    <div class="modal-body">
+                        <p><i class="fas fa-exclamation-circle"></i> WARNING:</p>
+                        <p>This action cannot be undone!</p>
+                        <div class="modal-footer flex-center">
+                            <button class="btn btn-outline-danger" type="submit" form="deleteConfirm{{ category._id }}">
+                                Confirm
+                            </button>
+                            <button class="btn btn-danger waves-effect" type="button" data-dismiss="modal">
+                                <i class="fas fa-times animated rotateIn"></i>
+                                Cancel
+                            </button>
                         </div>
                     </div>
                 </div>
-                {% endfor %}
             </div>
         </div>
-        
+        {% endfor %}
     </div>
-
-    {% endblock %}
+</div>
+{% endif %}
+{% endblock %}
