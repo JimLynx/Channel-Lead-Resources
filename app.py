@@ -23,6 +23,7 @@ mongo = PyMongo(app)
 currentDate = datetime.today().strftime('%d-%m-%Y')
 
 # create variables for user groups to shorten code - TBA
+
 # admin_1 = mongo.db.users.find(session['user'] == 'superuser' or session['user'] == 'assessor')
 # admin_2 = mongo.db.users.find(session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead')
 # admin_3 = mongo.db.users.find(session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead' or session['user'] == 'student')
@@ -116,7 +117,7 @@ def resources():
         # count documents to calculate number of pagination options
         count = int(mongo.db.cl_resources.count_documents({}) / num)
         if page > count or page < 1:
-            page = 1
+            return render_template('errors/404.html'), 404
         # page - 1 ensures that the first items can be found
         # multiply the page number  by the item limit for current page results
         resources = list(mongo.db.cl_resources.find(
@@ -267,6 +268,20 @@ def delete_category(category_id):
         flash("Selected Category Successfully Deleted.", "info")
         return redirect(url_for('manage_categories'))
     return redirect(url_for('resources'))
+
+
+
+# handle 404 page not found error
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('errors/404.html', error=error), 404
+# ============================================ #
+
+
+# handle 500 internal server error 
+@app.errorhandler(500)
+def internal_error(error):
+    return render_template('errors/500.html', error=error), 500
 
 
 if __name__ == "__main__":
