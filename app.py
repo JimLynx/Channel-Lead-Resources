@@ -5,6 +5,7 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 if os.path.exists("env.py"):
     import env
 
@@ -16,6 +17,10 @@ app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
+
+
+# current date variable
+currentDate = datetime.today().strftime('%d-%m-%Y')
 
 # Render Home page
 
@@ -147,7 +152,7 @@ def add_resource():
                 "video_url": request.form.get("video_url"),
                 "document_url": request.form.get("document_url"),
                 "created_by": request.form.get("created_by"),
-                "date": request.form.get("date")
+                "date": currentDate
             }
             mongo.db.cl_resources.insert_one(upload)
             flash(
@@ -171,7 +176,7 @@ def edit_resource(resource_id):
                 "video_url": request.form.get("video_url"),
                 "document_url": request.form.get("document_url"),
                 "created_by": request.form.get("created_by"),
-                "date": request.form.get("date")
+                "date": currentDate
             }
             mongo.db.cl_resources.update(
                 {'_id': ObjectId(resource_id)}, upload)
