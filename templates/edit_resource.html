@@ -7,7 +7,7 @@
         <form id="editConfirm" action="{{ url_for('edit_resource', resource_id=resource._id) }}" method="POST">
                 <p>Hi {{ session.user|title }}, please edit neccessary fields below</p>
                 <hr>
-
+                <em><small class="text-muted">This resource was last updated by {{ resource.created_by|title }} on {{ resource.date }}</small></em>
                 <!-- category -->
                 <div class="row">
                     <label for="category_name">
@@ -90,19 +90,9 @@
                         {{- resource.video_url -}}
                     </textarea>
                 </div>
-
                 <hr>
 
-                <!-- date picker -->
-                <!-- <div class="row">
-                    <label for="date">
-                        <i class="far fa-calendar-alt"></i>
-                        Date Posted:
-                        <span class="red-asterisk"> *</span>
-                    </label>
-                    <input type="text" name="date" id="date" class="form-control validate mb-4"
-                        value="{{ resource.date }}" placeholder="dd/mm/yy" required>
-                </div> -->
+                
 
 
                 <!-- submit button -->
