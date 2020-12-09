@@ -61,16 +61,22 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-md-6">
-                        <!-- post document url -->
-                        <embed src={{ resource.document_url }} width="100%" height="98%" />
+                        <!-- post PDF (opens modal) -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target={{ "#pdfModal" + loop.index|string }}>
+                            Read and download the PDF here!
+                        </button>
+
                     </div>
 
-                    <!-- post video url -->
+                    <!-- post VIDEO (opens modal) -->
                     <div class="col-12 col-md-6 resource-video">
-                        <div class="embed-responsive embed-responsive-16by9">
-                            {{ resource.video_url|safe }}
-                        </div>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target={{ "#videoModal" + loop.index|string }}>
+                            Watch the Webinar recording here!
+                        </button>
+
                     </div>
+
                 </div>
                 <div class="row">
                     <!-- post description -->
@@ -82,10 +88,52 @@
 
             <!-- post by/date -->
             <p>
-                <em stye="text-transform: capitalize;">Created on {{ resource.date }} by
-                    {{ resource.created_by|title }}
+                <em>
+                    <small class="text-muted">
+                        Created on {{ resource.date }} by {{ resource.created_by|title }}
+                    </small>
                 </em>
             </p>
+        </div>
+
+
+        <!-- PDF Modal -->
+        <div class="modal fade" id={{ "pdfModal" + loop.index|string }} tabindex="-1" role="dialog"
+            aria-labelledby="pdfModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered " role="document">
+                <div class="modal-content pdfContainer">
+                    <div class="modal-body mb-0 p-0">
+                        <embed class="pdf-embed" src={{ resource.document_url }} />
+                    </div>
+                    <div class="modal-footer justify-content-center flex-column flex-md-row">
+                        <span class="mr-4">{{ resource.title }}</span>
+                        <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4"
+                            data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIDEO Modal -->
+        <div class="modal fade" id={{ "videoModal" + loop.index|string }} tabindex="-1" role="dialog" aria-labelledby="videoModal"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="video">
+                <div class="modal-content">
+                    <div class="modal-body mb-0 p-0">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            {{ resource.video_url|safe + loop.index|string }}
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center flex-column flex-md-row">
+                        <span class="mr-4">{{ resource.title }}</span>
+                        <button type="button "
+                            class="btn btn-outline-primary btn-rounded btn-md ml-4 cancelVid"
+                            data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         {% endfor %}
@@ -95,5 +143,11 @@
 
     </div>
 </div>
+
+
+<!-- Button trigger modal-->
+
+
+
 
 {% endblock %}

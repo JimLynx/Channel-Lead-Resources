@@ -175,8 +175,23 @@ label {
     padding: 0 20px;
 }
 
+/* PDF MODAL */
+.modal-fullscreen {
+    min-width: fit-content;
+}
 
-/* Admin 'Manage' Pages */
+.pdfContainer {
+    height: 80vh;
+    width: 80vw;
+    margin: 50px auto;
+}
+
+.pdf-embed {
+    height: 100%;
+    width: 100%;
+}
+
+/* ADMIN 'MANAGE' PAGES */
 .edit-btn,
 .delete-btn {
     padding: 5px;
