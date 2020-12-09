@@ -19,7 +19,6 @@
                     Search Resources
                 </label>
 
-
                 <input type="text" name="query" id="query" class="form-control mr-sm-2 validate" placeholder="Search"
                     aria-label="Search" required>
                 <!-- <i class="fas fa-search"></i> -->
@@ -84,7 +83,7 @@
             <p>
                 <em>
                     <small class="text-muted">
-                        Created on {{ resource.date }} by {{ resource.created_by|title }}
+                        Last updated on {{ resource.date }} by {{ resource.created_by|title }}
                     </small>
                 </em>
             </p>
@@ -131,6 +130,25 @@
         {% endfor %}
         {% else %}
         <h3 class="card-title pt-3 mb-5 font-bold">No results found, please try another search</h3>
+        {% endif %}
+
+        <!-- Navigation -->
+        {% if search == False %}
+        <nav aria-label="Page navigation">
+            <ul style="justify-content: center; padding-top: 50px;" class="pagination pg-blue">
+                {% for i in range(0, count) %} 
+                    <li class="page-item">
+                        {% if i+1 == page %}
+                            <a class="page-link active">
+                        {% else %}
+                            <a class="page-link" href="{{ url_for('resources', page=i+1) }}">
+                        {% endif %}
+                            {{ i + 1  }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
         {% endif %}
     </div>
 </div>

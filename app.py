@@ -22,48 +22,16 @@ mongo = PyMongo(app)
 # current date variable
 currentDate = datetime.today().strftime('%d-%m-%Y')
 
-# Render Home page
-
-
-@app.route('/')
-@app.route('/home')
-def home():
-    return render_template('home.html')
-
-
-# Render Resources page.
-@app.route('/resources')
-def resources():
-    # If there is any logged in user
-    if session['user']:
-        # Find all key and values in the  cl_resources
-        # collection on MongoDB
-        resources = list(mongo.db.cl_resources.find())
-    return render_template('resources.html', resources=resources)
-
-
-# Search function
-@app.route('/search', methods=['GET', 'POST'])
-def search():
-    query = request.form.get('query')
-    # search through all on db
-    resources = list(mongo.db.cl_resources.find({'$text': {'$search': query}}))
-    return render_template('resources.html', resources=resources)
-
-
-# Contact page
-@app.route('/contact')
-def contact():
-    if session['user']:
-        resources = list(mongo.db.cl_resources.find())
-    categories = mongo.db.categories.find().sort('category_name', 1)
-    return render_template('contact.html', resources=resources, categories=categories)
-
+# create variables for user groups to shorten code - TBA
+# admin_1 = mongo.db.users.find(session['user'] == 'superuser' or session['user'] == 'assessor')
+# admin_2 = mongo.db.users.find(session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead')
+# admin_3 = mongo.db.users.find(session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead' or session['user'] == 'student')
 
 # -------- USERS -------- #
 
-
 # Login
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     user_types = list(mongo.db.users.find())
@@ -129,6 +97,51 @@ def logout():
     return redirect(url_for('login'))
 
 
+# Render Home page
+@app.route('/')
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
+
+# Render Resources page.
+@app.route('/resources')
+def resources():
+    # If there are logged in users
+    if session['user']:
+        # get the page number from request or set the page 1 if first page
+        page = int(request.args.get('page') or 1)
+        # results limit to find
+        num = 2
+        # count documents to calculate number of pagination options
+        count = int(mongo.db.cl_resources.count_documents({}) / num)
+        if page > count or page < 1:
+            page = 1
+        # page - 1 ensures that the first items can be found
+        # multiply the page number  by the item limit for current page results
+        resources = list(mongo.db.cl_resources.find(
+            {}).skip((page - 1) * num).limit(num))
+    return render_template('resources.html', resources=resources, page=page, count=count, search=False)
+
+
+# Search function
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    query = request.form.get('query')
+    # search through all on db
+    resources = list(mongo.db.cl_resources.find({'$text': {'$search': query}}))
+    return render_template('resources.html', resources=resources)
+
+
+# Contact page
+@app.route('/contact')
+def contact():
+    if session['user']:
+        resources = list(mongo.db.cl_resources.find())
+    categories = mongo.db.categories.find().sort('category_name', 1)
+    return render_template('contact.html', resources=resources, categories=categories)
+
+
 # -------- RESOURCES -------- #
 
 # Manage Resources page
@@ -157,7 +170,7 @@ def add_resource():
             mongo.db.cl_resources.insert_one(upload)
             flash(
                 "Thanks! - Your Awesome New Resource Was Successfully Added.", "success")
-            return redirect(url_for('resources'))
+            return redirect(url_for('manage_resources'))
 
         categories = mongo.db.categories.find().sort('category_name', 1)
         return render_template('add_resource.html', categories=categories)
@@ -202,7 +215,6 @@ def delete_resource(resource_id):
 
 # -------- CATEGORIES -------- #
 
-
 # Manage Categories page
 @app.route('/manage_categories')
 def manage_categories():
@@ -246,7 +258,6 @@ def edit_category(category_id):
 
 
 # Delete Category
-
 
 @app.route('/delete_category/<category_id>')
 def delete_category(category_id):
