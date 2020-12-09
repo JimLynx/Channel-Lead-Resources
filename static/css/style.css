@@ -151,7 +151,7 @@ label {
 
 .resource-btn {
     width: 100%;
-    margin-top: 20px;
+    margin: 10px 0 0 0;
     padding: 5px;
     align-items: center;
 }
@@ -162,11 +162,6 @@ label {
 
 .resource-btn i:hover {
     color: var(--p-orange);
-}
-
-.resource-btn .col-5,
-.resource-btn .col-2 {
-    padding: 5px;
 }
 
 .search-btn {
