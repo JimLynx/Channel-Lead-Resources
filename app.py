@@ -6,6 +6,7 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+import math
 if os.path.exists("env.py"):
     import env
 
@@ -102,12 +103,13 @@ def logout():
 def resources():
     # If there are logged in users
     if session['user']:
+        # Pagination
         # get the page number from request or set the page 1 if first page
         page = int(request.args.get('page') or 1)
         # results limit to find
-        num = 2
+        num = 5
         # count documents to calculate number of pagination options
-        count = int(mongo.db.cl_resources.count_documents({}) / num)
+        count = int(math.ceil(mongo.db.cl_resources.count_documents({}) / num))
         if page > count or page < 1:
             return render_template('errors/404.html'), 404
         # page - 1 ensures that the first items can be found
@@ -126,7 +128,17 @@ def search():
     return render_template('resources.html', resources=resources)
 
 
+# Search Manage Resources page
+@app.route('/search_manage_resources', methods=['GET', 'POST'])
+def search_manage_resources():
+    query = request.form.get('query')
+    # search through all on db
+    resources = list(mongo.db.cl_resources.find({'$text': {'$search': query}}))
+    return render_template('manage_resources.html', resources=resources)
+
 # Contact page
+
+
 @app.route('/contact')
 def contact():
     if session['user']:
@@ -141,9 +153,14 @@ def contact():
 @app.route('/manage_resources')
 def manage_resources():
     if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
-
-        resources = list(mongo.db.cl_resources.find())
-    return render_template('manage_resources.html', resources=resources)
+        page = int(request.args.get('page') or 1)
+        num = 5
+        count = int(math.ceil(mongo.db.cl_resources.count_documents({}) / num))
+        if page > count or page < 1:
+            return render_template('errors/404.html'), 404
+        resources = list(mongo.db.cl_resources.find(
+            {}).skip((page - 1) * num).limit(num))
+    return render_template('manage_resources.html', resources=resources, page=page, count=count, search=False)
 
 
 # Add resource
