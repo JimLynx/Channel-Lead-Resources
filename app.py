@@ -30,9 +30,15 @@ currentDate = datetime.today().strftime('%d-%m-%Y')
 
 # -------- USERS -------- #
 
+
+# Render Home page
+@app.route('/')
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
+
 # Login
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     user_types = list(mongo.db.users.find())
@@ -41,13 +47,6 @@ def login():
             {'user_type': request.form.get('username')})
         if check_password_hash(username['password'], request.form.get('password')):
             session['user'] = request.form.get('username')
-            if request.form.get('username') == 'superuser':
-                flash(
-                    "You have successfully logged in", "success")
-                # change redirect when manage dashboard is ready
-                return redirect(url_for('manage_users', user=session['user']))
-            flash(
-                "You have successfully logged in", "success")
             return redirect(url_for('resources'))
         else:
             flash("Incorrect password please try again", "danger")
@@ -96,13 +95,6 @@ def logout():
     session.pop('user', None)
     flash("Successfully LOGGED OUT - Please visit again soon!", "success")
     return redirect(url_for('login'))
-
-
-# Render Home page
-@app.route('/')
-@app.route('/home')
-def home():
-    return render_template('home.html')
 
 
 # Render Resources page.
@@ -270,7 +262,6 @@ def delete_category(category_id):
     return redirect(url_for('resources'))
 
 
-
 # handle 404 page not found error
 @app.errorhandler(404)
 def not_found_error(error):
@@ -278,7 +269,7 @@ def not_found_error(error):
 # ============================================ #
 
 
-# handle 500 internal server error 
+# handle 500 internal server error
 @app.errorhandler(500)
 def internal_error(error):
     return render_template('errors/500.html', error=error), 500
