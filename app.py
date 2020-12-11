@@ -29,8 +29,6 @@ currentDate = datetime.today().strftime('%d-%m-%Y')
 # admin_2 = mongo.db.users.find(session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead')
 # admin_3 = mongo.db.users.find(session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead' or session['user'] == 'student')
 
-# -------- USERS -------- #
-
 
 # Render Home page
 @app.route('/')
@@ -54,17 +52,70 @@ def login():
     return render_template('login.html', users=user_types)
 
 
-# Manage Users page
+# Logout
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    flash("Successfully LOGGED OUT - Please visit again soon!", "success")
+    return redirect(url_for('home'))
+
+
+# -------- RESOURCES PAGE-------- #
+
+# Render Resources page.
+@app.route('/resources')
+def resources():
+    # If there are logged in users
+    if session['user']:
+        # Pagination
+        # get the page number from request or set the page 1 if first page
+        page = int(request.args.get('page') or 1)
+        # results limit to find
+        num = 5
+        # count documents to calculate number of pagination options
+        count = int(math.ceil(mongo.db.cl_resources.count_documents({}) / num))
+        if page > count or page < 1:
+            return render_template('errors/404.html'), 404
+        # page - 1 ensures that the first items can be found
+        # multiply the page number  by the item limit for current page results
+        resources = list(mongo.db.cl_resources.find(
+            {}).skip((page - 1) * num).limit(num))
+        return render_template('resources.html', resources=resources, page=page, count=count, search=False)
+    return redirect(url_for('login'))
+
+
+# Search function for Resources page
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    query = request.form.get('query')
+    # search through all on db
+    resources = list(mongo.db.cl_resources.find({'$text': {'$search': query}}))
+    return render_template('resources.html', resources=resources)
+
+
+# -------- CONTACT PAGE-------- #
+
+@app.route('/contact')
+def contact():
+    if session['user']:
+        resources = list(mongo.db.cl_resources.find())
+        categories = mongo.db.categories.find().sort('category_name', 1)
+        return render_template('contact.html', resources=resources, categories=categories)
+    return redirect(url_for('login'))
+
+
+# -------- MANAGE USERS PAGE -------- #
+
+# Render Manage Users page
 @app.route('/manage_users')
 def manage_users():
     if session['user'] == 'superuser' or session['user'] == 'assessor':
-
         users = list(mongo.db.users.find().sort('user_type', 1))
         return render_template('manage_users.html', users=users)
     return redirect(url_for('resources'))
 
 
-# Add User
+# Add User 
 @app.route('/add_users', methods=['GET', 'POST'])
 def add_users():
     if session['user'] == 'superuser' or session['user'] == 'assessor':
@@ -90,65 +141,9 @@ def delete_user(user_id):
     return redirect(url_for('resources'))
 
 
-# Logout
-@app.route('/logout')
-def logout():
-    session.pop('user', None)
-    flash("Successfully LOGGED OUT - Please visit again soon!", "success")
-    return redirect(url_for('login'))
+# -------- MANAGE RESOURCES PAGE -------- #
 
-
-# Render Resources page.
-@app.route('/resources')
-def resources():
-    # If there are logged in users
-    if session['user']:
-        # Pagination
-        # get the page number from request or set the page 1 if first page
-        page = int(request.args.get('page') or 1)
-        # results limit to find
-        num = 5
-        # count documents to calculate number of pagination options
-        count = int(math.ceil(mongo.db.cl_resources.count_documents({}) / num))
-        if page > count or page < 1:
-            return render_template('errors/404.html'), 404
-        # page - 1 ensures that the first items can be found
-        # multiply the page number  by the item limit for current page results
-        resources = list(mongo.db.cl_resources.find(
-            {}).skip((page - 1) * num).limit(num))
-    return render_template('resources.html', resources=resources, page=page, count=count, search=False)
-
-
-# Search function
-@app.route('/search', methods=['GET', 'POST'])
-def search():
-    query = request.form.get('query')
-    # search through all on db
-    resources = list(mongo.db.cl_resources.find({'$text': {'$search': query}}))
-    return render_template('resources.html', resources=resources)
-
-
-# Search Manage Resources page
-@app.route('/search_manage_resources', methods=['GET', 'POST'])
-def search_manage_resources():
-    query = request.form.get('query')
-    # search through all on db
-    resources = list(mongo.db.cl_resources.find({'$text': {'$search': query}}))
-    return render_template('manage_resources.html', resources=resources)
-
-
-# Contact page
-@app.route('/contact')
-def contact():
-    if session['user']:
-        resources = list(mongo.db.cl_resources.find())
-    categories = mongo.db.categories.find().sort('category_name', 1)
-    return render_template('contact.html', resources=resources, categories=categories)
-
-
-# -------- RESOURCES -------- #
-
-# Manage Resources page
+# Render Manage Resources page
 @app.route('/manage_resources')
 def manage_resources():
     if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
@@ -159,7 +154,16 @@ def manage_resources():
             return render_template('errors/404.html'), 404
         resources = list(mongo.db.cl_resources.find(
             {}).skip((page - 1) * num).limit(num))
-    return render_template('manage_resources.html', resources=resources, page=page, count=count, search=False)
+        return render_template('manage_resources.html', resources=resources, page=page, count=count, search=False)
+    return redirect(url_for('resources'))
+
+
+# Search function for Manage Resources page
+@app.route('/search_manage_resources', methods=['GET', 'POST'])
+def search_manage_resources():
+    query = request.form.get('query')
+    resources = list(mongo.db.cl_resources.find({'$text': {'$search': query}}))
+    return render_template('manage_resources.html', resources=resources)
 
 
 # Add resource
@@ -204,7 +208,6 @@ def edit_resource(resource_id):
                 {'_id': ObjectId(resource_id)}, upload)
             flash("Selected Resource Successfully Updated.", "success")
             return redirect(url_for('manage_resources'))
-
         resource = mongo.db.cl_resources.find_one(
             {'_id': ObjectId(resource_id)})
         categories = mongo.db.categories.find().sort('category_name', 1)
@@ -222,9 +225,9 @@ def delete_resource(resource_id):
     return redirect(url_for('resources'))
 
 
-# -------- CATEGORIES -------- #
+# -------- MANAGE CATEGORIES PAGE -------- #
 
-# Manage Categories page
+# Render Manage Categories page
 @app.route('/manage_categories')
 def manage_categories():
     if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
@@ -235,10 +238,11 @@ def manage_categories():
             return render_template('errors/404.html'), 404
         categories = list(mongo.db.categories.find(
             {}).skip((page - 1) * num).limit(num))
-    return render_template('manage_categories.html', categories=categories, page=page, count=count, search=False)
+        return render_template('manage_categories.html', categories=categories, page=page, count=count, search=False)
+    return redirect(url_for('resources'))
 
 
-# Search Manage Categories page
+# Search function for Manage Categories page
 @app.route('/search_manage_categories', methods=['GET', 'POST'])
 def search_manage_categories():
     query = request.form.get('query')
@@ -274,12 +278,12 @@ def edit_category(category_id):
             flash("Selected Category Successfully Updated.", "success")
             return redirect(url_for('manage_categories'))
 
-    category = mongo.db.categories.find_one({'_id': ObjectId(category_id)})
-    return render_template('edit_category.html', category=category)
+        category = mongo.db.categories.find_one({'_id': ObjectId(category_id)})
+        return render_template('edit_category.html', category=category)
+    return redirect(url_for('resources'))
 
 
 # Delete Category
-
 @app.route('/delete_category/<category_id>')
 def delete_category(category_id):
 
@@ -290,14 +294,15 @@ def delete_category(category_id):
     return redirect(url_for('resources'))
 
 
-# handle 404 page not found error
+# -------- ERROR HANDLING PAGES -------- #
+
+# 404 page not found error
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('errors/404.html', error=error), 404
-# ============================================ #
 
 
-# handle 500 internal server error
+# 500 internal server error
 @app.errorhandler(500)
 def internal_error(error):
     return render_template('errors/500.html', error=error), 500
