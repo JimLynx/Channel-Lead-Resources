@@ -7,4 +7,16 @@ $(document).ready(function () {
     $('.cancelVid').click(function () {
         $('iframe').attr('src', $('iframe').attr('src'));
     });
+
+    // prevent whitespace for username and passwords inputs
+    // Credit: adapted from https://stackoverflow.com/a/14236954
+    $("input#username, input#password").on({
+        keydown: function(e) {
+          if (e.which === 32)
+            return false;
+        },
+        change: function() {
+          this.value = this.value.replace(/\s/g, "");
+        }
+      });
 });

@@ -335,7 +335,7 @@ This project has been deployed on GitHub Pages with the following process:
 > #### Code Snippets
 >
 > - Setting active class to navigation items in Flask, resolution found on Stack Overflow [HERE](https://stackoverflow.com/a/55895621)
->
+> - Prevent spaces in username and password entries, resolution adapted from on Stack Overflow post [HERE](https://stackoverflow.com/a/14236954)
 
 ---
 
