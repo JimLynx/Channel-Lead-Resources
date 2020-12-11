@@ -31,6 +31,12 @@ body {
     padding-top: 75px;
 }
 
+#active_page  {
+    border: 1px solid var(--p-orange);
+    border-radius: 5px;
+    color: var(--p-orange);
+    font-weight: 600;
+}
 hr {
     background-color: var(--p-orange);
     opacity: 50%;
