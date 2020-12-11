@@ -136,9 +136,8 @@ def search_manage_resources():
     resources = list(mongo.db.cl_resources.find({'$text': {'$search': query}}))
     return render_template('manage_resources.html', resources=resources)
 
+
 # Contact page
-
-
 @app.route('/contact')
 def contact():
     if session['user']:
@@ -154,7 +153,7 @@ def contact():
 def manage_resources():
     if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
         page = int(request.args.get('page') or 1)
-        num = 5
+        num = 4
         count = int(math.ceil(mongo.db.cl_resources.count_documents({}) / num))
         if page > count or page < 1:
             return render_template('errors/404.html'), 404
@@ -229,10 +228,22 @@ def delete_resource(resource_id):
 @app.route('/manage_categories')
 def manage_categories():
     if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
+        page = int(request.args.get('page') or 1)
+        num = 4
+        count = int(math.ceil(mongo.db.cl_resources.count_documents({}) / num))
+        if page > count or page < 1:
+            return render_template('errors/404.html'), 404
+        categories = list(mongo.db.categories.find(
+            {}).skip((page - 1) * num).limit(num))
+    return render_template('manage_categories.html', categories=categories, page=page, count=count, search=False)
 
-        categories = list(mongo.db.categories.find().sort('category_name', 1))
-        return render_template('manage_categories.html', categories=categories)
-    return redirect(url_for('resources'))
+
+# Search Manage Categories page
+@app.route('/search_manage_categories', methods=['GET', 'POST'])
+def search_manage_categories():
+    query = request.form.get('query')
+    resources = list(mongo.db.cl_resources.find({'$text': {'$search': query}}))
+    return render_template('manage_categories.html', resources=resources)
 
 
 # Add new category

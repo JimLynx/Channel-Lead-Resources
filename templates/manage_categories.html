@@ -9,7 +9,7 @@
         <p>Hi {{ session.user|title }}, you're on the category management page.</p>
         <hr>
         <h2 class="mt-4 mb-4">
-            <i class="fas fa-plus"></i> 
+            <i class="fas fa-plus"></i>
             Add New Category
         </h2>
         <!-- Add new category -->
@@ -46,11 +46,53 @@
         <div class="row">
             <div class="col-12">
                 <h2 class="mt-4 mb-4">
-                    <i class="fas fa-edit"></i> 
-                    Edit / 
-                    <i class="fas fa-trash"></i> 
+                    <i class="fas fa-edit"></i>
+                    Edit /
+                    <i class="fas fa-trash"></i>
                     Delete Categories
                 </h2>
+
+                <!-- search form -->
+                <form action="{{ url_for('search_manage_categories') }}" method="POST" class="col-12">
+                    <div class="container">
+                        <label for="query">
+                            Search Categories
+                        </label>
+
+                        <input type="text" name="query" id="query" class="form-control mr-sm-2 validate"
+                            placeholder="Search" aria-label="Search" required>
+                        <!-- <i class="fas fa-search"></i> -->
+                        <button class="btn" type="submit">
+                            Search
+                        </button>
+
+                        <!-- <i class="fas fa-trash-restore"></i> -->
+                        <a href="{{ url_for('manage_categories') }}" class="btn btn-primary">
+                            Reset
+                        </a>
+                    </div>
+                </form>
+
+                <!-- Pagination -->
+                {% if search == False %}
+                <nav aria-label="Page navigation">
+                    <p>Pages</p>
+                    <ul style="justify-content: center;" class="pagination pg-blue">
+                        {% for i in range(0, count) %}
+                        <li class="page-item">
+                            {% if i+1 == page %}
+                            <a class="page-link active" id="active_page">
+                                {% else %}
+                                <a class="page-link" href="{{ url_for('manage_categories', page=i+1) }}">
+                                    {% endif %}
+                                    {{ i + 1  }}
+                                </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </nav>
+                {% endif %}
+
                 <div class="container">
                     <div class="row">
                         {% for category in categories %}
