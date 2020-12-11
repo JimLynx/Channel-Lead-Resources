@@ -55,9 +55,30 @@
                     </div>
                 </form>
 
-                <div class="container">
+                <!-- Pagination -->
+                {% if search == False %}
+                <nav aria-label="Page navigation">
+                    <p>Pages</p>
+                    <ul style="justify-content: center;" class="pagination pg-blue">
+                        {% for i in range(0, count) %}
+                        <li class="page-item">
+                            {% if i+1 == page %}
+                            <a class="page-link active" id="active_page">
+                                {% else %}
+                                <a class="page-link" href="{{ url_for('manage_resources', page=i+1) }}">
+                                    {% endif %}
+                                    {{ i + 1  }}
+                                </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </nav>
+                {% endif %}
 
+                <!-- list of resources -->
+                <div class="container">
                     <div class="row">
+                        {% if resources|length > 0 %}
                         {% for resource in resources %}
                         <!-- populated table content -->
                         <table>
@@ -88,53 +109,44 @@
                             </tr>
                         </table>
                         {% endfor %}
+                        {% else %}
                     </div>
                 </div>
-            </div>
-        </div>
-        {% if search == False %}
-        <nav aria-label="Page navigation">
-            <ul style="justify-content: center; padding-top: 50px;" class="pagination pg-blue">
-                {% for i in range(0, count) %}
-                <li class="page-item">
-                    {% if i+1 == page %}
-                    <a class="page-link active">
-                        {% else %}
-                        <a class="page-link" href="{{ url_for('manage_resources', page=i+1) }}">
-                            {% endif %}
-                            {{ i + 1  }}
-                        </a>
-                </li>
-                {% endfor %}
-            </ul>
-        </nav>
-        {% endif %}
-        <!-- Delete Item Modal -->
-        {% for resource in resources %}
-        <div class=" modal fade" id="modalDelete{{ resource._id }}" tabindex="-1" role="dialog"
-            aria-labelledby="modalDelete" aria-hidden="true">
-            <div class="modal-dialog modal-md modal-notify modal-danger" role="document">
-                <div class="modal-content text-center">
-                    <div class="modal-header d-flex justify-content-center">
-                        <p class="heading">Are you sure you want to DELETE this item?</p>
-                    </div>
-                    <div class="modal-body">
-                        <p><i class="fas fa-exclamation-circle"></i> WARNING:</p>
-                        <p>This action cannot be undone!</p>
-                        <div class="modal-footer flex-center">
-                            <button class="btn btn-outline-danger" type="submit" form="deleteConfirm{{ resource._id }}">
-                                Confirm
-                            </button>
-                            <button class="btn btn-danger waves-effect" type="button" data-dismiss="modal">
-                                <i class="fas fa-times animated rotateIn"></i>
-                                Cancel
-                            </button>
+                
+
+                <!-- Delete Item Modal -->
+                {% for resource in resources %}
+                <div class=" modal fade" id="modalDelete{{ resource._id }}" tabindex="-1" role="dialog"
+                    aria-labelledby="modalDelete" aria-hidden="true">
+                    <div class="modal-dialog modal-md modal-notify modal-danger" role="document">
+                        <div class="modal-content text-center">
+                            <div class="modal-header d-flex justify-content-center">
+                                <p class="heading">Are you sure you want to DELETE this item?</p>
+                            </div>
+                            <div class="modal-body">
+                                <p><i class="fas fa-exclamation-circle"></i> WARNING:</p>
+                                <p>This action cannot be undone!</p>
+                                <div class="modal-footer flex-center">
+                                    <button class="btn btn-outline-danger" type="submit"
+                                        form="deleteConfirm{{ resource._id }}">
+                                        Confirm
+                                    </button>
+                                    <button class="btn btn-danger waves-effect" type="button" data-dismiss="modal">
+                                        <i class="fas fa-times animated rotateIn"></i>
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
+
+                <!-- Show error if no search results found  -->
+                <h4 class="card-title pt-3 mb-5 font-bold">No results found, please try another search</h4>
+                {% endif %}
             </div>
         </div>
-        {% endfor %}
     </div>
 </div>
 {% endif %}
