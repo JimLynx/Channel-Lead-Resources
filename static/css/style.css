@@ -317,11 +317,7 @@ footer i:hover {
     transform: scale(1.3);
 }
 
-body {
-    font: 1em sans-serif;
-    text-align: center;
-}
-
+/* Credit: Adapted from https://css-tricks.com/making-css-animations-feel-natural/ */
 /* 404 error page hand bounce animation */
 .hands {
     align-self: flex-end;
@@ -340,6 +336,7 @@ body {
     50%  { transform: scale(.9,1.1)   translateY(-5px); }
     100% { transform: scale(1,1)      translateY(0); }
 }
+
 /* -- MEDIA QUERIES -- */
 
 @media only screen and (min-width: 768px) {
