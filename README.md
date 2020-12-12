@@ -334,8 +334,9 @@ This project has been deployed on GitHub Pages with the following process:
 >
 > #### Code Snippets
 >
-> - Setting active class to navigation items in Flask, resolution found on Stack Overflow [HERE](https://stackoverflow.com/a/55895621)
-> - Prevent spaces in username and password entries, resolution adapted from on Stack Overflow post [HERE](https://stackoverflow.com/a/14236954)
+> - Setting active class to navigation items in Flask, adapted from post on Stack Overflow found [HERE](https://stackoverflow.com/a/55895621)
+> - Animation for 404 page images adjsacent to button, adapted from post on CSS Tricks found [HERE](https://css-tricks.com/making-css-animations-feel-natural/)
+> - Prevent spaces in username and password entries, adapted from post on Stack Overflow found [HERE](https://stackoverflow.com/a/14236954)
 
 ---
 
