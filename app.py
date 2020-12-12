@@ -5,6 +5,7 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_mail import Mail, Message
 from datetime import datetime
 import math
 if os.path.exists("env.py"):
@@ -13,16 +14,90 @@ if os.path.exists("env.py"):
 
 app = Flask(__name__)
 
+
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+# email server
+email_settings = {
+    # "TESTNG": True,
+    "MAIL_SERVER": "smtp.gmail.com",
+    "MAIL_PORT": 465,
+    "MAIL_USE_SSL": True,
+    "MAIL_ASCII_ATTACHMENTS": True,
+    "MAIL_USERNAME": os.environ.get('MAIL_USERNAME'),
+    "MAIL_PASSWORD": os.environ.get('MAIL_PASSWORD'),
+    "MAIL_DEFAULT_SENDER": os.environ.get('MAIL_DEFAULT_SENDER'),
+    "ADMIN_EMAIL": os.environ.get('ADMIN_EMAIL')
+}
 
-# current date variable
+app.config.update(email_settings)
+
+print(email_settings)
+mail = Mail(app)
+
 currentDate = datetime.today().strftime('%d-%m-%Y')
 
+
+def sendEmail(result):
+    msg = Message("Contact form submission from Channel Lead Resources",
+                  recipients=[email_settings["ADMIN_EMAIL"]]
+                  )
+
+    msg.body = """
+    Hi there,
+
+    A user has submiited the following feedback:
+
+    Category Name:  {}
+    Subject:    {}
+    Feedback:   {}
+    Suggestion: {}
+    Name:   {}
+    Slack:  {}
+    Email:  {}
+
+    Regards,
+    The CI Channel Lead team
+
+    """.format(result['category'],
+               result['subject'],
+               result['feedback'],
+               result['feedback_url'],
+               result['name'],
+               result['slackName'],
+               result['emailAddress']
+               )
+
+    mail.send(msg)
+
+
+# -------- CONTACT PAGE-------- #
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if session['user']:
+        if request.method == 'POST':
+            result = {
+                'category': request.form.get('category_name'),
+                'subject': request.form.get('subject'),
+                'feedback': request.form.get('feedback'),
+                'feedback_url': request.form.get('feedback_url'),
+                'name': request.form.get('yourName'),
+                'slackName': request.form.get('slackName'),
+                'emailAddress': request.form.get('emailAddress')
+            }
+            sendEmail(result)
+            flash("Thanks, your feedback has been sent!", "success")
+            return redirect(url_for('contact'))
+
+        resources = list(mongo.db.cl_resources.find())
+        categories = mongo.db.categories.find().sort('category_name', 1)
+        return render_template('contact.html', resources=resources, categories=categories)
+    return redirect(url_for('login'))
 # create variables for user groups to shorten code - TBA
 
 # admin_1 = mongo.db.users.find(session['user'] == 'superuser' or session['user'] == 'assessor')
@@ -93,17 +168,6 @@ def search():
     return render_template('resources.html', resources=resources)
 
 
-# -------- CONTACT PAGE-------- #
-
-@app.route('/contact')
-def contact():
-    if session['user']:
-        resources = list(mongo.db.cl_resources.find())
-        categories = mongo.db.categories.find().sort('category_name', 1)
-        return render_template('contact.html', resources=resources, categories=categories)
-    return redirect(url_for('login'))
-
-
 # -------- MANAGE USERS PAGE -------- #
 
 # Render Manage Users page
@@ -115,7 +179,7 @@ def manage_users():
     return redirect(url_for('resources'))
 
 
-# Add User 
+# Add User
 @app.route('/add_users', methods=['GET', 'POST'])
 def add_users():
     if session['user'] == 'superuser' or session['user'] == 'assessor':
@@ -292,6 +356,8 @@ def delete_category(category_id):
         flash("Selected Category Successfully Deleted.", "info")
         return redirect(url_for('manage_categories'))
     return redirect(url_for('resources'))
+
+
 
 
 # -------- ERROR HANDLING PAGES -------- #
