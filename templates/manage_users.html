@@ -5,13 +5,13 @@
 {% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
 <div class="container">
     <div class="jumbotron">
-        <h1>Manage Users</h1>
+        <h1 class="mb-5">Manage Users</h1>
         <p>Hi {{ session.user|title }}, you're on the user management page.</p>
         <hr>
-        <h2 class="mt-4 mb-4">
+        <h4 class="mt-4 mb-4">
             <i class="fas fa-plus"></i>
             Add New User
-        </h2>
+        </h4>
         <!-- Add new user -->
         <form action="{{ url_for('add_users', user=session.user) }}" method="POST">
             <div class="row">
@@ -20,7 +20,7 @@
                     <label for="username">
                         <i class="fas fa-user-circle"></i>
                         Username:
-                        <span class="red-asterisk"> *</span>
+                        <span class="red-asterisk">*</span>
                     </label>
                     <input type="text" name="username" id="username" class="form-control validate mb-4"
                         placeholder="Category Name" minlength="5" maxlength="20" required>
@@ -31,29 +31,26 @@
                     <label for="password">
                         <i class="fas fa-key"></i>
                         Password:
-                        <span class="red-asterisk"> *</span>
+                        <span class="red-asterisk">*</span>
                     </label>
                     <input type="password" name="password" id="password" class="form-control validate mb-4"
                         placeholder="New Password" minlength="5" required>
                 </div>
             </div>
-
-                    <button type="submit" class="btn">
-                        <i class="fas fa-user-plus"></i>
-                        Add User
-                    </button>
-
+            <button type="submit" class="btn">
+                <i class="fas fa-user-plus"></i>
+                Add User
+            </button>
         </form>
         <hr>
 
         <!-- Edit existing users -->
         <div class="row">
             <div class="col-12">
-                <h2 class="mt-4 mb-4">
+                <h4 class="mt-4 mb-4">
                     <i class="fas fa-trash"></i>
                     Delete Users
-                </h2>
-
+                </h4>
                 <div class="container">
                     <div class="row">
                         {% for user in users %}
@@ -91,36 +88,36 @@
         <!-- Delete Item Modal -->
         {% for user in users %}
         <div class=" modal fade" id="modalDelete{{ user._id }}" tabindex="-1" role="dialog"
-            aria-labelledby="modalDelete" aria-hidden="true">
-            <div class="modal-dialog modal-md modal-notify modal-danger"
-                role="document">
-                <div class="modal-content text-center">
-                    <div class="modal-header d-flex justify-content-center">
-                        <p class="heading">Are you sure you want to DELETE this
-                            user?</p>
-                    </div>
-                    <div class="modal-body">
-                        <p><i class="fas fa-exclamation-circle"></i> WARNING:</p>
-                        <p>This action cannot be undone!</p>
-                        <div class="modal-footer flex-center">
+                                                aria-labelledby="modalDelete" aria-hidden="true">
+                                                <div class="modal-dialog modal-md modal-notify modal-danger"
+                                                    role="document">
+                                                    <div class="modal-content text-center">
+                                                        <div class="modal-header d-flex justify-content-center">
+                                                            <p class="heading">Are you sure you want to DELETE this
+                                                                user?</p>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p><i class="fas fa-exclamation-circle"></i> WARNING:</p>
+                                                            <p>This action cannot be undone!</p>
+                                                            <div class="modal-footer flex-center">
 
-                            <button class="btn btn-outline-danger" type="submit"
-                                form="deleteConfirm{{ user._id }}">
-                                Confirm
-                            </button>
+                                                                <button class="btn btn-outline-danger" type="submit"
+                                                                    form="deleteConfirm{{ user._id }}">
+                                                                    Confirm
+                                                                </button>
 
-                            <button class="btn btn-danger waves-effect"
-                                type="button" data-dismiss="modal">
-                                <i class="fas fa-times animated rotateIn"></i>
-                                Cancel
-                            </button>
-                        </div>
+                                                                <button class="btn btn-danger waves-effect"
+                                                                    type="button" data-dismiss="modal">
+                                                                    <i class="fas fa-times animated rotateIn"></i>
+                                                                    Cancel
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                </div>
+                                {% endfor %}
                     </div>
                 </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</div>
-{% endif %}
-{% endblock %}
+                {% endif %}
+                {% endblock %}

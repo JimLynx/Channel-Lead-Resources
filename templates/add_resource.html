@@ -15,9 +15,8 @@
                     <label for="category_name">
                         <i class="fas fa-folder-open"></i>
                         Category Name:
-                        <span class="red-asterisk"> *</span>
+                        <span class="red-asterisk">*</span>
                     </label>
-
                     <select name="category_name" id="category_name" class="browser-default custom-select validate"
                         required>
                         <option value="" disabled selected>-Select a Category-</option>
@@ -26,13 +25,13 @@
                         {% endfor  %}
                     </select>
                 </div>
-
+                <br>
                 <!-- title -->
                 <div class="row">
                     <label for="title">
                         <i class="fas fa-file-alt"></i>
                         Title:
-                        <span class="red-asterisk"> *</span>
+                        <span class="red-asterisk">*</span>
                     </label>
                     <input type="text" name="title" id="title" class="form-control  validate mb-4"
                         placeholder="Resource Title" minlength="5" maxlength="50" required>
@@ -42,8 +41,8 @@
                 <div class="row">
                     <label for="description">
                         <i class="fas fa-comments"></i>
-                        Resource Description:
-                        <span class="red-asterisk"> *</span>
+                        Description:
+                        <span class="red-asterisk">*</span>
                     </label>
                     <textarea type="text" name="description" id="description" class="form-control mb-4 validate"
                         placeholder="Please be as detailed as possible" rows="5" minlength="5" maxlength="200"
@@ -54,16 +53,16 @@
                 <div class="row">
                     <label for="created_by">
                         <i class="fab fa-slack"></i>
-                        Slack Lead Username:
-                        <span class="red-asterisk"> *</span>
+                        Slack Username:
+                        <span class="red-asterisk">*</span>
                     </label>
                     <input type="text" name="created_by" id="created_by" class="form-control validate mb-4"
                         placeholder="Slack Username" minlength=" 5" maxlength="50" required>
                 </div>
                 <hr>
-                <h6>Please enter a PDF url for your slideshow <strong>and/or</strong> a video embed code if posting a
-                    Webinar recording</h6>
-
+                <p>Please enter a PDF url for your slideshow <strong>and/or</strong> a video embed code if posting a
+                    Webinar recording</p>
+                <br>
                 <!-- document url location -->
                 <div class="row">
                     <label for="document_url">
@@ -97,22 +96,20 @@
                 <hr>
 
                 <!-- submit button -->
-                <div class="row">
-                    <div class="col-6">
-                        <button type="submit" class="btn btn-primary btn-block my-4">
-                            <i class="fas fa-plus-square"></i>
-                            ADD
-                        </button>
 
-                    </div>
-                    <!-- Cancel button - return to resource page -->
-                    <div class="col-6">
-                        <a href="{{ url_for('resources') }}" class="btn btn-danger btn-block my-4">
-                            <i class="fas fa-times-circle"></i>
-                            Cancel
-                        </a>
-                    </div>
-                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-plus-square"></i>
+                    ADD
+                </button>
+
+                <!-- Cancel button - return to resource page -->
+
+                <a href="{{ url_for('manage_resources') }}" class="btn btn-danger">
+                    <i class="fas fa-times-circle"></i>
+                    Cancel
+                </a>
+
+
         </form>
     </div>
 </div>

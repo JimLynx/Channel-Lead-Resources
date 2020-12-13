@@ -17,8 +17,8 @@
                 <div class="row">
                     <label for="category_name">
                         <i class="fas fa-folder-open"></i>
-                        <b>Category Name:</b>
-                        <span class="red-asterisk"> *</span>
+                        Category Name:
+                        <span class="red-asterisk">*</span>
                     </label>
                     <select name="category_name" id="category_name" class="browser-default custom-select validate"
                         required>
@@ -33,22 +33,22 @@
                 <div class="row">
                     <label for="subject">
                         <i class="fas fa-file-alt"></i>
-                        <b>Subject:</b>
-                        <span class="red-asterisk"> *</span>
+                        Subject:
+                        <span class="red-asterisk">*</span>
                     </label>
-                    <input type="text" name="subject" id="subject" class="form-control validate mb-4" placeholder="Subject"
-                        minlength="5" maxlength="50" required>
+                    <input type="text" name="subject" id="subject" class="form-control validate mb-4"
+                        placeholder="Subject" minlength="5" maxlength="50" required>
                 </div>
 
                 <!-- feedback/resource suggestion description -->
                 <div class="row">
                     <label for="feedback">
                         <i class="fas fa-comments"></i>
-                        <b>Feedback/Suggestions:</b>
-                        <span class="red-asterisk"> *</span>
+                        Feedback / Suggestions:
+                        <span class="red-asterisk">*</span>
                     </label>
-                    <textarea type="text" name="feedback" id="feedback" class="form-control mb-4 validate"
-                        rows="5" placeholder="Your feedback and/or suggestions for resources are greatly appreciated!"
+                    <textarea type="text" name="feedback" id="feedback" class="form-control mb-4 validate" rows="5"
+                        placeholder="Your feedback and suggestions are greatly appreciated!"
                         minlength="5" maxlength="200" required></textarea>
                 </div>
 
@@ -56,38 +56,41 @@
                 <div class="row">
                     <label for="feedback_url">
                         <i class="fas fa-cloud-upload-alt"></i>
-                        <b>Resource url (optional):</b>
+                        Resource url (optional):
                     </label>
                     <input type="url" name="feedback_url" id="feedback_url" class="form-control validate mb-4"
-                        placeholder="https://www.<resource>.com" minlength=" 5">
-                </div>
-
-                <!-- name -->
-                <div class="row">
-                    <label for="yourName">
-                        <i class="fas fa-user-circle"></i>
-                        <b>Name:</b>
-                        <span class="red-asterisk"> *</span></label>
-                    <input type="text" name="yourName" id="yourName" class="form-control validate mb-4" placeholder="Name"
-                        minlength=" 5" maxlength="50" required>
+                        placeholder="https://" minlength=" 5">
                 </div>
 
                 <!-- slack name -->
                 <div class="row">
                     <label for="yourName">
                         <i class="fab fa-slack"></i>
-                        <b>Slack Username (optional):</b></label>
-                    <input type="text" name="slackName" id="slackName" class="form-control validate mb-4" placeholder="Slack Username"
-                        minlength=" 5" maxlength="50">
+                        Slack Username (optional):
+                    </label>
+                    <input type="text" name="slackName" id="slackName" class="form-control validate mb-4"
+                        placeholder="Slack Username" minlength=" 5" maxlength="50">
+                </div>
+
+                <!-- name -->
+                <div class="row">
+                    <label for="yourName">
+                        <i class="fas fa-user-circle"></i>
+                        Name:
+                        <span class="red-asterisk">*</span></label>
+                    <input type="text" name="yourName" id="yourName" class="form-control validate mb-4"
+                        placeholder="Name" minlength=" 5" maxlength="50" required>
                 </div>
 
                 <!-- email -->
                 <div class="row">
                     <label for="emailAddress">
-                        <i class="fas fa-at"></i><b>Email:</b><span class="red-asterisk"> *</span>
+                        <i class="fas fa-at"></i>
+                        Email:
+                        <span class="red-asterisk">*</span>
                     </label>
                     <input type="email" name="emailAddress" id="emailAddress" class="form-control validate mb-4"
-                        placeholder="@Email Address" minlength=" 5" maxlength="50" required>
+                        placeholder="Email Address" minlength=" 5" maxlength="50" required>
                 </div>
             </div>
 

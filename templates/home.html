@@ -26,13 +26,13 @@
         {% if session.user %}
             {% if session.user|lower == session.user|lower %}
             <a class="btn {{ home_btn_resources }}" href="{{ url_for('resources') }}">
-                <i class="fas fa-lock left"></i>
+                <i class="fas fa-arrow-alt-circle-right"></i>
                 Checkout Resources
             </a>
             {% endif %}
             {% else %}
             <a class="btn" href="{{ url_for('login') }}">
-                <i class="fas fa-lock left"></i>
+                <i class="fas fa-sign-in-alt"></i>
                 Proceed to Login
             </a>
         {% endif %}

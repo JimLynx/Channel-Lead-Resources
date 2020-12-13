@@ -8,17 +8,17 @@
         <h1>Manage Resources</h1>
         <p>Hi {{ session.user|title }}, you're on the resource management page.</p>
         <hr>
-        <h2 class="mt-4 mb-4">
+        <h4 class="mt-4 mb-4">
             <i class="fas fa-plus"></i>
             Add New Resource
-        </h2>
+        </h4>
         <!-- Add new resource -->
         <div class="row">
             <div class="col-12 ">
                 <!-- link to add resource page -->
                 <a href="{{ url_for('add_resource') }}" class="btn" type="submit">
                     <i class="fas fa-folder-plus"></i>
-                    Add New Resource
+                    Add Resource
                 </a>
             </div>
         </div>
@@ -27,12 +27,12 @@
         <!-- Edit existing resources -->
         <div class="row">
             <div class="col-12">
-                <h2 class="mt-4 mb-4">
+                <h4 class="mt-4 mb-4">
                     <i class="fas fa-edit"></i>
                     Edit /
                     <i class="fas fa-trash"></i>
                     Delete Resources
-                </h2>
+                </h4>
 
                 <!-- search form -->
                 <form action="{{ url_for('search_manage_resources') }}" method="POST" class="col-12">
@@ -50,6 +50,7 @@
 
                         <!-- <i class="fas fa-trash-restore"></i> -->
                         <a href="{{ url_for('manage_resources') }}" class="btn btn-primary">
+
                             Reset
                         </a>
                     </div>
