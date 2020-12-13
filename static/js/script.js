@@ -24,4 +24,9 @@ $(document).ready(function () {
   $('.resource-btn').click(function () {
     $('.collapse').collapse('hide');
   });
+
+  // enable Bootstrap tooltips
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  });
 });

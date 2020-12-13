@@ -5,114 +5,118 @@
     <div class="jumbotron">
         <h1>Edit Resource</h1>
         <form id="editConfirm" action="{{ url_for('edit_resource', resource_id=resource._id) }}" method="POST">
-                <p>Hi {{ session.user|title }}, please edit neccessary fields below</p>
-                <hr>
-                <em><small class="text-muted">This resource was last updated by {{ resource.created_by|title }} on {{ resource.date }}</small></em>
-                <!-- category -->
-                <div class="row">
-                    <label for="category_name">
-                        <i class="fas fa-folder-open"></i>
-                        Category Name:
-                        <span class="red-asterisk"> *</span>
-                    </label>
-                    <select name="category_name" id="category_name" class="browser-default custom-select validate"
-                        required>
-                        <option value="" disabled>
-                            -Select a Category-
-                        </option>
-                        {% for category in categories  %}
-                        {% if category.category_name == resource.category_name %}
-                        <option value="{{ category.category_name }}" selected>{{ category.category_name }}
-                        </option>
-                        {% else %}
-                        <option value="{{ category.category_name }}">{{ category.category_name }}
-                        </option>
-                        {% endif %}
-                        {% endfor  %}
-                    </select>
-                </div>
+            <p>Hi {{ session.user|title }}, please edit neccessary fields below</p>
+            <hr>
+            <em><small class="text-muted">This resource was last updated by {{ resource.created_by|title }} on
+                    {{ resource.date }}</small></em>
+            <!-- category -->
+            <div class="row">
+                <label for="category_name">
+                    <i class="fas fa-folder-open"></i>
+                    Category Name:
+                    <span class="red-asterisk"> *</span>
+                </label>
+                <select name="category_name" id="category_name" class="browser-default custom-select validate" required>
+                    <option value="" disabled>
+                        -Select a Category-
+                    </option>
+                    {% for category in categories  %}
+                    {% if category.category_name == resource.category_name %}
+                    <option value="{{ category.category_name }}" selected>{{ category.category_name }}
+                    </option>
+                    {% else %}
+                    <option value="{{ category.category_name }}">{{ category.category_name }}
+                    </option>
+                    {% endif %}
+                    {% endfor  %}
+                </select>
+            </div>
 
-                <!-- title -->
-                <div class="row">
-                    <label for="title">
-                        <i class="fas fa-file-alt"></i>
-                        Title:
-                        <span class="red-asterisk"> *</span>
-                    </label>
-                    <input type="text" name="title" id="title" class="form-control  validate mb-4"
-                        value="{{- resource.title -}}" minlength="5" maxlength="50" required>
-                </div>
+            <!-- title -->
+            <div class="row">
+                <label for="title">
+                    <i class="fas fa-file-alt"></i>
+                    Title:
+                    <span class="red-asterisk"> *</span>
+                </label>
+                <input type="text" name="title" id="title" class="form-control  validate mb-4"
+                    value="{{- resource.title -}}" minlength="5" maxlength="50" required>
+            </div>
 
-                <!-- description -->
-                <div class="row">
-                    <label for="description">
-                        <i class="fas fa-comments"></i>
-                        Resource Description:
-                        <span class="red-asterisk"> *</span>
-                    </label>
-                    <textarea type="text" name="description" id="description" class="form-control mb-4 validate"
-                        placeholder="Please be detailed" rows="5" minlength="5" maxlength="200" required>
+            <!-- description -->
+            <div class="row">
+                <label for="description">
+                    <i class="fas fa-comments"></i>
+                    Resource Description:
+                    <span class="red-asterisk"> *</span>
+                </label>
+                <textarea type="text" name="description" id="description" class="form-control mb-4 validate"
+                    placeholder="Please be detailed" rows="5" minlength="5" maxlength="200" required>
                         {{- resource.description -}}
                     </textarea>
+            </div>
+
+            <!-- channel lead name -->
+            <div class="row">
+                <label for="created_by">
+                    <i class="fab fa-slack"></i>
+                    Slack Lead Username:
+                    <span class="red-asterisk"> *</span>
+                </label>
+                <input type="text" name="created_by" id="created_by" class="form-control validate mb-4"
+                    value="{{ resource.created_by|title }}" minlength=" 5" maxlength="50" required>
+            </div>
+
+            <!-- document url location -->
+            <div class="row">
+                <label for="document_url">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    PDF:
+                    <i class="fas fa-info-circle fa-sm text-info" data-toggle="tooltip" data-html="true" title="
+                            <p>Copy the <b>URL</b> of the hosted <b>PDF</b> and paste below</p>
+                            <em>Tip: Google Drive & DropBox are recommended<em/>">
+                    </i>
+                </label>
+                <input type="url" name="document_url" id="document_url" class="form-control validate mb-4"
+                    placeholder="https:// (url for hosted PDF/Image/Slideshow)" minlength="5" maxlength="50">
+            </div>
+
+            <!-- video url location -->
+            <div class="row">
+                <label for="video_url">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    Video:
+                    <i class="fas fa-info-circle fa-sm text-info" data-toggle="tooltip" data-html="true" title="
+                            <p class='text-left mt-2'>
+                            1. Right-click on hosted video<br>
+                            2. Select <b>Copy embed code</b><br>
+                            3. Paste in the code below
+                            </p>">
+                    </i>
+                </label>
+                <textarea type=" text" name="video_url" id="video_url" class="form-control validate mb-4" rows="4"
+                    placeholder="Video embed code" minlength="5"></textarea>
+            </div>
+            <hr>
+
+            <!-- submit button -->
+            <div class="row">
+                <div class="col-6">
+                    <!-- Button trigger modal-->
+                    <button type="button" class="btn btn-primary btn-block my-4" data-toggle="modal"
+                        data-target="#modalEdit">
+                        <i class="far fa-check-circle"></i>
+                        EDIT
+                    </button>
                 </div>
-
-                <!-- channel lead name -->
-                <div class="row">
-                    <label for="created_by">
-                        <i class="fab fa-slack"></i>
-                        Slack Lead Username:
-                        <span class="red-asterisk"> *</span>
-                    </label>
-                    <input type="text" name="created_by" id="created_by" class="form-control validate mb-4"
-                        value="{{ resource.created_by|title }}" minlength=" 5" maxlength="50" required>
+                <!-- Cancel button - return to resource page -->
+                <div class="col-6">
+                    <a href="{{ url_for('resources') }}" class="btn btn-danger btn-block my-4">
+                        <i class="fas fa-times-circle"></i>
+                        Cancel
+                    </a>
                 </div>
-
-                <hr>
-
-                <!-- document url location -->
-                <div class="row">
-                    <label for="document_url">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        Document Location:
-                    </label>
-                    <input type="url" name="document_url" id="document_url" class="form-control validate mb-4"
-                        value="{{ resource.document_url }}" minlength="5" maxlength="50">
-                </div>
-
-                <!-- video url location -->
-                <div class="row">
-                    <label for="video_url">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        Video Embed Code:
-                    </label>
-                    <textarea type="text" name="video_url" id="video_url" class="form-control validate mb-4" rows="4"
-                        minlength="5">
-                        {{- resource.video_url -}}
-                    </textarea>
-                </div>
-                <hr>
-
-                
-
-
-                <!-- submit button -->
-                <div class="row">
-                    <div class="col-6">
-                        <!-- Button trigger modal-->
-                        <button type="button" class="btn btn-primary btn-block my-4" data-toggle="modal"
-                            data-target="#modalEdit">
-                            <i class="far fa-check-circle"></i>
-                            EDIT
-                        </button>
-                    </div>
-                    <!-- Cancel button - return to resource page -->
-                    <div class="col-6">
-                        <a href="{{ url_for('resources') }}" class="btn btn-danger btn-block my-4">
-                            <i class="fas fa-times-circle"></i>
-                            Cancel
-                        </a>
-                    </div>
-                </div>
+            </div>
         </form>
     </div>
 </div>

@@ -60,16 +60,19 @@
                     <input type="text" name="created_by" id="created_by" class="form-control validate mb-4"
                         placeholder="Slack Username" minlength=" 5" maxlength="50" required>
                 </div>
-
                 <hr>
-
-                <h6>Please enter a PDF url <strong>and/or</strong> a video embed code to your hosted material</h6>
+                <h6>Please enter a PDF url for your slideshow <strong>and/or</strong> a video embed code if posting a
+                    Webinar recording</h6>
 
                 <!-- document url location -->
                 <div class="row">
                     <label for="document_url">
                         <i class="fas fa-cloud-upload-alt"></i>
-                        Document Location:
+                        PDF:
+                        <i class="fas fa-info-circle fa-sm text-info" data-toggle="tooltip" data-html="true" title="
+                            <p>Copy the <b>URL</b> of the hosted <b>PDF</b> and paste below</p>
+                            <em>Tip: Google Drive & DropBox are recommended<em/>">
+                        </i>
                     </label>
                     <input type="url" name="document_url" id="document_url" class="form-control validate mb-4"
                         placeholder="https:// (url for hosted PDF/Image/Slideshow)" minlength="5" maxlength="50">
@@ -79,30 +82,37 @@
                 <div class="row">
                     <label for="video_url">
                         <i class="fas fa-cloud-upload-alt"></i>
-                        Video Embed Code:
+                        Video:
+                        <i class="fas fa-info-circle fa-sm text-info" data-toggle="tooltip" data-html="true" title="
+                            <p class='text-left mt-2'>
+                            1. Right-click on hosted video<br>
+                            2. Select <b>Copy embed code</b><br>
+                            3. Paste in the code below
+                            </p>">
+                        </i>
                     </label>
-                    <textarea type="text" name="video_url" id="video_url" class="form-control validate mb-4" rows="4"
-                        placeholder="<iframe> Paste embed code from video source" minlength="5"></textarea>
+                    <textarea type=" text" name="video_url" id="video_url" class="form-control validate mb-4" rows="4"
+                        placeholder="Video embed code" minlength="5"></textarea>
                 </div>
                 <hr>
 
-            <!-- submit button -->
-            <div class="row">
-                <div class="col-6">
-                    <button type="submit" class="btn btn-primary btn-block my-4">
-                        <i class="fas fa-plus-square"></i>
-                        ADD
-                    </button>
+                <!-- submit button -->
+                <div class="row">
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-primary btn-block my-4">
+                            <i class="fas fa-plus-square"></i>
+                            ADD
+                        </button>
 
+                    </div>
+                    <!-- Cancel button - return to resource page -->
+                    <div class="col-6">
+                        <a href="{{ url_for('resources') }}" class="btn btn-danger btn-block my-4">
+                            <i class="fas fa-times-circle"></i>
+                            Cancel
+                        </a>
+                    </div>
                 </div>
-                <!-- Cancel button - return to resource page -->
-                <div class="col-6">
-                    <a href="{{ url_for('resources') }}" class="btn btn-danger btn-block my-4">
-                        <i class="fas fa-times-circle"></i>
-                        Cancel
-                    </a>
-                </div>
-            </div>
         </form>
     </div>
 </div>
