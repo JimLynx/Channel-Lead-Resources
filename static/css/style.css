@@ -112,18 +112,12 @@ hr {
     background-color: var(--p-orange);
     border: 1px solid var(--p-dark-grey);
     color: var(--s-light-grey);
+    padding: 5px 40px;
 }
 
 .btn i {
-    color: var(--s-light-grey)
-}
-
-/* TBC-style consistently */
-.add-btn {
-    height: 40px;
-    text-align: center;
-    padding: 0px;
-    width: 150px;
+    color: var(--s-light-grey);
+    margin: 10px 15px 10px 0;
 }
 
 /* -- FORMS -- */
@@ -134,8 +128,6 @@ form {
 
 form i {
     color: var(--p-orange);
-    font-size: 120%;
-    margin: 10px 10px 10px 0;
 }
 
 label {
@@ -162,12 +154,6 @@ label {
 
 .resource-btn i:hover {
     color: var(--p-orange);
-}
-
-.search-btn {
-    font-size: 75%;
-    height: fit-content;
-    padding: 0 20px;
 }
 
 #active_page  {
@@ -340,13 +326,8 @@ footer i:hover {
 /* -- MEDIA QUERIES -- */
 
 @media only screen and (min-width: 768px) {
-    .add-btn {
-        height: 60px;
-        width: 250px;
-    }
-    form i {
+    .btn i {
         font-size: 150%;
-        margin: 15px 20px 15px 0;
     }
 
     form {

@@ -100,23 +100,21 @@
             <hr>
 
             <!-- submit button -->
-            <div class="row">
-                <div class="col-6">
+
+ 
                     <!-- Button trigger modal-->
-                    <button type="button" class="btn btn-primary btn-block my-4" data-toggle="modal"
+                    <button type="button" class="btn btn-primary" data-toggle="modal"
                         data-target="#modalEdit">
                         <i class="far fa-check-circle"></i>
-                        EDIT
+                        CONFIRM
                     </button>
-                </div>
+
                 <!-- Cancel button - return to resource page -->
-                <div class="col-6">
-                    <a href="{{ url_for('resources') }}" class="btn btn-danger btn-block my-4">
+                    <a href="{{ url_for('manage_resources') }}" class="btn btn-danger ">
                         <i class="fas fa-times-circle"></i>
                         Cancel
                     </a>
-                </div>
-            </div>
+
         </form>
     </div>
 </div>
