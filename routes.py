@@ -4,7 +4,6 @@ from app import app, mongo
 from flask import flash, render_template, redirect, request, session, url_for
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
-import mail_settings
 
 currentDate = datetime.today().strftime('%d-%m-%Y')
 
@@ -16,6 +15,7 @@ def home():
     print('hello')
     return render_template('home.html')
 
+import mail_settings
 
 # -------- CONTACT PAGE-------- #
 

@@ -1,5 +1,6 @@
 import os
 from app import app
+from flask import Flask
 from flask_mail import Mail, Message
 
 # email server
