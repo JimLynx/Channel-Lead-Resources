@@ -159,11 +159,16 @@ label {
     color: var(--p-orange);
 }
 
-#active_page  {
+#active_page {
     border: 1px solid var(--p-orange);
     border-radius: 5px;
     color: var(--p-orange);
     font-weight: 600;
+}
+
+.none-warning {
+    width: fit-content;
+    margin: auto;
 }
 
 /* PDF MODAL */
@@ -317,14 +322,24 @@ footer i:hover {
     transform-origin: bottom;
 
 }
+
 .bounce {
     animation-name: bounce;
     animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
 }
+
 @keyframes bounce {
-    0%   { transform: scale(1,1)      translateY(0); }
-    50%  { transform: scale(.9,1.1)   translateY(-5px); }
-    100% { transform: scale(1,1)      translateY(0); }
+    0% {
+        transform: scale(1, 1) translateY(0);
+    }
+
+    50% {
+        transform: scale(.9, 1.1) translateY(-5px);
+    }
+
+    100% {
+        transform: scale(1, 1) translateY(0);
+    }
 }
 
 /* -- MEDIA QUERIES -- */
@@ -361,4 +376,4 @@ footer i:hover {
     form {
         padding: 0px 3rem;
     }
-} 
+}

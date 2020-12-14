@@ -76,7 +76,7 @@
         <!-- post content -->
         <div id={{ "resource-content" + loop.index|string }} class="collapse resource-content">
             <div class="container">
-                <h4>Description</h4>
+                <h3>{{ resource.title }}</h3>
                 <div class="row">
                     <!-- post description -->
 
@@ -84,19 +84,22 @@
                         <p>{{ resource.description }}</p>
                     </div>
                 </div>
+                <hr>
                 <div class="row">
-                    <div class="col-12 col-md-6">
+                    <div class="col-12 col-md-6 text-center">
                         <!-- post PDF (opens modal) -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                        <button type="button" class="btn" data-toggle="modal"
                             data-target={{ "#pdfModal" + loop.index|string }}>
-                            Read and download the PDF here!
+                            <i class="fas fa-file-pdf"></i>
+                            PDF Document
                         </button>
                     </div>
                     <!-- post VIDEO (opens modal) -->
-                    <div class="col-12 col-md-6 resource-video">
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                    <div class="col-12 col-md-6">
+                        <button type="button" class="btn" data-toggle="modal"
                             data-target={{ "#videoModal" + loop.index|string }}>
-                            Watch the Webinar recording here!
+                            <i class="fas fa-film"></i>
+                            Webinar Recording
                         </button>
                     </div>
                 </div>
@@ -116,16 +119,31 @@
         <div class="modal fade" id={{ "pdfModal" + loop.index|string }} tabindex="-1" role="dialog"
             aria-labelledby="pdfModal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                {% if (resource.document_url == None or resource.document_url == "") %}
+                <div class="modal-content none-warning p-4">
+                    <i class="fas fa-exclamation-triangle fa-lg mb-4">OOPS!</i>
+                    <h5>
+                        Sorry, there is no PDF document for this Resource.
+                    </h5>
+                    <p>-Please try the Webinar Recording option instead-</p>
+                    <div class="modal-footer justify-content-center flex-column flex-md-row">
+                        <button type="button " class="btn btn-outline-primary btn-rounded btn-md ml-4 cancelVid"
+                            data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </div>
+                {% else %}
                 <div class="modal-content pdfContainer">
                     <div class="modal-body mb-0 p-0">
                         <embed class="pdf-embed" src={{ resource.document_url }} />
                     </div>
                     <div class="modal-footer justify-content-center flex-column flex-md-row">
-                        <span class="mr-4">{{ resource.title }}</span>
                         <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4"
                             data-dismiss="modal">Close</button>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
 
@@ -133,6 +151,22 @@
         <div class="modal fade" id={{ "videoModal" + loop.index|string }} tabindex="-1" role="dialog"
             aria-labelledby="videoModal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl" role="video">
+                {% if (resource.video_url == None or resource.video_url == "") %}
+                <div class="modal-content none-warning p-4">
+                    <i class="fas fa-exclamation-triangle fa-lg mb-4">OOPS!</i>
+                    <h5>
+                        Sorry, there is no Webinar Recording for this Resource.
+                    </h5>
+                    <p>-Please try the PDF Slideshow option instead-</p>
+                    <div class="modal-footer justify-content-center flex-column flex-md-row">
+                        <button type="button " class="btn btn-outline-primary btn-rounded btn-md ml-4 cancelVid"
+                            data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </div>
+
+                {% else %}
                 <div class="modal-content">
                     <div class="modal-body mb-0 p-0">
                         <div class="embed-responsive embed-responsive-16by9">
@@ -140,13 +174,13 @@
                         </div>
                     </div>
                     <div class="modal-footer justify-content-center flex-column flex-md-row">
-                        <span class="mr-4">{{ resource.title }}</span>
                         <button type="button " class="btn btn-outline-primary btn-rounded btn-md ml-4 cancelVid"
                             data-dismiss="modal">
                             Close
                         </button>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
         {% endfor %}
