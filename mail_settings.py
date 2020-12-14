@@ -1,6 +1,6 @@
 import os
 from app import app
-from flaskext.mail import Mail, Message
+from flask_mail import Mail, Message
 
 # email server
 email_settings = {
