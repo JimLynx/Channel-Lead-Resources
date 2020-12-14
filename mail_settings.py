@@ -1,11 +1,11 @@
 import os
 from app import app
-from flask import Flask
 from flask_mail import Mail, Message
 
 # email server
 email_settings = {
     # "TESTNG": True,
+    "DEBUG": False,
     "MAIL_SERVER": "smtp.gmail.com",
     "MAIL_PORT": 465,
     "MAIL_USE_SSL": True,
