@@ -172,6 +172,10 @@ label {
 }
 
 /* PDF MODAL */
+.modal {
+    max-width: 100%;
+}
+
 .modal-fullscreen {
     min-width: fit-content;
 }
@@ -187,6 +191,28 @@ label {
     width: 100%;
 }
 
+#output {
+    width: 100vw;
+}
+#pdf-uploaded {
+    border: 1px solid orange;
+    padding: 5px;
+    width: 100%;
+    margin: 0;
+    overflow-wrap: anywhere;
+    text-decoration: underline;
+}
+
+/* .pdf-modal-dialog {
+    height: 70vh;
+}
+.pdf-modal-content {
+    height: inherit;
+}
+
+.pdf-modal-body {
+    height: inherit;
+} */
 /* ADMIN 'MANAGE' PAGES */
 .edit-btn,
 .delete-btn {
