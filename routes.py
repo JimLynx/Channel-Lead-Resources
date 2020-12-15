@@ -1,4 +1,6 @@
+import mail_settings
 import math
+import re
 from datetime import datetime
 from app import app, mongo
 from flask import flash, render_template, redirect, request, session, url_for
@@ -15,9 +17,9 @@ def home():
     print('hello')
     return render_template('home.html')
 
-import mail_settings
 
 # -------- CONTACT PAGE-------- #
+
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -180,9 +182,16 @@ def add_resource():
                 "created_by": request.form.get("created_by"),
                 "date": currentDate
             }
+
+            # use regular expression to post only id of video to video_url
+            # Credit:Sean Murphy : regex code
+            if upload["video_url"] != None:
+                upload["video_url"] = ''.join(re.findall(
+                    '(?<=v=)(.{11})', upload["video_url"]))
+
             mongo.db.cl_resources.insert_one(upload)
             flash(
-                "Thanks! - Your Awesome New Resource Was Successfully Added.", "success")
+                "Thanks, Your Awesome Resource Was Successfully Added!", "success")
             return redirect(url_for('manage_resources'))
 
         categories = mongo.db.categories.find().sort('category_name', 1)
@@ -204,6 +213,9 @@ def edit_resource(resource_id):
                 "created_by": request.form.get("created_by"),
                 "date": currentDate
             }
+            if upload["video_url"] != None:
+                upload["video_url"] = ''.join(re.findall(
+                    '(?<=v=)(.{11})', upload["video_url"]))
             mongo.db.cl_resources.update(
                 {'_id': ObjectId(resource_id)}, upload)
             flash("Selected Resource Successfully Updated.", "success")

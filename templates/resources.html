@@ -170,11 +170,11 @@
                 <div class="modal-content">
                     <div class="modal-body mb-0 p-0">
                         <div class="embed-responsive embed-responsive-16by9">
-                            {{ resource.video_url|safe + loop.index|string }}
+                            <iframe src="https://www.youtube.com/embed/{{ resource.video_url }}" allowfullscreen></iframe>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-center flex-column flex-md-row">
-                        <button type="button " class="btn btn-outline-primary btn-rounded btn-md ml-4 cancelVid"
+                        <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4 cancelVid"
                             data-dismiss="modal">
                             Close
                         </button>
