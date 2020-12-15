@@ -73,12 +73,12 @@
                     <i class="fas fa-cloud-upload-alt"></i>
                     PDF:
                     <i class="fas fa-info-circle fa-sm text-info" data-toggle="tooltip" data-html="true" title="
-                            <p>Copy the <b>URL</b> of the hosted <b>PDF</b> and paste below</p>
+                            <p>Copy the <b>url</b> of the hosted <b>PDF</b> and paste below</p>
                             <em>Tip: Google Drive & DropBox are recommended<em/>">
                     </i>
                 </label>
                 <input type="url" name="document_url" id="document_url" class="form-control validate mb-4"
-                value="{{ resource.document_url }}" placeholder="https:// " minlength="5" maxlength="200">
+                value="{{ resource.document_url }}" placeholder="https://document-source" minlength="5" maxlength="200">
             </div>
 
             <!-- video url location -->
@@ -87,15 +87,12 @@
                     <i class="fas fa-cloud-upload-alt"></i>
                     Video:
                     <i class="fas fa-info-circle fa-sm text-info" data-toggle="tooltip" data-html="true" title="
-                            <p class='text-left mt-2'>
-                            1. Right-click on hosted video<br>
-                            2. Select <b>Copy embed code</b><br>
-                            3. Paste in the code below
-                            </p>">
+                    <p>Copy the <b>url</b> of the hosted <b>VIDEO</b> and paste below</p>
+                    <em>Tip: Youtube and Vimeo are recommended<em/>">
                     </i>
                 </label>
-                <textarea type=" text" name="video_url" id="video_url" class="form-control validate mb-4" rows="4"
-                 placeholder="Video embed code" minlength="5">{{ resource.video_url }}</textarea>
+                <input type="url" name="video_url" id="video_url" class="form-control validate mb-4"
+                value="{{ resource.video_url }}" placeholder="https://video-source" minlength="5" maxlength="200">
             </div>
             <hr>
 
