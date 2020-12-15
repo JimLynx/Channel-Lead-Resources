@@ -78,7 +78,7 @@
                     </i>
                 </label>
                 <input type="url" name="document_url" id="document_url" class="form-control validate mb-4"
-                    placeholder="https:// (url for hosted PDF/Image/Slideshow)" minlength="5" maxlength="50">
+                value="{{ resource.document_url }}" placeholder="https:// " minlength="5" maxlength="200">
             </div>
 
             <!-- video url location -->
@@ -95,7 +95,7 @@
                     </i>
                 </label>
                 <textarea type=" text" name="video_url" id="video_url" class="form-control validate mb-4" rows="4"
-                    placeholder="Video embed code" minlength="5"></textarea>
+                 placeholder="Video embed code" minlength="5">{{ resource.video_url }}</textarea>
             </div>
             <hr>
 
