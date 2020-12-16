@@ -14,7 +14,6 @@ currentDate = datetime.today().strftime('%d-%m-%Y')
 @app.route('/')
 @app.route('/home')
 def home():
-    print('hello')
     return render_template('home.html')
 
 
@@ -92,7 +91,7 @@ def resources():
         # page - 1 ensures that the first items can be found
         # multiply the page number  by the item limit for current page results
         resources = list(mongo.db.cl_resources.find(
-            {}).skip((page - 1) * num).limit(num))
+            {}).skip((page - 1)*num).limit(num))
         return render_template('resources.html', resources=resources, page=page, count=count, search=False)
     return redirect(url_for('login'))
 
@@ -183,6 +182,10 @@ def add_resource():
                 "date": currentDate
             }
 
+            # replace end of string returned from Google Drive Script to preview
+            if upload["document_url"] != None:
+                upload["document_url"] = upload["document_url"].replace("/view?usp=drivesdk", "/preview")
+            
             # use regular expression to post only id of video to video_url
             # Credit:Sean Murphy : regex code
             if upload["video_url"] != None:
@@ -213,9 +216,14 @@ def edit_resource(resource_id):
                 "created_by": request.form.get("created_by"),
                 "date": currentDate
             }
+
+            if upload["document_url"] != None:
+                upload["document_url"] = upload["document_url"].replace("/view?usp=drivesdk", "/preview")
+                        
             if upload["video_url"] != None:
-                upload["video_url"] = ''.join(re.findall(
-                    '(?<=v=)(.{11})', upload["video_url"]))
+                upload["video_url"] = ''.join(re.findall('(?<=v=)(.{11})', upload["video_url"]))
+            
+
             mongo.db.cl_resources.update(
                 {'_id': ObjectId(resource_id)}, upload)
             flash("Selected Resource Successfully Updated.", "success")
