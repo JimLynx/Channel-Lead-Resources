@@ -95,17 +95,35 @@ def resources():
         # multiply the page number  by the item limit for current page results
         resources = list(mongo.db.cl_resources.find(
             {}).skip((page - 1)*num).limit(num))
-        return render_template('resources.html', resources=resources, page=page, count=count, search=False)
+        categories = mongo.db.categories.find().sort('category_name', 1)
+        return render_template('resources.html', resources=resources, categories=categories, page=page, count=count, search=False)
     return redirect(url_for('login'))
 
 
 # Search function for Resources page
 @app.route('/search', methods=['GET', 'POST'])
 def search():
-    query = request.form.get('query')
-    # search through all on db
-    resources = list(mongo.db.cl_resources.find({'$text': {'$search': query}}))
-    return render_template('resources.html', resources=resources)
+    resources = []
+    if request.method == 'POST':
+        # parse values from form
+        search = request.form.get('search', '')
+        select = request.form.get('category_name', '')
+        # perform mongo with search only
+        if search and not select:
+            resources = mongo.db.cl_resources.find({'$text': {'$search': search}})
+        # perform mongo with select only
+        elif select and not search:
+            resources = mongo.db.cl_resources.find({'category_name': select})
+        elif search and select:
+            resources = mongo.db.cl_resources.find({ '$and': [{'category_name':  select} , {'$text': {'$search': search}} ] })
+        # if no search and no filter
+        else:
+            cursor = mongo.db.cl_resources.find({})
+        resources = [item for item in resources]
+
+    categories = mongo.db.categories.find().sort('category_name', 1)
+    print(resources)
+    return render_template('resources.html', resources=resources, categories=categories)
 
 
 # -------- MANAGE USERS PAGE -------- #

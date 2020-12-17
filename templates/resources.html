@@ -14,23 +14,46 @@
         </p>
 
         <!-- search form -->
+
         <form action="{{ url_for('search') }}" method="POST" class="col-12">
             <div class="container">
-                <label for="query">
-                    Search Resources
-                </label>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="search">
+                            Search Resources
+                        </label>
 
-                <input type="text" name="query" id="query" class="form-control mr-sm-2 validate" placeholder="Search"
-                    aria-label="Search" required>
-                <!-- <i class="fas fa-search"></i> -->
-                <button class="btn" type="submit">
-                    Search
-                </button>
+                        <input type="text" name="search" id="search" class="form-control mr-sm-2 validate"
+                            placeholder="Search" aria-label="Search">
+                    </div>
 
-                <!-- <i class="fas fa-trash-restore"></i> -->
-                <a href="{{ url_for('resources') }}" class="btn btn-primary">
-                    Reset
-                </a>
+                    <!-- FILTER -->
+                    <div class="col-6">
+                        <label for="category_name">
+                            <!-- <i class="fas fa-folder-open"></i> -->
+                            Category Name:
+                        </label>
+
+                        <select name="category_name" id="category_name" class="browser-default custom-select validate">
+                            <option value="" disabled selected>-Select a Category-</option>
+                            {% for category in categories  %}
+                            <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            {% endfor  %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-12">
+                        <i class="fas fa-search"></i>
+                        <button class="btn" type="submit">
+                            Search
+                        </button>
+                        <i class="fas fa-trash-restore"></i>
+                        <a href="{{ url_for('resources') }}" class="btn btn-primary">
+                            Reset
+                        </a>
+                    </div>
+                </div>
             </div>
         </form>
 
