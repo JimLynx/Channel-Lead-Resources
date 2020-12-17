@@ -9,6 +9,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 currentDate = datetime.today().strftime('%d-%m-%Y')
 
+# Variables for MongoDB collections
+cl = mongo.db.cl_resources
+cat = mongo.db.categories
+users = mongo.db.users
 
 # Render Home page
 @app.route('/')
@@ -37,24 +41,24 @@ def contact():
             flash("Thanks, your feedback has been sent!", "success")
             return redirect(url_for('contact'))
 
-        resources = list(mongo.db.cl_resources.find())
-        categories = mongo.db.categories.find().sort('category_name', 1)
+        resources = list(cl.find())
+        categories = cat.find().sort('category_name', 1)
         return render_template('contact.html', resources=resources, categories=categories)
     return redirect(url_for('login'))
 
 
 # create variables for user groups to shorten code - TBA
-# admin_1 = mongo.db.users.find(session['user'] == 'superuser' or session['user'] == 'assessor')
-# admin_2 = mongo.db.users.find(session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead')
-# admin_3 = mongo.db.users.find(session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead' or session['user'] == 'student')
+# admin_1 = users.find(session['user'] == 'superuser' or session['user'] == 'assessor')
+# admin_2 = users.find(session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead')
+# admin_3 = users.find(session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead' or session['user'] == 'student')
 
 
 # Login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    user_types = list(mongo.db.users.find())
+    user_types = list(users.find())
     if request.method == 'POST':
-        username = mongo.db.users.find_one(
+        username = users.find_one(
             {'user_type': request.form.get('username')})
         if check_password_hash(username['password'], request.form.get('password')):
             session['user'] = request.form.get('username')
@@ -88,14 +92,14 @@ def resources():
         # results limit to find
         num = 5
         # count documents to calculate number of pagination options
-        count = int(math.ceil(mongo.db.cl_resources.count_documents({}) / num))
+        count = int(math.ceil(cl.count_documents({}) / num))
         if page > count or page < 1:
             return render_template('errors/404.html'), 404
         # page - 1 ensures that the first items can be found
         # multiply the page number  by the item limit for current page results
-        resources = list(mongo.db.cl_resources.find(
+        resources = list(cl.find(
             {}).skip((page - 1)*num).limit(num))
-        categories = mongo.db.categories.find().sort('category_name', 1)
+        categories = cat.find().sort('category_name', 1)
         return render_template('resources.html', resources=resources, categories=categories, page=page, count=count, search=False)
     return redirect(url_for('login'))
 
@@ -110,18 +114,18 @@ def search():
         select = request.form.get('category_name', '')
         # perform mongo with search only
         if search and not select:
-            resources = mongo.db.cl_resources.find({'$text': {'$search': search}})
+            resources = cl.find({'$text': {'$search': search}})
         # perform mongo with select only
         elif select and not search:
-            resources = mongo.db.cl_resources.find({'category_name': select})
+            resources = cl.find({'category_name': select})
         elif search and select:
-            resources = mongo.db.cl_resources.find({ '$and': [{'category_name':  select} , {'$text': {'$search': search}} ] })
+            resources = cl.find({ '$and': [{'category_name':  select} , {'$text': {'$search': search}} ] })
         # if no search and no filter
         else:
-            cursor = mongo.db.cl_resources.find({})
+            resources = cl.find({})
         resources = [item for item in resources]
 
-    categories = mongo.db.categories.find().sort('category_name', 1)
+    categories = cat.find().sort('category_name', 1)
     print(resources)
     return render_template('resources.html', resources=resources, categories=categories)
 
@@ -132,7 +136,7 @@ def search():
 @app.route('/manage_users')
 def manage_users():
     if session['user'] == 'superuser' or session['user'] == 'assessor':
-        users = list(mongo.db.users.find().sort('user_type', 1))
+        users = list(users.find().sort('user_type', 1))
         return render_template('manage_users.html', users=users)
     return redirect(url_for('resources'))
 
@@ -142,7 +146,7 @@ def manage_users():
 def add_users():
     if session['user'] == 'superuser' or session['user'] == 'assessor':
         if request.method == 'POST':
-            mongo.db.users.insert_one(
+            users.insert_one(
                 {'user_type': request.form.get('username'), 'password': generate_password_hash(
                     request.form.get('password'))}
             )
@@ -157,7 +161,7 @@ def add_users():
 def delete_user(user_id):
     if session['user'] == 'superuser' or session['user'] == 'assessor':
 
-        mongo.db.users.remove({'_id': ObjectId(user_id)})
+        users.remove({'_id': ObjectId(user_id)})
         flash("Selected User Successfully Deleted.", "info")
         return redirect(url_for('manage_users'))
     return redirect(url_for('resources'))
@@ -171,10 +175,10 @@ def manage_resources():
     if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
         page = int(request.args.get('page') or 1)
         num = 4
-        count = int(math.ceil(mongo.db.cl_resources.count_documents({}) / num))
+        count = int(math.ceil(cl.count_documents({}) / num))
         if page > count or page < 1:
             return render_template('errors/404.html'), 404
-        resources = list(mongo.db.cl_resources.find(
+        resources = list(cl.find(
             {}).skip((page - 1) * num).limit(num))
         return render_template('manage_resources.html', resources=resources, page=page, count=count, search=False)
     return redirect(url_for('resources'))
@@ -184,7 +188,7 @@ def manage_resources():
 @app.route('/search_manage_resources', methods=['GET', 'POST'])
 def search_manage_resources():
     query = request.form.get('query')
-    resources = list(mongo.db.cl_resources.find({'$text': {'$search': query}}))
+    resources = list(cl.find({'$text': {'$search': query}}))
     return render_template('manage_resources.html', resources=resources)
 
 
@@ -209,12 +213,12 @@ def add_resource():
                 upload["video_url"] = ''.join(re.findall(
                     '(?<=v=)(.{11})', upload["video_url"]))
 
-            mongo.db.cl_resources.insert_one(upload)
+            cl.insert_one(upload)
             flash(
                 "Thanks, Your Awesome Resource Was Successfully Added!", "success")
             return redirect(url_for('manage_resources'))
 
-        categories = mongo.db.categories.find().sort('category_name', 1)
+        categories = cat.find().sort('category_name', 1)
         return render_template('add_resource.html', categories=categories)
     return redirect(url_for('resources'))
 
@@ -238,13 +242,13 @@ def edit_resource(resource_id):
                 upload["video_url"] = ''.join(re.findall(
                     '(?<=v=)(.{11})', upload["video_url"]))
 
-            mongo.db.cl_resources.update(
+            cl.update(
                 {'_id': ObjectId(resource_id)}, upload)
             flash("Selected Resource Successfully Updated.", "success")
             return redirect(url_for('manage_resources'))
-        resource = mongo.db.cl_resources.find_one(
+        resource = cl.find_one(
             {'_id': ObjectId(resource_id)})
-        categories = mongo.db.categories.find().sort('category_name', 1)
+        categories = cat.find().sort('category_name', 1)
         return render_template('edit_resource.html', resource=resource, categories=categories)
     return redirect(url_for('resources'))
 
@@ -253,7 +257,7 @@ def edit_resource(resource_id):
 @app.route('/delete_resource/<resource_id>')
 def delete_resource(resource_id):
     if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
-        mongo.db.cl_resources.remove({'_id': ObjectId(resource_id)})
+        cl.remove({'_id': ObjectId(resource_id)})
         flash("Selected Resource Successfuly Deleted.", "info")
         return redirect(url_for('manage_resources'))
     return redirect(url_for('resources'))
@@ -267,10 +271,10 @@ def manage_categories():
     if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
         page = int(request.args.get('page') or 1)
         num = 4
-        count = int(math.ceil(mongo.db.cl_resources.count_documents({}) / num))
+        count = int(math.ceil(cl.count_documents({}) / num))
         if page > count or page < 1:
             return render_template('errors/404.html'), 404
-        categories = list(mongo.db.categories.find(
+        categories = list(cat.find(
             {}).skip((page - 1) * num).limit(num))
         return render_template('manage_categories.html', categories=categories, page=page, count=count, search=False)
     return redirect(url_for('resources'))
@@ -280,7 +284,7 @@ def manage_categories():
 @app.route('/search_manage_categories', methods=['GET', 'POST'])
 def search_manage_categories():
     query = request.form.get('query')
-    resources = list(mongo.db.cl_resources.find({'$text': {'$search': query}}))
+    resources = list(cl.find({'$text': {'$search': query}}))
     return render_template('manage_categories.html', resources=resources)
 
 
@@ -292,7 +296,7 @@ def add_category():
             category = {
                 "category_name": request.form.get('category_name')
             }
-            mongo.db.categories.insert_one(category)
+            cat.insert_one(category)
             flash("New Category Added!", "success")
             return redirect(url_for('manage_categories'))
         return render_template('manage_categories.html')
@@ -308,11 +312,11 @@ def edit_category(category_id):
             submit = {
                 "category_name": request.form.get('category_name')
             }
-            mongo.db.categories.update({'_id': ObjectId(category_id)}, submit)
+            cat.update({'_id': ObjectId(category_id)}, submit)
             flash("Selected Category Successfully Updated.", "success")
             return redirect(url_for('manage_categories'))
 
-        category = mongo.db.categories.find_one({'_id': ObjectId(category_id)})
+        category = cat.find_one({'_id': ObjectId(category_id)})
         return render_template('edit_category.html', category=category)
     return redirect(url_for('resources'))
 
@@ -322,7 +326,7 @@ def edit_category(category_id):
 def delete_category(category_id):
 
     if session['user'] == 'superuser' or session['user'] == 'assessor':
-        mongo.db.categories.remove({'_id': ObjectId(category_id)})
+        cat.remove({'_id': ObjectId(category_id)})
         flash("Selected Category Successfully Deleted.", "info")
         return redirect(url_for('manage_categories'))
     return redirect(url_for('resources'))
