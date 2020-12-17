@@ -63,17 +63,16 @@
                 <p>Please enter a PDF url for your slideshow <strong>and/or</strong> a video embed code if posting a
                     Webinar recording</p>
                 <br>
+
                 <!-- document url location -->
                 <div class="row">
                     <label for="document_url">
                         <i class="fas fa-cloud-upload-alt"></i>
-                        PDF:
-                        <a type="button" class="btn btn-primary ml-5" data-toggle="modal" data-target="#uploadPDF">Upload
-                            PDF
-                        </a>
+                        PDF
+                        <i class="fas fa-info-circle fa-sm text-info" data-toggle="tooltip" data-html="true" title="
+                        <p>TBC</p>">
+                        </i>
                     </label>
-                    <!-- PDF Upload modal trigger -->
-                    
                     <input type="url" name="document_url" id="document_url" class="form-control validate mb-4"
                         placeholder="https://document-source" minlength="5" maxlength="200">
                 </div>
@@ -84,49 +83,29 @@
                         <i class="fas fa-cloud-upload-alt"></i>
                         Video:
                         <i class="fas fa-info-circle fa-sm text-info" data-toggle="tooltip" data-html="true" title="
-                        <p>Copy the <b>url</b> of the hosted <b>VIDEO</b> and paste below</p>
-                        <em>Tip: Youtube and Vimeo are recommended<em/>">
+                    <p>Copy the <b>url</b> of the hosted <b>VIDEO</b> and paste below</p>
+                    <em>Tip: Youtube and Vimeo are recommended<em/>">
                         </i>
                     </label>
-                    <input type="url" name="video_url" id="video_url" class="form-control validate mb-4"
-                        placeholder="https://video-source " minlength="5" maxlength="200">
+                    <input type="text" name="video_url" id="video_url" class="form-control validate mb-4"
+                        placeholder="https://video-source" minlength="5" maxlength="200">
                 </div>
                 <hr>
 
                 <!-- submit button -->
-
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-plus-square"></i>
-                    ADD
+                <!-- Trigger Confirm modal-->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit">
+                    <i class="far fa-check-circle"></i>
+                    CONFIRM
                 </button>
 
                 <!-- Cancel button - return to resource page -->
-
-                <a href="{{ url_for('manage_resources') }}" class="btn btn-danger">
+                <a href="{{ url_for('manage_resources') }}" class="btn btn-danger ">
                     <i class="fas fa-times-circle"></i>
                     Cancel
                 </a>
         </form>
     </div>
 </div>
-
-
-<!--PDF Upload modal-->
-<div class="modal fade" id="uploadPDF" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-        <div class="modal-content pdfContainer">
-            <div class="modal-body mb-0 p-0">
-                <iframe class="pdf-embed" src=https://script.google.com/macros/s/AKfycbyBMb1B2KIuzgY8H9KlpphSn9zRBh8zCer6NPWwZj_BD-nRhWc/exec></iframe>
-            </div>
-            <div class="modal-footer justify-content-center flex-column flex-md-row">
-                <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">
-                Close
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 {% endblock %}
