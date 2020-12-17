@@ -12,62 +12,31 @@ currentDate = datetime.today().strftime('%d-%m-%Y')
 # Variables for MongoDB collections
 cl = mongo.db.cl_resources
 cat = mongo.db.categories
-users = mongo.db.users
+cl.users = mongo.db.users
 
 
-# Variables for user access
+# Functions for user access groups
 def admin_1():
-    return users.find(session['user'] == 'superuser' or session['user'] == 'assessor')
+    return session['user'] == 'superuser' or session['user'] == 'assessor'
 
 
 def admin_2():
-    return users.find(session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead')
+    return session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead'
 
-
-def user():
-    return users.find(session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead' or session['user'] == 'student')
 
 # Render Home page
-
-
 @app.route('/')
 @app.route('/home')
 def home():
     return render_template('home.html')
 
 
-# -------- CONTACT PAGE-------- #
-
-
-@app.route('/contact', methods=['GET', 'POST'])
-def contact():
-    if session['user']:
-        if request.method == 'POST':
-            result = {
-                'category': request.form.get('category_name'),
-                'subject': request.form.get('subject'),
-                'feedback': request.form.get('feedback'),
-                'feedback_url': request.form.get('feedback_url'),
-                'name': request.form.get('yourName'),
-                'slackName': request.form.get('slackName'),
-                'emailAddress': request.form.get('emailAddress')
-            }
-            mail_settings.sendEmail(result)
-            flash("Thanks, your feedback has been sent!", "success")
-            return redirect(url_for('contact'))
-
-        resources = list(cl.find())
-        categories = cat.find().sort('category_name', 1)
-        return render_template('contact.html', resources=resources, categories=categories)
-    return redirect(url_for('login'))
-
-
 # Login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    user_types = list(users.find())
+    user_types = list(cl.users.find())
     if request.method == 'POST':
-        username = users.find_one(
+        username = cl.users.find_one(
             {'user_type': request.form.get('username')})
         if check_password_hash(username['password'], request.form.get('password')):
             session['user'] = request.form.get('username')
@@ -94,7 +63,7 @@ def resources():
 
     '''
     # If there are logged in users
-    if user():
+    if session['user']:
         # Pagination
         # get the page number from request or set the page 1 if first page
         page = int(request.args.get('page') or 1)
@@ -146,7 +115,7 @@ def search():
 @app.route('/manage_users')
 def manage_users():
     if admin_1():
-        users = list(users.find().sort('user_type', 1))
+        users = list(cl.users.find().sort('user_type', 1))
         return render_template('manage_users.html', users=users)
     return redirect(url_for('resources'))
 
@@ -156,7 +125,7 @@ def manage_users():
 def add_users():
     if admin_1():
         if request.method == 'POST':
-            users.insert_one(
+            cl.users.insert_one(
                 {'user_type': request.form.get('username'), 'password': generate_password_hash(
                     request.form.get('password'))}
             )
@@ -170,7 +139,8 @@ def add_users():
 @app.route('/delete_user/<user_id>')
 def delete_user(user_id):
     if admin_1():
-        users.remove({'_id': ObjectId(user_id)})
+
+        cl.users.remove({'_id': ObjectId(user_id)})
         flash("Selected User Successfully Deleted.", "info")
         return redirect(url_for('manage_users'))
     return redirect(url_for('resources'))
@@ -332,8 +302,34 @@ def edit_category(category_id):
 # Delete Category
 @app.route('/delete_category/<category_id>')
 def delete_category(category_id):
-    if admin_1():
+
+    if session['user'] == 'superuser' or session['user'] == 'assessor':
         cat.remove({'_id': ObjectId(category_id)})
         flash("Selected Category Successfully Deleted.", "info")
         return redirect(url_for('manage_categories'))
     return redirect(url_for('resources'))
+
+
+# -------- CONTACT PAGE-------- #
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if session['user']:
+        if request.method == 'POST':
+            result = {
+                'category': request.form.get('category_name'),
+                'subject': request.form.get('subject'),
+                'feedback': request.form.get('feedback'),
+                'feedback_url': request.form.get('feedback_url'),
+                'name': request.form.get('yourName'),
+                'slackName': request.form.get('slackName'),
+                'emailAddress': request.form.get('emailAddress')
+            }
+            mail_settings.sendEmail(result)
+            flash("Thanks, your feedback has been sent!", "success")
+            return redirect(url_for('contact'))
+
+        resources = list(cl.find())
+        categories = cat.find().sort('category_name', 1)
+        return render_template('contact.html', resources=resources, categories=categories)
+    return redirect(url_for('login'))
