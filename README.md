@@ -204,13 +204,13 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://git.heroku.com/channel-lead-resource
 >
 > ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1597668963/Logos/js50_fcj8kt.png) [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
 >
->  ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1605958609/Logos/python50.png)[Python](https://en.wikipedia.org/wiki/Python_(programming_language))
+>  ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1605958609/Logos/python50.png) [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
 
 ### 2. Integration
 
 > ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1593528776/Logos/Bootstrap-50_khpj57.png) [Bootstrap](https://getbootstrap.com/) - by linking via [Bootstrap CDN](https://www.bootstrapcdn.com/) to HTML Doc
 >
-> ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1593528776/Logos/fontawesome-50_r5df5h.png) [FontAwesome](https://fontawesome.com/) Icons for Social Media links 
+> ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1593528776/Logos/fontawesome-50_r5df5h.png) [FontAwesome](https://fontawesome.com/) Icons for Social Media links
 >
 > ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1593528776/Logos/GoogleFonts-50_mx57p6.png) [Google Fonts](https://fonts.google.com/) - Overall Typography import
 >
@@ -218,7 +218,7 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://git.heroku.com/channel-lead-resource
 >
 > ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1605958236/Logos/flask50.png)[Flask](https://flask.palletsprojects.com/en/1.1.x/) Micro web framework written in Python
 >
-> ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1605958236/Logos/mongo50.png)[MongoDB](https://www.mongodb.com/)) NoSQL database program, using JSON-like documents
+> ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1605958236/Logos/mongo50.png)[MongoDB](https://www.mongodb.com/) NoSQL database program, using JSON-like documents
 
 ### 3. Workspace, Version Control, Repository storage and Deployment
 
@@ -266,12 +266,12 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://git.heroku.com/channel-lead-resource
 
 ## Testing
 
-> Testing documentation can be found on a separate document [HERE]()
+> Testing documentation can be found on a separate document [HERE](static/testing/TESTING.md)
 
 ## Project barriers and solutions
 
 > - Created a branch for the modal confirmations. Modal templates for 'Add', 'Edit', 'Delete' and 'Add User' placed in base.html. The Add buttons on the modals work fine, but the Edit and Delete submit buttons will not work. Assumed issue stems from it being on the same page as the Add modal, causing a submit conflict with that form. Resolved by creating seperate ID's for the template modals, which relate to the form value on each modal, and then wrapping buttons/a tags in form elements, using 'form' attribute on modals to target the ID of the relevant forms. The Delete modals were still deleting the first item on the list, rather than  the specific item selected. Rectified this by moving the delete modal code from the base.html to each relevant file and providing id-targeting via Jinja.
-> -
+> - Videos in iframes in modals continued playing after modal closed. Solution found on Stack Overflow - See [Credits](#credits)
 
 ---
 
@@ -337,6 +337,7 @@ This project has been deployed on GitHub Pages with the following process:
 > - Setting active class to navigation items in Flask, adapted from post on Stack Overflow found [HERE](https://stackoverflow.com/a/55895621)
 > - Animation for 404 page images adjsacent to button, adapted from post on CSS Tricks found [HERE](https://css-tricks.com/making-css-animations-feel-natural/)
 > - Prevent spaces in username and password entries, adapted from post on Stack Overflow found [HERE](https://stackoverflow.com/a/14236954)
+> - Javascript solution for cancelling video playback after closing modal from Stack Overflow found [HERE](https://stackoverflow.com/a/54845883)
 
 ---
 
