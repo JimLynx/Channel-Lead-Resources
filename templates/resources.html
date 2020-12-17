@@ -2,7 +2,6 @@
 {% set active_page = 'resources' %}
 {% block content %}
 
-
 <div class="container">
     <div class="jumbotron">
         <h1 class="mb-5">Channel Lead Resources</h1>
@@ -60,17 +59,19 @@
         {% for resource in resources %}
 
         <!-- collapsible heading button -->
-        <button type="button" class="resource-btn btn btn-info" data-toggle="collapse"
+        <button type="button" class="resource-btn btn btn-info ripple" data-toggle="collapse"
             data-target={{ "#resource-content" + loop.index|string }}>
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 p-0">
                     <!-- TO BE STYLED  -->
-                    <h6 class="resource_title mt-3" style="text-decoration: underline;">{{ resource.category_name }}:</h6>
+                    <div class="resource-badge-wrapper my-2">
+                        <span class="resource-badge badge">{{ resource.category_name }} :</span>
+                    </div>
                     <h5>{{ resource.title }}</h5>
                 </div>
             </div>
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 p-0">
                     <i class="fas fa-angle-double-down"></i>
                 </div>
             </div>
@@ -81,8 +82,8 @@
             <div class="container">
                 <h3>{{ resource.title }}</h3>
                 <div class="row">
-                    <!-- post description -->
 
+                    <!-- post description -->
                     <div class="col-12 resource-description mt-3">
                         <p>{{ resource.description }}</p>
                     </div>
@@ -90,6 +91,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-12 col-md-6 text-center">
+
                         <!-- post PDF (opens modal) -->
                         <button type="button" class="btn" data-toggle="modal"
                             data-target={{ "#pdfModal" + loop.index|string }}>
@@ -107,7 +109,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- post by/date -->
             <p>
                 <em>
@@ -174,7 +176,8 @@
                 <div class="modal-content">
                     <div class="modal-body mb-0 p-0">
                         <div class="embed-responsive embed-responsive-16by9">
-                            <iframe src="https://www.youtube.com/embed/{{ resource.video_url }}" allowfullscreen></iframe>
+                            <iframe src="https://www.youtube.com/embed/{{ resource.video_url }}"
+                                allowfullscreen></iframe>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-center flex-column flex-md-row">
@@ -188,7 +191,7 @@
             </div>
         </div>
         {% endfor %}
-        
+
         {% else %}
         <!-- Show error if no search results found  -->
         <h4 class="card-title pt-3 mb-5 font-bold">No results found, please try another search</h4>

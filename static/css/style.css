@@ -159,6 +159,18 @@ label {
     color: var(--p-orange);
 }
 
+.resource-badge {
+    min-width: 140px;
+    background-color: var(--p-orange);
+    padding: 10px;
+    font-size: 0.7rem;
+    font-weight: 500;    
+}
+
+.resource-badge-wrapper {
+    text-align: center;
+}
+
 #active_page {
     border: 1px solid var(--p-orange);
     border-radius: 5px;
@@ -191,6 +203,7 @@ label {
     width: 100%;
 }
 
+/* pdf upload modal from Google Scripts - TO BE CHANGED!!!! */
 #output {
     width: 100vw;
 }
@@ -203,16 +216,6 @@ label {
     text-decoration: underline;
 }
 
-/* .pdf-modal-dialog {
-    height: 70vh;
-}
-.pdf-modal-content {
-    height: inherit;
-}
-
-.pdf-modal-body {
-    height: inherit;
-} */
 /* ADMIN 'MANAGE' PAGES */
 .edit-btn,
 .delete-btn {
@@ -371,6 +374,9 @@ footer i:hover {
 /* -- MEDIA QUERIES -- */
 
 @media only screen and (min-width: 768px) {
+    .resource-badge-wrapper {
+        text-align: end;
+    }
     .btn i {
         font-size: 150%;
     }
