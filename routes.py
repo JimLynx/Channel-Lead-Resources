@@ -14,7 +14,22 @@ cl = mongo.db.cl_resources
 cat = mongo.db.categories
 users = mongo.db.users
 
+
+# Variables for user access
+def admin_1():
+    return users.find(session['user'] == 'superuser' or session['user'] == 'assessor')
+
+
+def admin_2():
+    return users.find(session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead')
+
+
+def user():
+    return users.find(session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead' or session['user'] == 'student')
+
 # Render Home page
+
+
 @app.route('/')
 @app.route('/home')
 def home():
@@ -45,12 +60,6 @@ def contact():
         categories = cat.find().sort('category_name', 1)
         return render_template('contact.html', resources=resources, categories=categories)
     return redirect(url_for('login'))
-
-
-# create variables for user groups to shorten code - TBA
-# admin_1 = users.find(session['user'] == 'superuser' or session['user'] == 'assessor')
-# admin_2 = users.find(session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead')
-# admin_3 = users.find(session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead' or session['user'] == 'student')
 
 
 # Login
@@ -85,7 +94,7 @@ def resources():
 
     '''
     # If there are logged in users
-    if session['user']:
+    if user():
         # Pagination
         # get the page number from request or set the page 1 if first page
         page = int(request.args.get('page') or 1)
@@ -119,7 +128,8 @@ def search():
         elif select and not search:
             resources = cl.find({'category_name': select})
         elif search and select:
-            resources = cl.find({ '$and': [{'category_name':  select} , {'$text': {'$search': search}} ] })
+            resources = cl.find(
+                {'$and': [{'category_name':  select}, {'$text': {'$search': search}}]})
         # if no search and no filter
         else:
             resources = cl.find({})
@@ -135,7 +145,7 @@ def search():
 # Render Manage Users page
 @app.route('/manage_users')
 def manage_users():
-    if session['user'] == 'superuser' or session['user'] == 'assessor':
+    if admin_1():
         users = list(users.find().sort('user_type', 1))
         return render_template('manage_users.html', users=users)
     return redirect(url_for('resources'))
@@ -144,7 +154,7 @@ def manage_users():
 # Add User
 @app.route('/add_users', methods=['GET', 'POST'])
 def add_users():
-    if session['user'] == 'superuser' or session['user'] == 'assessor':
+    if admin_1():
         if request.method == 'POST':
             users.insert_one(
                 {'user_type': request.form.get('username'), 'password': generate_password_hash(
@@ -159,8 +169,7 @@ def add_users():
 # Delete User
 @app.route('/delete_user/<user_id>')
 def delete_user(user_id):
-    if session['user'] == 'superuser' or session['user'] == 'assessor':
-
+    if admin_1():
         users.remove({'_id': ObjectId(user_id)})
         flash("Selected User Successfully Deleted.", "info")
         return redirect(url_for('manage_users'))
@@ -172,7 +181,7 @@ def delete_user(user_id):
 # Render Manage Resources page
 @app.route('/manage_resources')
 def manage_resources():
-    if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
+    if admin_2():
         page = int(request.args.get('page') or 1)
         num = 4
         count = int(math.ceil(cl.count_documents({}) / num))
@@ -195,7 +204,7 @@ def search_manage_resources():
 # Add resource
 @app.route('/add_resource', methods=['GET', 'POST'])
 def add_resource():
-    if session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead':
+    if admin_2():
         if request.method == 'POST':
             upload = {
                 "category_name": request.form.get("category_name"),
@@ -226,7 +235,7 @@ def add_resource():
 # Edit resources
 @app.route('/edit_resource/<resource_id>', methods=['GET', 'POST'])
 def edit_resource(resource_id):
-    if session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead':
+    if admin_2():
         if request.method == 'POST':
             upload = {
                 "category_name": request.form.get("category_name"),
@@ -256,7 +265,7 @@ def edit_resource(resource_id):
 # Delete resources
 @app.route('/delete_resource/<resource_id>')
 def delete_resource(resource_id):
-    if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
+    if admin_2():
         cl.remove({'_id': ObjectId(resource_id)})
         flash("Selected Resource Successfuly Deleted.", "info")
         return redirect(url_for('manage_resources'))
@@ -268,7 +277,7 @@ def delete_resource(resource_id):
 # Render Manage Categories page
 @app.route('/manage_categories')
 def manage_categories():
-    if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
+    if admin_2():
         page = int(request.args.get('page') or 1)
         num = 4
         count = int(math.ceil(cl.count_documents({}) / num))
@@ -291,7 +300,7 @@ def search_manage_categories():
 # Add new category
 @app.route('/add_category', methods=['GET', 'POST'])
 def add_category():
-    if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
+    if admin_2():
         if request.method == "POST":
             category = {
                 "category_name": request.form.get('category_name')
@@ -306,8 +315,7 @@ def add_category():
 # Edit category
 @app.route('/edit_category/<category_id>', methods=['GET', 'POST'])
 def edit_category(category_id):
-
-    if session['user'] == 'lead' or session['user'] == 'superuser' or session['user'] == 'assessor':
+    if admin_2():
         if request.method == "POST":
             submit = {
                 "category_name": request.form.get('category_name')
@@ -324,8 +332,7 @@ def edit_category(category_id):
 # Delete Category
 @app.route('/delete_category/<category_id>')
 def delete_category(category_id):
-
-    if session['user'] == 'superuser' or session['user'] == 'assessor':
+    if admin_1():
         cat.remove({'_id': ObjectId(category_id)})
         flash("Selected Category Successfully Deleted.", "info")
         return redirect(url_for('manage_categories'))
