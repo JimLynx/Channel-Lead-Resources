@@ -77,6 +77,9 @@ def logout():
 # Render Resources page.
 @app.route('/resources')
 def resources():
+    '''
+
+    '''
     # If there are logged in users
     if session['user']:
         # Pagination
@@ -182,10 +185,6 @@ def add_resource():
                 "date": currentDate
             }
 
-            # replace end of string returned from Google Drive Script to preview
-            if upload["document_url"] != None:
-                upload["document_url"] = upload["document_url"].replace("/view?usp=drivesdk", "/preview")
-            
             # use regular expression to post only id of video to video_url
             # Credit:Sean Murphy : regex code
             if upload["video_url"] != None:
@@ -217,12 +216,9 @@ def edit_resource(resource_id):
                 "date": currentDate
             }
 
-            if upload["document_url"] != None:
-                upload["document_url"] = upload["document_url"].replace("/view?usp=drivesdk", "/preview")
-                        
             if upload["video_url"] != None:
-                upload["video_url"] = ''.join(re.findall('(?<=v=)(.{11})', upload["video_url"]))
-            
+                upload["video_url"] = ''.join(re.findall(
+                    '(?<=v=)(.{11})', upload["video_url"]))
 
             mongo.db.cl_resources.update(
                 {'_id': ObjectId(resource_id)}, upload)
