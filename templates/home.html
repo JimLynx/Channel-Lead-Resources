@@ -12,28 +12,22 @@
         </h1>
         <hr><br>
 
-        <p class="mb-5">Every 6 weeks a current student (from each of the four Milestone sections of the
-            course), is selected as a Channel Lead for their respective channel.
-        </p>
-        <p class="mb-5">
-            Channel Leads assist other students by creating learning material in a variety of topics, and
-            presenting via Slideshow, image or PDF uploads and/or scheduling Slack calls and webinars.
-        </p>
-        <p class="mb-5">
-            This site provides a central platform for Students to easily access these resources.
-        </p>
-
         {% if session.user %}
             {% if session.user|lower == session.user|lower %}
+            <p>- You're already logged in -</p>
             <a class="btn {{ home_btn_resources }}" href="{{ url_for('resources') }}">
                 <i class="fas fa-arrow-alt-circle-right"></i>
-                Checkout Resources
+                Back to Resources
             </a>
             {% endif %}
             {% else %}
+            <p>This site is intended for Educational use for Students and Alumni of the <a href="https://codeinstitute.net/" target=" _blank">
+                Code
+                Institute</a>
+            <p><b>Please login to proceed</b></p>
             <a class="btn" href="{{ url_for('login') }}">
                 <i class="fas fa-sign-in-alt"></i>
-                Proceed to Login
+                Login
             </a>
         {% endif %}
         <br><br>

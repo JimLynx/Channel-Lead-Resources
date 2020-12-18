@@ -31,6 +31,10 @@ body {
     padding-top: 75px;
 }
 
+.container {
+    margin: 0 auto;
+}
+
 hr {
     background-color: var(--p-orange);
     opacity: 50%;
@@ -159,12 +163,13 @@ label {
     color: var(--p-orange);
 }
 
-.resource-badge {
+.btn .resource-badge {
     min-width: 140px;
     background-color: var(--p-orange);
     padding: 10px;
     font-size: 0.7rem;
     font-weight: 500;    
+    top: -13px;
 }
 
 .resource-badge-wrapper {
