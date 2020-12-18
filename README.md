@@ -2,7 +2,7 @@
 <img src="static/img/ms3-logo.png" />
 </p>
 
-SITE DEPLOYED LIVE ON HEROKU [HERE](https://git.heroku.com/channel-lead-resources.git)
+SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com/)
 
 ## Table of Contents
 
@@ -313,7 +313,6 @@ This project has been deployed on GitHub Pages with the following process:
 >   ### Cloning
 >
 >   - The code can be run locally through clone or download from the repository on [GitHub](https://github.com/JimLynx/Channel-Lead-Resources)
->
 >   - You can do this by opening the repository, clicking on the green 'Code' button and selecting either 'clone or download'
 >   - The Clone option provides a URL, which you can use on your CLI with `git clone <url>`
 >   - The Download ZIP option provides a link to download a ZIP file which can be unzipped on your local machine. The files can then be uploaded to your IDE
@@ -338,15 +337,16 @@ This project has been deployed on GitHub Pages with the following process:
 > - Animation for 404 page images adjsacent to button, adapted from post on CSS Tricks found [HERE](https://css-tricks.com/making-css-animations-feel-natural/)
 > - Prevent spaces in username and password entries, adapted from post on Stack Overflow found [HERE](https://stackoverflow.com/a/14236954)
 > - Javascript solution for cancelling video playback after closing modal from Stack Overflow found [HERE](https://stackoverflow.com/a/54845883)
-
+> - Regex code solution for capturing only the hosted Youtube video ID written by [Sean Murphy](https://github.com/nazarja)
+> -
 ---
 
 ## Acknowledgments
 >
 > I would like to thank:
 >
-> - My mentor, **Mark Railton** for his guidance and advice.
-> - **Tim Nelson**, **Bim Williams**, **John Traas**, **Anthony O'Brien** and **Sean Murphy** for always being open to discussing, helping and generally being awesome people.
+> - My mentor, **Aaron Sinnott** for his guidance and advice.
+> - **[Tim Nelson](https://github.com/TravelTimN)**, **[Bim Williams](https://github.com/mrbim)**, **[John Traas](https://github.com/Jays-T)**, **[Anthony O'Brien](https://github.com/auxfuse)** and **[Sean Murphy](https://github.com/nazarja)** for always being open to discussing, helping and generally being awesome people.
 > - Everyone in Tutor support for always being patient and friendly when approaching with assistance during course material.
 > - **CI staff** and **Slack Community** for always being on-hand with questions posted and assistance requests.
 > - Everyone that takes part in the Slack calls, specifically from the **#In-It-Together** and **#Study-Group** channels.
@@ -356,3 +356,6 @@ This project has been deployed on GitHub Pages with the following process:
 > For any issue resolution or assistance, please email  Jim Morel :e-mail: jim.lynx@gmail.com :e-mail:
 
 ---
+
+## Known Bugs
+> - 
