@@ -40,7 +40,10 @@ def login():
             {'user_type': request.form.get('username')})
         if check_password_hash(username['password'], request.form.get('password')):
             session['user'] = request.form.get('username')
+            flash(
+                "Welcome, you've successfully logged in to Channel Lead Resources!", "success")
             return redirect(url_for('resources'))
+
         else:
             flash("Incorrect password please try again", "danger")
     return render_template('login.html', users=user_types)
@@ -186,6 +189,11 @@ def add_resource():
                 "date": currentDate
             }
 
+            # replace end of returned url string from user link to 'preview' for embedded PDF
+            if upload["document_url"] != None:
+                upload["document_url"] = upload["document_url"].replace(
+                    "/view?usp=sharing", "/preview")
+
             # use regular expression to post only id of video to video_url
             # Credit:Sean Murphy : regex code
             if upload["video_url"] != None:
@@ -216,6 +224,11 @@ def edit_resource(resource_id):
                 "created_by": request.form.get("created_by"),
                 "date": currentDate
             }
+
+            # replace end of returned url string from user link to 'preview' for embedded PDF
+            if upload["document_url"] != None:
+                upload["document_url"] = upload["document_url"].replace(
+                    "/view?usp=sharing", "/preview")
 
             if upload["video_url"] != None:
                 upload["video_url"] = ''.join(re.findall(
