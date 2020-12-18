@@ -206,7 +206,7 @@ def add_resource():
             return redirect(url_for('manage_resources'))
 
         categories = cat.find().sort('category_name', 1)
-        return render_template('add_resource.html', categories=categories)
+        return render_template('add_resource.html', resources=resources, categories=categories)
     return redirect(url_for('resources'))
 
 
