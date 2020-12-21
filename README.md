@@ -2,6 +2,8 @@
 <img src="static/img/ms3-logo.png" />
 </p>
 
+<img src="static/img/responsive.png" />
+
 SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com/)
 
 ## Table of Contents
@@ -20,8 +22,6 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com
 > - [Credits](#credits)
 > - [Acknowledgments](#acknowledgments)
 > - [Support](#support)
-
-(TBA - make gif for responsive view)
 
 **Please note: To open any links in this document in a new browser tab, please press `CTRL + Click`.**
 
