@@ -196,7 +196,7 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com
 
 ## Technologies Used
 
-### 1. Languages
+1. ### Languages
 
 > ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1593529419/Logos/html5-50_groo6o.png) [HTML5](https://en.wikipedia.org/wiki/HTML5)
 >
@@ -206,7 +206,7 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com
 >
 >  ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1605958609/Logos/python50.png) [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
 
-### 2. Integration
+2. ### Integration
 
 > ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1593528776/Logos/Bootstrap-50_khpj57.png) [Bootstrap](https://getbootstrap.com/) - by linking via [Bootstrap CDN](https://www.bootstrapcdn.com/) to HTML Doc
 >
@@ -216,11 +216,24 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com
 >
 > ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1600683635/Logos/jquery-50.png) [jQuery](https://jquery.com/) - JavaScript library
 >
-> ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1605958236/Logos/flask50.png)[Flask](https://flask.palletsprojects.com/en/1.1.x/) Micro web framework written in Python
+> ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1605958236/Logos/flask50.png) [Flask](https://flask.palletsprojects.com/en/1.1.x/) Micro web framework written in Python
 >
-> ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1605958236/Logos/mongo50.png)[MongoDB](https://www.mongodb.com/) NoSQL database program, using JSON-like documents
+> ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1605958236/Logos/mongo50.png) [MongoDB](https://www.mongodb.com/) NoSQL database program, using JSON-like documents
 
-### 3. Workspace, Version Control, Repository storage and Deployment
+3. ### Dependencies:
+> - [Flask Mail](https://pythonhosted.org/Flask-Mail/) For connecting the application to my mail account to receive communication from users
+> - [Pymongo](https://pypi.org/project/pymongo/) and [Flask-PyMongo](https://flask-pymongo.readthedocs.io/en/latest/) To connect Python and Flask to the MongoDB database
+> - [Werkzeug](https://werkzeug.palletsprojects.com/en/1.0.x/) WSGI (Web Server Gateway Interface) for Python
+> - [Jinja2](https://jinja.palletsprojects.com/en/2.11.x/) Templating language for Python
+> - [dnspython](https://www.dnspython.org/) DNS toolkit for Python
+> - [autopep8](https://pypi.org/project/autopep8/) Python Code formatter
+> - [blinker](https://pythonhosted.org/blinker/) Object-to-object and broadcast signaling for Python objects
+> - [click](https://click.palletsprojects.com/en/7.x/) Command Line Interface creation kit
+> - [itsdangerous](https://readthedocs.org/projects/itsdangerous/) Various helpers to pass data to untrusted environments and to get it back safely
+> - [MarkupSafe](https://pypi.org/project/MarkupSafe/) Implements a text object that escapes characters so it is safe to use in HTML and XML
+>
+
+4. ### Workspace, Version Control, Repository storage and Deployment
 
 > ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1600764509/Logos/VS-50.png) [VSCode](https://code.visualstudio.com/) - Main workspace IDE (Integrated Development Environment)
 >
@@ -230,21 +243,25 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com
 >
 > ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1605957602/Logos/heroku50.png) [Heroku](https://heroku.com) - Container-based cloud platform for deployment and running of apps
 
-### 4. Other
+5. ### Other
 
 > - [Autoprefixer](https://autoprefixer.github.io/) Parses CSS and adds vendor prefixes.
 > - [Google Mobile-Friendly Test](https://search.google.com/test/mobile-friendly) Mobile-friendly check on site.
 > - [Website Page Test](https://www.webpagetest.org/) Runs a website speed test from multiple locations around the globe using real browsers (IE and Chrome) and at real consumer connection speeds.
 > - [Online-Spellcheck](https://www.online-spellcheck.com/) Online spelling and grammar checks.
 
-### 5. IDE Extensions used in VSCode
+6. ### IDE Extensions used in VSCode
 
 > - Auto Close Tag
 > - Auto Rename Nametag
-> - Bracket Pair Colorizer
+> - Bracket Pair Colorizer 2
 > - Code Spellchecker
 > - Beautify - Code Formatter
 > - Indent-Rainbow
+> - Bootstrap 4 CDN Snippet
+> - Markdown Lint
+> - Python
+> - JSHint
 
 ---
 
@@ -279,11 +296,11 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com
 
 > HTML - [W3C](https://validator.w3.org/) - Markup Validation
 >
-> CSS - [W3C](https://jigsaw.w3.org/css-validator/) - CSS Validation
+> CSS - [W3C](https://jigsaw.w3.org/css-validator/) - Jigsaw CSS Validation
 >
 > JavaScript - [JSHINT](https://jshint.com/) - JavaScript code warning & error check
 >
-> Python
+> Python - [Pyton Tester](https://extendsclass.com/python-tester.html) Python code syntax checker
 >
 > TAGS - [Closing Tag Checker for HTML5](https://www.aliciaramirez.com/closing-tags-checker/) - Validates all tags are opening and closing correctly.
 
@@ -293,7 +310,7 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com
 
 > - Used Git for version control.
 > - Branches were created to work on alternative layout and buttons.
->   - user-confirmation branch > for implementing and testing confirmation modal dialogues
+>   - user-confirmation branch > for implementing and testing confirmation modal dialogues.
 > - The branches were then merged with the master branch after any conflicts were addressed.
 
 ---
@@ -302,26 +319,44 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com
 
 This project has been deployed on GitHub Pages with the following process:
 
-> - All code was written on [Visual Studio Code](https://code.visualstudio.com/), a local IDE (Integrated Development Environment)
+> ### IDE
 >
-> - The code was then pushed to GitHub where it is stored in my [Repository](https://github.com/JimLynx/Channel-Lead-Resources)
+> - All code was written on [Visual Studio Code](https://code.visualstudio.com/), a local IDE (Integrated Development Environment).
+> - A virtual environment was created on VSCode to ensure that the packages installed are only installed in the virtual environment folder.
+> - Sensitive information (passwords etc) is stored in an env.py file, which is added to the .gitignore file, to ensure this information is not pushed to the repository.
+> - a requirements.txt file was created to store updated depenecies of installed packages for the project.
+> - A Procfile was created to declare what commands are run by the application's dynos on the Heroku platform.
+> - The code was then pushed to GitHub where it is stored in my [Repository](https://github.com/JimLynx/Channel-Lead-Resources).
 >
- ----- TBA - DEPLOYMENT ON HEROKU
+> ### Heroku
 >
+> This project is deployed and hosted on [Heroku](https://www.heroku.com) - a Cloud Application Platform that enables developers to build, run, and operate applications in the cloud.
+> Deployment process is as follows:
+>
+> - Register for a free account on the Heroku [Signup](https://signup.heroku.com/login) page.
+> - On the Dashboard, click the 'New' button and select 'Create new app'.
+> - Choose a name and region.
+> - Under the 'Settings' tab, click on 'Config Vars' to add Configuration Variables from the env.py file. This includes the IP, Port, Secret key, [MongoDB](https://www.mongodb.com/) name and URI, as well as mail settings for Flask Mail.
+> - Select the 'Deploy' option from the menu.
+> - Under 'Deployment method' select the GitHub option to connect to your GitHub repository. Ensure GitHub Username is selected and use the search function to find the relevant repository. It is recommended using a 'main' branch as default, due to GitHub depreciating the 'master' branch name.
+> - Select Automatic deploys from the main branch and click 'Deploy Branch'.
+> - Click on the 'Open App' button on the top-right to open the deployed app.
 > - There is no difference between the deployed version and the development version.
 >
->   ### Cloning
+> ### Cloning
 >
->   - The code can be run locally through clone or download from the repository on [GitHub](https://github.com/JimLynx/Channel-Lead-Resources)
->   - You can do this by opening the repository, clicking on the green 'Code' button and selecting either 'clone or download'
->   - The Clone option provides a URL, which you can use on your CLI with `git clone <url>`
->   - The Download ZIP option provides a link to download a ZIP file which can be unzipped on your local machine. The files can then be uploaded to your IDE
+> - The code can be run locally through clone or download from the repository on [GitHub](https://github.com/JimLynx/Channel-Lead-Resources).
+> - You can do this by opening the repository, clicking on the green 'Code' button and selecting either 'clone or download'.
+> - The Clone option provides a URL, which you can use on your CLI with `git clone <url>`.
+> - The Download ZIP option provides a link to download a ZIP file which can be unzipped on your local machine. The files can then be.uploaded to your IDE
 
 ## Credits
 
 > ### Media
 >
-> - TBA
+> - Code Institute logo downloaded from [official website](https://codeinstitute.net/)
+> - Slack logo downloaded from [official website](https://slack.com/)
+> - 404 error page image created on [Meme Generator](https://memegenerator.net/)
 >
 > #### Content
 >
@@ -338,6 +373,7 @@ This project has been deployed on GitHub Pages with the following process:
 > - Prevent spaces in username and password entries, adapted from post on Stack Overflow found [HERE](https://stackoverflow.com/a/14236954)
 > - Javascript solution for cancelling video playback after closing modal from Stack Overflow found [HERE](https://stackoverflow.com/a/54845883)
 > - Regex code solution for capturing only the hosted Youtube video ID written by [Sean Murphy](https://github.com/nazarja)
+>
 > -
 ---
 
