@@ -4,7 +4,7 @@
 
 <img src="static/img/responsive.png" />
 
-SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com/)
+# SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com/)
 
 ## Table of Contents
 
@@ -40,13 +40,13 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com
 >
 > - As a user I would like to **have access to past Channel Lead presentations** in one place, so that I can:
 >   - **periodically refer to them after the live presentations**
->   - **refer to them if I cannot make the live presentations** 
+>   - **refer to them if I cannot make the live presentations**
 > - As a user I would like to **be able to search the site**, so that I can **easily find resources that I am looking for**
 > - As a user I would like to **leave a comment** so that I can **recommend future topics to cover**
 > - As a user I would like to **rate a post** (like/dislike-emojis) so that I can **visibly show how valuable the particular resource is to me**
 > - As a user I would like to **access the information from anywhere**, so that I can **watch and read presentations on my mobile phone/tablet**
 >
-> ### :white_circle: Admin _(Code institute Slack Channel Leads)_
+> ### :white_circle: Admin_(Code institute Slack Channel Leads)_
 >
 > - As an Admin I would like the ability to **log into an admin account**, so that I can **create resource posts**
 > - As an Admin I would like the ability to **upload my presentations**, so that I can **add new material to the site**
@@ -54,12 +54,14 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com
 > - As an Admin I would like the ability to **delete my presentations**, so that I can **remove outdated information, which may become irrelevant due to technological advances**
 > - As an Admin I would like the **ability for users to review my presentations**, so that I can **be informed of how useful they are and if anything can be improved upon**
 >
-> ### :red_circle: Superuser _(Developer-Site Creator)_
+> ### :red_circle: Superuser_(Developer-Site Creator)_
 >
 > In addition to the above,
+>
 > - As a Superuser I would like to be able to **keep information aimed at Code Institute Students**, so that **material posted is not directly available to the general public**
-> - As a Superuser I would like to be able to **Create Admin accounts**, so that I can **assign them to ----------------------------**
-> - As a Superuser I would like to be able to **Delete User accounts**, so that I can **keep the site secure**
+>
+> - As a Superuser I would like to be able to **Create Admin accounts**, so that I can **assign them to new users**
+> - As a Superuser I would like to be able to **Delete User accounts**, so that I can **maintain control of user accounts**
 > - As a Superuser I would like to be able to **Update Category names**, so that I can **ensure the site is kept neat**
 > - As a Superuser I would like to be able to **Delete Categories**, so that I can **keep the site clean and clutter free**
 >
@@ -78,7 +80,7 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com
 
 ### 1. Strategy
 
-> #### Project and User Goals:
+> #### Project and User Goals
 >
 > - Provide an easy to navigate resource platform for hosting Channel Lead presentations and videos
 >
@@ -92,7 +94,7 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com
 >   - Familiarity, using Slack and Code Institute 'look and feel'
 >   - Responsiveness for use on mobile phone and tablet devices
 >
-> #### Main Sections to cover:
+> #### Main Sections to cover
 >
 > - **:file_folder: Milestone 1** - Main focus in HTML, CSS (& Bootstrap)
 > - **:file_folder: Milestone 2** - Main focus in JavaScript (& jQuery) and API's
@@ -105,15 +107,15 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com
 ### 2. Scope
 
 > - Fits in with my current skill-set of HTML, CSS, JavaScript, Python, Flask and MongoDB
-> - Implement platform for **links** to PDF  content (Channel Leads can host files on Cloudinary Account)
-> - Implement platform for **links** to Video (Channel Leads can videos host on YouTube Brand Channel)
+> - Implement platform for **links** to PDF content
+> - Implement platform for **links** to Video content
 > - Allow Users to Read material posted
 > - Allow Admin to Create, Read, Update and Delete material
 > - Allow Superuser to Create, Read, Update and Delete material
 > - Allow Superuser to Create, Read, Update and Delete Login Credentials
 > - Allow separate Assessor Login, with full rights to investigate all aspects and functionality
 >
-> #### Stretch Goals:
+> #### Stretch Goals
 >
 > - :film_strip: Implement YouTube API to display videos on site
 >
@@ -135,19 +137,28 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com
 
 ### 4. Skeleton
 
-> - [Wireframes](static/wireframes/wireframes.pdf): #### TBA - link to wireframes
+> - [Wireframes](static/wireframes/wireframes.pdf):
 > - Navigation bar - Menu with links pointing to each page.
->   - Home - Intro image/video
->     - Brief information on the site
->   - Login (user types)
->     - Student (User) Login
->     - Admin (Channel Lead) Login
->     - Superuser Login
->     - Assessor Login
->   - Resource page with links to each topic (or direct link to each topic page from menu dropdown)
->   - Topic pages displaying content
->   - Contact page
-> - Footer with Copyright info, Useful Links and Social Media icons
+>   - Home - Intro button leading to Login Page
+>   - Login Page with basic form with dropdown options for each user type and password field
+>   - Resource page with information on the site, search functionality and collapsible resource posts
+>   - Contact page with feedback/suggestion form
+>   - Admin Dashboard with dreopdown links to:
+>       - Manage Users page 
+>       - Manage Resources page 
+>       - Manage Categories page
+> 
+> - Login credentials and accessibility
+>   - Student (User) Login
+>       - Access to Resources, Contact and Logout pages
+>   - Lead Login
+>       - Access to Resources, Manage Resources, Contact and Logout pages
+> - Superuser Login
+>       - Access to Resources, Manage Resources, Manage Categories, Manage Users Contact and Logout pages
+> - Assessor Login
+>       - Access to same as above mentioned in Superuser Login
+>
+> - Footer with Useful Links, Information on the Code Institute and Social Media icons
 
 ---
 
@@ -168,12 +179,12 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com
 >
 > #### Images
 >
-> -
+> - I've decided not to use images, which would distract from the simple, direct communication of the information provided. The only images used are on the 404 and 500 error pages.
 >
 > #### Design Choices
 >
-> - 123
-> - 456
+> - As the project developed, so did the learning of the Flask framework and knowledge of what could further be implemented. For this reason the initial wireframes differ from the final version as new pages, features and functionality were introduced in the process.
+> - TBA
 
 ---
 
@@ -182,7 +193,7 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com
 ### Existing Features
 
 > - Designed with HTML5, CSS3, JavaScript, Python3, Flask, MongoDB and Bootstrap
-> - Home/Landing page with ___________ pages in total
+> - Home/Landing page with redirection to Login Page
 > - Responsive Bootstrap Navigation bar
 > - Footer with useful links and social media links
 > - Contact Form
@@ -190,7 +201,8 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com
 > ### Features Left to Implement when skills develop
 >
 > - Integrate with Slack
-> - Scalability
+> - Scalability - Vision to use the project as an open-source project for Code Instutute Students & Alumni to add and improve features. This could be a good project for a Hackathon event.
+> - Review/Rating of individual resource posts
 
 ---
 
@@ -204,8 +216,8 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com
 >
 > ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1597668963/Logos/js50_fcj8kt.png) [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
 >
->  ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1605958609/Logos/python50.png) [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
-
+> ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1605958609/Logos/python50.png) [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
+>
 2. ### Integration
 
 > ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1593528776/Logos/Bootstrap-50_khpj57.png) [Bootstrap](https://getbootstrap.com/) - by linking via [Bootstrap CDN](https://www.bootstrapcdn.com/) to HTML Doc
@@ -220,7 +232,8 @@ SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com
 >
 > ![Image](https://res.cloudinary.com/jimlynx/image/upload/v1605958236/Logos/mongo50.png) [MongoDB](https://www.mongodb.com/) NoSQL database program, using JSON-like documents
 
-3. ### Dependencies:
+3. ### Dependencies
+>
 > - [Flask Mail](https://pythonhosted.org/Flask-Mail/) For connecting the application to my mail account to receive communication from users
 > - [Pymongo](https://pypi.org/project/pymongo/) and [Flask-PyMongo](https://flask-pymongo.readthedocs.io/en/latest/) To connect Python and Flask to the MongoDB database
 > - [Werkzeug](https://werkzeug.palletsprojects.com/en/1.0.x/) WSGI (Web Server Gateway Interface) for Python
