@@ -88,6 +88,13 @@ hr {
     transform: scale(1.05);
 }
 
+#active_page {
+    border: 1px solid var(--p-orange);
+    border-radius: 5px;
+    color: var(--p-orange);
+    font-weight: 600;
+}
+
 /* -- INTRO -- */
 .jumbotron {
     align-self: center;
@@ -123,6 +130,11 @@ hr {
 .btn i {
     color: var(--s-light-grey);
     margin: 10px 15px 10px 0;
+}
+
+.btn-blue {
+    color: var(--off-white);
+    background-color: var(--p-blue);
 }
 
 /* -- FORMS -- */
@@ -168,19 +180,12 @@ label {
     background-color: var(--p-orange);
     padding: 10px;
     font-size: 0.7rem;
-    font-weight: 500;    
+    font-weight: 500;
     top: -13px;
 }
 
 .resource-badge-wrapper {
     text-align: center;
-}
-
-#active_page {
-    border: 1px solid var(--p-orange);
-    border-radius: 5px;
-    color: var(--p-orange);
-    font-weight: 600;
 }
 
 .none-warning {
@@ -204,19 +209,6 @@ label {
 .pdf-embed {
     height: 100%;
     width: 100%;
-}
-
-/* pdf upload modal from Google Scripts - TO BE CHANGED!!!! */
-#output {
-    width: 100vw;
-}
-#pdf-uploaded {
-    border: 1px solid orange;
-    padding: 5px;
-    width: 100%;
-    margin: 0;
-    overflow-wrap: anywhere;
-    text-decoration: underline;
 }
 
 /* ADMIN 'MANAGE' PAGES */
@@ -266,17 +258,12 @@ footer hr {
     background-color: var(--off-white);
 }
 
-.grey-bg {
-    background-color: var(--p-dark-grey);
-}
-
 footer {
     flex-shrink: 0;
     font-size: .8rem;
     font-weight: 200;
     letter-spacing: 1px;
     color: var(--p-light-grey);
-    background-color: var(--p-dark-grey);
 }
 
 footer h4 {
@@ -335,7 +322,7 @@ footer i {
 
 footer i {
     font-size: 150%;
-    margin: 0 20px;
+    margin: 0 20px 0 0;
     transition: transform .4s;
     box-shadow: var(--box-shadow);
 }
@@ -380,6 +367,7 @@ footer i:hover {
     .resource-badge-wrapper {
         text-align: end;
     }
+
     .btn i {
         font-size: 150%;
     }

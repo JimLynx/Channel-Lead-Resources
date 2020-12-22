@@ -67,7 +67,7 @@
                         </button>
 
                         <!-- <i class="fas fa-trash-restore"></i> -->
-                        <a href="{{ url_for('manage_categories') }}" class="btn btn-primary">
+                        <a href="{{ url_for('manage_categories') }}" class="btn btn-blue">
                             Reset
                         </a>
                     </div>
@@ -109,7 +109,7 @@
                                     <td class="table-btn-col">
                                         <!-- edit button  -->
                                         <a href="{{ url_for('edit_category', category_id=category._id) }}"
-                                            class="btn btn-primary edit-btn">
+                                            class="btn btn-blue edit-btn">
                                             Edit
                                         </a>
                                         {% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
