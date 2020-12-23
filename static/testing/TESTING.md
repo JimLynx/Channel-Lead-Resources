@@ -3,9 +3,12 @@
 
 > - [User Stories](#user-stories)
 > - [Code validity](#code-validity)
-> - [Deployment](#deployment)
+> - [Contact Form](#contact-form)
 > - [Search Function](#search-function)
 > - [Responsive](#responsive)
+> - [Deployment](#deployment)
+
+---
 
 ## User Stories
 
@@ -87,17 +90,42 @@
 >
 > #### **TESTING:** The **'Assessor'** username and password created to allow a Project Assessor full access to the project with all priveledges of a Superuser, but with dedicated login details
 >
+
 ---
 
 ## Code Validity
 
-## Deployent
+> #### **TESTING:** 
+>
+
+---
 
 ## Search Function
 
-# Responsive Tests
+> #### **TESTING:** 
+>
+
+---
+
+## Contact Form
+
+> #### **TESTING:** 
+>
+> - All required fields are working fine. When Submit button is clicked and 'required' fields are empty, the user receives a notification to fill in the relevant field.
+> - When submitting a completed form, user receives a flash message notification that the feedback/suggestion has been sent.
+> - After submission, checked email inbox and message from the site is successfully recieved.
+>
+> ![Image](../testing/email-test.png)
+
+---
+
+## Responsive Tests
 
 > When select element is viewed on mobile in DevTools, the option elements extend offscreen. However, this is not an issue on physical mobile devices as the browser renders it's own native form elements.
 
 ![Image](../testing/test-select-devtools.png)
 ![Image](../testing/test-select-mobile-device.png)
+
+---
+
+## Deployment
