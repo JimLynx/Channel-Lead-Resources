@@ -8,7 +8,7 @@
         <form id="editConfirm" action="{{ url_for('edit_category', category_id=category._id) }}" method="POST">
             <div class="container">
                 <p>Hi {{ session.user|title }}, please edit Category name in the field below.</p>
-                <hr>
+                <div class="break-line"></div>
 
                 <!-- title -->
                 <div class="row">

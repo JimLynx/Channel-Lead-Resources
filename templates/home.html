@@ -10,7 +10,8 @@
         <h1 class="slide-heading">
             <strong>Channel Lead Resources</strong>
         </h1>
-        <hr><br>
+        <div class="break-line"></div>
+        <br>
 
         {% if session.user %}
             {% if session.user|lower == session.user|lower %}
@@ -20,17 +21,24 @@
                 Back to Resources
             </a>
             {% endif %}
-            {% else %}
-            <p>This site is intended for Educational use for Students and Alumni of the <a href="https://codeinstitute.net/" target=" _blank">
+        {% else %}
+        <p>This site is intended for Educational use for Students and Alumni of the <a href="https://codeinstitute.net/"
+                target=" _blank">
                 Code
                 Institute</a>
-            <p><b>Please login to proceed</b></p>
-            <a class="btn" href="{{ url_for('login') }}">
-                <i class="fas fa-sign-in-alt"></i>
-                Login
-            </a>
+        </p>
+        <p>
+            <b>
+                Please login to proceed
+            </b>
+        </p>
+        <a class="btn" href="{{ url_for('login') }}">
+            <i class="fas fa-sign-in-alt"></i>
+            Login
+        </a>
         {% endif %}
-        <br><br>
+        <br>
+        <br>
     </div>
 </div>
 

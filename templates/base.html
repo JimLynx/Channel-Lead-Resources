@@ -43,22 +43,22 @@
                 <li class="nav-item {{ 'active' if active_page == 'resources' }}">
                     <a class="nav-link" href="{{ url_for('resources') }}">Resources</a>
                 </li>
-                    <!-- Admin Dropdown -->
-                    {% if session.user|lower == 'lead' or session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navDropdown" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">Admin Dashboard</a>
-                        <div class="dropdown-menu dropdown-primary" aria-labelledby="navDropdown">
-                            {% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
-                            <a class="nav-link" href="{{ url_for('manage_users', user=session.user) }}">Manage Users</a>
-                            {% endif %}
-                            <a class="nav-link" href="{{ url_for('manage_resources', user=session.user) }}">Manage
-                                Resources</a>
-                            <a class="nav-link" href="{{ url_for('manage_categories', user=session.user) }}">Manage
-                                Categories</a>
-                        </div>
-                    </li>
-                    {% endif %}
+                <!-- Admin Dropdown -->
+                {% if session.user|lower == 'lead' or session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navDropdown" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">Admin Dashboard</a>
+                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navDropdown">
+                        {% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
+                        <a class="nav-link" href="{{ url_for('manage_users', user=session.user) }}">Manage Users</a>
+                        {% endif %}
+                        <a class="nav-link" href="{{ url_for('manage_resources', user=session.user) }}">Manage
+                            Resources</a>
+                        <a class="nav-link" href="{{ url_for('manage_categories', user=session.user) }}">Manage
+                            Categories</a>
+                    </div>
+                </li>
+                {% endif %}
                 <li class="nav-item {{ 'active' if active_page == 'contact' }}">
                     <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
                 </li>
@@ -93,7 +93,7 @@
 
     <footer>
         <div class="container">
-            <hr>
+            <div class="break-line"></div>
         </div>
         <div class="container">
             <div class="row">
@@ -132,7 +132,7 @@
             </div>
         </div>
         <div class="container">
-            <hr>
+            <div class="break-line"></div>
         </div>
         <div class="container">
             <div class="row">

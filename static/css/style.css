@@ -35,10 +35,11 @@ body {
     margin: 0 auto;
 }
 
-hr {
+.break-line {
     background-color: var(--p-orange);
     opacity: 50%;
     width: 75%;
+    height: 1px;
     margin: 40px auto;
 }
 

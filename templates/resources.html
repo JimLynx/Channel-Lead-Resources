@@ -8,19 +8,21 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <p class="mb-3">Every 6 weeks a current student is selected as a 'Slack Channel Lead' to represent each of the four Milestone sections of the
+                    <p class="mb-3">Every 6 weeks a current student is selected as a 'Slack Channel Lead' to represent
+                        each of the four Milestone sections of the
                         course.
                     </p>
-                        <p>Channel Leads assist other students by creating learning material in a variety of topics, and present these via Intructional PDF's and/or scheduling webinars for students.
+                    <p>Channel Leads assist other students by creating learning material in a variety of topics, and
+                        present these via Intructional PDF's and/or scheduling webinars for students.
                     </p>
                     <p class="mb-3">
                         <b>This site provides a central platform to easily access these resources, and more!</b>
                     </p>
-                    
+
                 </div>
             </div>
         </div>
-<hr>
+        <div class="break-line"></div>
         <!-- search form -->
         <form action="{{ url_for('search') }}" method="POST" class="col-12">
             <p>Search Resources by keyword, category or both</p>
@@ -50,7 +52,7 @@
                     </div>
                 </div>
                 <div class="row my-4">
-                    <div class="col-12">                        
+                    <div class="col-12">
                         <button class="btn" type="submit">
                             <i class="fas fa-search"></i>
                             Search
@@ -118,7 +120,7 @@
                         <p>{{ resource.description }}</p>
                     </div>
                 </div>
-                <hr>
+                <div class="break-line"></div>
                 <div class="row">
                     <div class="col-12 col-md-6 text-center">
 
@@ -173,8 +175,8 @@
                 <div class="modal-content pdfContainer">
                     <div class="modal-body mb-0 p-0">
                         <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="pdf-embed" src={{ resource.document_url }}></iframe>
-                    </div>
+                            <iframe class="pdf-embed" src={{ resource.document_url }}></iframe>
+                        </div>
                     </div>
                     <div class="modal-footer justify-content-center flex-column flex-md-row">
                         <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4"

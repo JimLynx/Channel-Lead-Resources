@@ -6,7 +6,7 @@
         <h1>Edit Resource</h1>
         <form id="editConfirm" action="{{ url_for('edit_resource', resource_id=resource._id) }}" method="POST">
             <p>Hi {{ session.user|title }}, please edit necessary fields below</p>
-            <hr>
+            <div class="break-line"></div>
             <em><small class="text-muted">This resource was last updated by {{ resource.created_by|title }} on
                     {{ resource.date }}</small></em>
             <!-- category -->
@@ -67,7 +67,7 @@
                     value="{{ resource.created_by|title }}" minlength=" 5" maxlength="50" required>
             </div>
 
-            <hr>
+            <div class="break-line"></div>
             <p>Please enter a url for your hosted PDF slideshow <strong style="text-decoration: underline;">AND / OR</strong> a Webinar recording hosted
                 on YouTube</p>
             <p>Click the 'INSTRUCTIONS' buttons for more details on each</p>
@@ -103,7 +103,7 @@
                 <input type="text" name="video_url" id="video_url" class="form-control validate mb-4"
                     value="https://www.youtube.com/watch?v={{ resource.video_url }}" placeholder="https://youtube/" minlength="5" maxlength="200">
             </div>
-            <hr>
+            <div class="break-line"></div>
 
             <!-- submit button -->
             <!-- Trigger Confirm modal-->

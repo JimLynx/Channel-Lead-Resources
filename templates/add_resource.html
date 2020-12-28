@@ -8,7 +8,7 @@
         <form action="{{ url_for('add_resource') }}" method="POST">
             <div class="container">
                 <p>Hi {{ session.user|title }}, please post in all sections and be as detailed as possible</p>
-                <hr>
+                <div class="break-line"></div>
 
                 <!-- category selection -->
                 <div class="row">
@@ -60,7 +60,7 @@
                         placeholder="Slack Username" minlength=" 5" maxlength="50" required>
                 </div>
 
-                <hr>
+                <div class="break-line"></div>
                 <p>Please enter a url for your hosted PDF slideshow <strong style="text-decoration: underline;">AND / OR</strong> a Webinar recording hosted
                     on YouTube</p>
                 <p>Click the 'INSTRUCTIONS' buttons for more details on each</p>
@@ -96,7 +96,7 @@
                     <input type="text" name="video_url" id="video_url" class="form-control validate mb-4"
                         placeholder="https://video-source" minlength="5" maxlength="200">
                 </div>
-                <hr>
+                <div class="break-line"></div>
 
                 <!-- submit button -->
                 <button type="submit" class="btn btn-blue">
