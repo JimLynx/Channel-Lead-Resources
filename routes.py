@@ -185,7 +185,6 @@ def search_manage_resources():
         resources = [item for item in resources]
 
     categories = cat.find().sort('category_name', 1)
-    print(resources)
     return render_template('manage_resources.html', resources=resources, categories=categories)
 
 
@@ -277,22 +276,14 @@ def delete_resource(resource_id):
 def manage_categories():
     if admin_2():
         page = int(request.args.get('page') or 1)
-        num = 4
-        count = int(math.ceil(cl.count_documents({}) / num))
+        num = 5
+        count = int(math.ceil(cat.count_documents({}) / num))
         if page > count or page < 1:
             return render_template('errors/404.html'), 404
         categories = list(cat.find(
             {}).skip((page - 1) * num).limit(num))
         return render_template('manage_categories.html', categories=categories, page=page, count=count, search=False)
     return redirect(url_for('resources'))
-
-
-# === Search function for Manage Categories page
-@app.route('/search_manage_categories', methods=['GET', 'POST'])
-def search_manage_categories():
-    query = request.form.get('query')
-    resources = list(cl.find({'$text': {'$search': query}}))
-    return render_template('manage_categories.html', resources=resources)
 
 
 # === Add new category

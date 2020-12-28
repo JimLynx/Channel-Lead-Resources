@@ -41,7 +41,9 @@
                 </form>
             </div>
         </div>
+
         <div class="break-line"></div>
+
         <!-- Edit existing categories -->
         <div class="row">
             <div class="col-12">
@@ -51,115 +53,99 @@
                     <i class="fas fa-trash"></i>
                     Delete Categories
                 </h4>
-
-                <!-- search form -->
-                <form action="{{ url_for('search_manage_categories') }}" method="POST" class="col-12">
-                    <div class="container">
-                        <label for="query">
-                            Search Categories
-                        </label>
-
-                        <input type="text" name="query" id="query" class="form-control mr-sm-2 validate"
-                            placeholder="Search" aria-label="Search" required>
-                        <!-- <i class="fas fa-search"></i> -->
-                        <button class="btn" type="submit">
-                            Search
-                        </button>
-
-                        <!-- <i class="fas fa-trash-restore"></i> -->
-                        <a href="{{ url_for('manage_categories') }}" class="btn btn-blue">
-                            Reset
-                        </a>
-                    </div>
-                </form>
-
-                <!-- Pagination -->
-                {% if search == False %}
-                <nav aria-label="Page navigation">
-                    <p>Pages</p>
-                    <ul style="justify-content: center;" class="pagination pg-blue">
-                        {% for i in range(0, count) %}
-                        <li class="page-item">
-                            {% if i+1 == page %}
-                            <a class="page-link active" id="active_page">
-                                {% else %}
-                                <a class="page-link" href="{{ url_for('manage_categories', page=i+1) }}">
-                                    {% endif %}
-                                    {{ i + 1  }}
-                                </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </nav>
-                {% endif %}
-
-                <div class="container">
-                    <div class="row">
-                        {% for category in categories %}
-                        <!-- populated table content -->
-                        <table>
-                            <tr>
-                                <div class="col-12 col-md-8">
-                                    <!-- category heading -->
-                                    <td class="table-title-col">
-                                        {{ category.category_name }}
-                                    </td>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <td class="table-btn-col">
-                                        <!-- edit button  -->
-                                        <a href="{{ url_for('edit_category', category_id=category._id) }}"
-                                            class="btn btn-blue edit-btn">
-                                            Edit
-                                        </a>
-                                        {% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
-                                        <form class="btn-col" id="deleteConfirm{{ category._id }}"
-                                            action="{{ url_for('delete_category', category_id=category._id) }}">
-                                            <!-- Trigger delete confirmation modal-->
-                                            <button type="button" class="btn btn-danger delete-btn" data-toggle="modal"
-                                                data-target="#modalDelete{{ category._id }}">
-                                                Delete
-                                            </button>
-                                        </form>
-                                        {% endif %}
-                                    </td>
-
-                                </div>
-                            </tr>
-                        </table>
-                        {% endfor %}
-                    </div>
-                </div>
             </div>
         </div>
 
-        <!-- Delete Item Modal -->
-        {% for category in categories %}
-        <div class=" modal fade" id="modalDelete{{ category._id }}" tabindex="-1" role="dialog"
-            aria-labelledby="modalDelete" aria-hidden="true">
-            <div class="modal-dialog modal-md modal-notify modal-danger" role="document">
-                <div class="modal-content text-center">
-                    <div class="modal-header d-flex justify-content-center">
-                        <p class="heading">Are you sure you want to DELETE this item?</p>
-                    </div>
-                    <div class="modal-body">
-                        <p><i class="fas fa-exclamation-circle"></i> WARNING:</p>
-                        <p>This action cannot be undone!</p>
-                        <div class="modal-footer flex-center">
-                            <button class="btn btn-outline-danger" type="submit" form="deleteConfirm{{ category._id }}">
-                                Confirm
-                            </button>
-                            <button class="btn btn-danger waves-effect" type="button" data-dismiss="modal">
-                                <i class="fas fa-times animated rotateIn"></i>
-                                Cancel
-                            </button>
+        <!-- Pagination -->
+        {% if search == False %}
+        <nav aria-label="Page navigation">
+            <p>Pages</p>
+            <ul style="justify-content: center;" class="pagination pg-blue">
+                {% for i in range(0, count) %}
+                <li class="page-item">
+                    {% if i+1 == page %}
+                    <a class="page-link active" id="active_page">
+                        {% else %}
+                        <a class="page-link" href="{{ url_for('manage_categories', page=i+1) }}">
+                            {% endif %}
+                            {{ i + 1  }}
+                        </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </nav>
+        {% endif %}
+
+        <!-- list of categories -->
+        <div class="container">
+            <div class="row">
+
+                {% for category in categories %}
+                <!-- populated table content -->
+                <table>
+                    <tr>
+                        <div class="col-12 col-md-8">
+                            <!-- category heading -->
+                            <td class="table-title-col">
+                                {{ category.category_name }}
+                            </td>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <td class="table-btn-col">
+                                <!-- edit button  -->
+                                <a href="{{ url_for('edit_category', category_id=category._id) }}"
+                                    class="btn btn-blue edit-btn">
+                                    Edit
+                                </a>
+                                {% if session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
+                                <form class="btn-col" id="deleteConfirm{{ category._id }}"
+                                    action="{{ url_for('delete_category', category_id=category._id) }}">
+                                    <!-- Trigger delete confirmation modal-->
+                                    <button type="button" class="btn btn-danger delete-btn" data-toggle="modal"
+                                        data-target="#modalDelete{{ category._id }}">
+                                        Delete
+                                    </button>
+                                </form>
+                                {% endif %}
+                            </td>
+                        </div>
+                    </tr>
+                </table>
+
+                <!-- Delete Item Modal -->
+                    <div class=" modal fade" id="modalDelete{{ category._id }}" tabindex="-1" role="dialog"
+                        aria-labelledby="modalDelete" aria-hidden="true">
+                        <div class="modal-dialog modal-md modal-notify modal-danger" role="document">
+                            <div class="modal-content text-center">
+                                <div class="modal-header d-flex justify-content-center">
+                                    <p class="heading">Are you sure you want to DELETE this item?</p>
+                                </div>
+                                <div class="modal-body">
+                                    <p><i class="fas fa-exclamation-circle"></i> WARNING:</p>
+                                    <p>This action cannot be undone!</p>
+                                    <div class="modal-footer flex-center">
+                                        <button class="btn btn-outline-danger" type="submit"
+                                            form="deleteConfirm{{ category._id }}">
+                                            Confirm
+                                        </button>
+                                        <button class="btn btn-danger waves-effect" type="button" data-dismiss="modal">
+                                            <i class="fas fa-times animated rotateIn"></i>
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                {% else %}
+                <!-- Show error if no search results found  -->
+                <h4 class="card-title pt-3 mb-5 font-bold">No results found, please try another search</h4>
+                {% endfor %}
             </div>
         </div>
-        {% endfor %}
     </div>
 </div>
+
 {% endif %}
 {% endblock %}
