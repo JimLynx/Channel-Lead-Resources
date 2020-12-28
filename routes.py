@@ -7,15 +7,16 @@ from flask import flash, render_template, redirect, request, session, url_for
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 
+# === Variable to store current date by dd/mm/yy
 currentDate = datetime.today().strftime('%d-%m-%Y')
 
-# Variables for MongoDB collections
+# === Variables for MongoDB collections
 cl = mongo.db.cl_resources
 cat = mongo.db.categories
 cl.users = mongo.db.users
 
 
-# Functions for user access groups
+# === Functions for user access groups
 def admin_1():
     return session['user'] == 'superuser' or session['user'] == 'assessor'
 
@@ -24,14 +25,14 @@ def admin_2():
     return session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead'
 
 
-# Render Home page
+# === Render Home page
 @app.route('/')
 @app.route('/home')
 def home():
     return render_template('home.html')
 
 
-# Login
+# === Login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     user_types = list(cl.users.find())
@@ -49,7 +50,7 @@ def login():
     return render_template('login.html', users=user_types)
 
 
-# Logout
+# === Logout
 @app.route('/logout')
 def logout():
     session.pop('user', None)
@@ -59,7 +60,7 @@ def logout():
 
 # -------- RESOURCES PAGE-------- #
 
-# Render Resources page.
+# === Render Resources page.
 @app.route('/resources')
 def resources():
     '''
@@ -67,7 +68,7 @@ def resources():
     '''
     # If there are logged in users
     if session['user']:
-        # Pagination
+        # Pagination:
         # get the page number from request or set the page 1 if first page
         page = int(request.args.get('page') or 1)
         # results limit to find
@@ -85,7 +86,7 @@ def resources():
     return redirect(url_for('login'))
 
 
-# Search function for Resources page
+# === Search function for Resources page
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     resources = []
@@ -114,7 +115,7 @@ def search():
 
 # -------- MANAGE USERS PAGE -------- #
 
-# Render Manage Users page
+# === Render Manage Users page
 @app.route('/manage_users')
 def manage_users():
     if admin_1():
@@ -123,7 +124,7 @@ def manage_users():
     return redirect(url_for('resources'))
 
 
-# Add User
+# === Add User
 @app.route('/add_users', methods=['GET', 'POST'])
 def add_users():
     if admin_1():
@@ -138,11 +139,10 @@ def add_users():
     return redirect(url_for('resources'))
 
 
-# Delete User
+# === Delete User
 @app.route('/delete_user/<user_id>')
 def delete_user(user_id):
     if admin_1():
-
         cl.users.remove({'_id': ObjectId(user_id)})
         flash("Selected User Successfully Deleted.", "info")
         return redirect(url_for('manage_users'))
@@ -151,30 +151,45 @@ def delete_user(user_id):
 
 # -------- MANAGE RESOURCES PAGE -------- #
 
-# Render Manage Resources page
+# === Render Manage Resources page
 @app.route('/manage_resources')
 def manage_resources():
     if admin_2():
         page = int(request.args.get('page') or 1)
-        num = 4
+        num = 5
         count = int(math.ceil(cl.count_documents({}) / num))
         if page > count or page < 1:
             return render_template('errors/404.html'), 404
         resources = list(cl.find(
             {}).skip((page - 1) * num).limit(num))
         return render_template('manage_resources.html', resources=resources, page=page, count=count, search=False)
-    return redirect(url_for('resources'))
+    return redirect(url_for('manage_resources'))
 
 
-# Search function for Manage Resources page
+# === Search function for Manage Resources page
 @app.route('/search_manage_resources', methods=['GET', 'POST'])
 def search_manage_resources():
-    query = request.form.get('query')
-    resources = list(cl.find({'$text': {'$search': query}}))
-    return render_template('manage_resources.html', resources=resources)
+    resources = []
+    if request.method == 'POST':
+        search = request.form.get('search', '')
+        select = request.form.get('category_name', '')
+        if search and not select:
+            resources = cl.find({'$text': {'$search': search}})
+        elif select and not search:
+            resources = cl.find({'category_name': select})
+        elif search and select:
+            resources = cl.find(
+                {'$and': [{'category_name':  select}, {'$text': {'$search': search}}]})
+        else:
+            resources = cl.find({})
+        resources = [item for item in resources]
+
+    categories = cat.find().sort('category_name', 1)
+    print(resources)
+    return render_template('manage_resources.html', resources=resources, categories=categories)
 
 
-# Add resource
+# === Add resource
 @app.route('/add_resource', methods=['GET', 'POST'])
 def add_resource():
     if admin_2():
@@ -210,7 +225,7 @@ def add_resource():
     return redirect(url_for('resources'))
 
 
-# Edit resources
+# === Edit resources
 @app.route('/edit_resource/<resource_id>', methods=['GET', 'POST'])
 def edit_resource(resource_id):
     if admin_2():
@@ -245,7 +260,7 @@ def edit_resource(resource_id):
     return redirect(url_for('resources'))
 
 
-# Delete resources
+# === Delete resources
 @app.route('/delete_resource/<resource_id>')
 def delete_resource(resource_id):
     if admin_2():
@@ -257,7 +272,7 @@ def delete_resource(resource_id):
 
 # -------- MANAGE CATEGORIES PAGE -------- #
 
-# Render Manage Categories page
+# === Render Manage Categories page
 @app.route('/manage_categories')
 def manage_categories():
     if admin_2():
@@ -272,7 +287,7 @@ def manage_categories():
     return redirect(url_for('resources'))
 
 
-# Search function for Manage Categories page
+# === Search function for Manage Categories page
 @app.route('/search_manage_categories', methods=['GET', 'POST'])
 def search_manage_categories():
     query = request.form.get('query')
@@ -280,7 +295,7 @@ def search_manage_categories():
     return render_template('manage_categories.html', resources=resources)
 
 
-# Add new category
+# === Add new category
 @app.route('/add_category', methods=['GET', 'POST'])
 def add_category():
     if admin_2():
@@ -295,7 +310,7 @@ def add_category():
     return redirect(url_for('resources'))
 
 
-# Edit category
+# === Edit category
 @app.route('/edit_category/<category_id>', methods=['GET', 'POST'])
 def edit_category(category_id):
     if admin_2():
@@ -312,7 +327,7 @@ def edit_category(category_id):
     return redirect(url_for('resources'))
 
 
-# Delete Category
+# === Delete Category
 @app.route('/delete_category/<category_id>')
 def delete_category(category_id):
 

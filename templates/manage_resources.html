@@ -12,6 +12,7 @@
             <i class="fas fa-plus"></i>
             Add New Resource
         </h4>
+
         <!-- Add new resource -->
         <div class="row">
             <div class="col-12 ">
@@ -22,6 +23,7 @@
                 </a>
             </div>
         </div>
+
         <div class="break-line"></div>
 
         <!-- Edit existing resources -->
@@ -33,90 +35,107 @@
                     <i class="fas fa-trash"></i>
                     Delete Resources
                 </h4>
+            </div>
+        </div>
 
-                <!-- search form -->
-                <form action="{{ url_for('search_manage_resources') }}" method="POST" class="col-12">
-                    <div class="container">
-                        <label for="query">
-                            Search Resources
+        <!-- search form -->
+        <form action="{{ url_for('search_manage_resources') }}" method="POST" class="col-12">
+            <p>Search Resources by keyword, category or both</p>
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="search">
+                            Keyword Search
+                        </label>
+                        <input type="text" name="search" id="search" class="form-control mr-sm-2 validate"
+                            placeholder="Search" aria-label="Search">
+                    </div>
+
+                    <!-- FILTER -->
+                    <div class="col-6">
+                        <label for="category_name">
+                            <!-- <i class="fas fa-folder-open"></i> -->
+                            Search by Category:
                         </label>
 
-                        <input type="text" name="query" id="query" class="form-control mr-sm-2 validate"
-                            placeholder="Search" aria-label="Search" required>
-                        <!-- <i class="fas fa-search"></i> -->
+                        <select name="category_name" id="category_name" class="browser-default custom-select validate">
+                            <option value="" disabled selected>-Select a Category-</option>
+                            {% for category in categories  %}
+                            <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            {% endfor  %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-12">
                         <button class="btn" type="submit">
+                            <i class="fas fa-search"></i>
                             Search
                         </button>
-
-                        <!-- <i class="fas fa-trash-restore"></i> -->
                         <a href="{{ url_for('manage_resources') }}" class="btn btn-blue">
-
+                            <i class="fas fa-trash-restore"></i>
                             Reset
                         </a>
                     </div>
-                </form>
-
-                <!-- Pagination -->
-                {% if search == False %}
-                <nav aria-label="Page navigation">
-                    <p>Pages</p>
-                    <ul style="justify-content: center;" class="pagination pg-blue">
-                        {% for i in range(0, count) %}
-                        <li class="page-item">
-                            {% if i+1 == page %}
-                            <a class="page-link active" id="active_page">
-                                {% else %}
-                                <a class="page-link" href="{{ url_for('manage_resources', page=i+1) }}">
-                                    {% endif %}
-                                    {{ i + 1  }}
-                                </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </nav>
-                {% endif %}
-
-                <!-- list of resources -->
-                <div class="container">
-                    <div class="row">
-                        {% if resources|length > 0 %}
-                        {% for resource in resources %}
-                        <!-- populated table content -->
-                        <table>
-                            <tr>
-                                <div class="col-12 col-md-8">
-                                    <!-- category heading -->
-                                    <td class="table-title-col">
-                                        {{ resource.title }}
-                                    </td>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <td class="table-btn-col">
-                                        <!-- edit button  -->
-                                        <a href="{{ url_for('edit_resource', resource_id=resource._id) }}"
-                                            class="btn btn-blue edit-btn">
-                                            Edit
-                                        </a>
-                                        <form class="btn-col" id="deleteConfirm{{ resource._id }}"
-                                            action="{{ url_for('delete_resource', resource_id=resource._id) }}">
-                                            <!-- Trigger delete confirmation modal-->
-                                            <button class=" btn btn-danger delete-btn" type="button" data-toggle="modal"
-                                                data-target="#modalDelete{{ resource._id }}">
-                                                Delete
-                                            </button>
-                                        </form>
-                                    </td>
-                                </div>
-                            </tr>
-                        </table>
-                        {% endfor %}
-
-                    </div>
                 </div>
-                
+            </div>
+        </form>
+
+        <!-- Pagination -->
+        {% if search == False %}
+        <nav aria-label="Page navigation">
+            <p>Pages</p>
+            <ul style="justify-content: center;" class="pagination pg-blue">
+                {% for i in range(0, count) %}
+                <li class="page-item">
+                    {% if i+1 == page %}
+                    <a class="page-link active" id="active_page">
+                        {% else %}
+                        <a class="page-link" href="{{ url_for('manage_resources', page=i+1) }}">
+                            {% endif %}
+                            {{ i + 1  }}
+                        </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </nav>
+        {% endif %}
+
+        <!-- list of resources -->
+        <div class="container">
+            <div class="row">
+                {% if resources|length > 0 %}
+                {% for resource in resources %}
+                <!-- populated table content -->
+                <table>
+                    <tr>
+                        <div class="col-12 col-md-8">
+                            <!-- category heading -->
+                            <td class="table-title-col">
+                                {{ resource.title }}
+                            </td>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <td class="table-btn-col">
+                                <!-- edit button  -->
+                                <a href="{{ url_for('edit_resource', resource_id=resource._id) }}"
+                                    class="btn btn-blue edit-btn">
+                                    Edit
+                                </a>
+                                <form class="btn-col" id="deleteConfirm{{ resource._id }}"
+                                    action="{{ url_for('delete_resource', resource_id=resource._id) }}">
+                                    <!-- Trigger delete confirmation modal-->
+                                    <button class=" btn btn-danger delete-btn" type="button" data-toggle="modal"
+                                        data-target="#modalDelete{{ resource._id }}">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </div>
+                    </tr>
+                </table>
 
                 <!-- Delete Item Modal -->
-                {% for resource in resources %}
                 <div class=" modal fade" id="modalDelete{{ resource._id }}" tabindex="-1" role="dialog"
                     aria-labelledby="modalDelete" aria-hidden="true">
                     <div class="modal-dialog modal-md modal-notify modal-danger" role="document">
@@ -150,5 +169,7 @@
         </div>
     </div>
 </div>
+
 {% endif %}
+
 {% endblock %}
