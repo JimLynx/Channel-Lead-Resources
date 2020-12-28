@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Enter your description here" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+
+    <title>500 Error Page</title>
+</head>
+
+<body>
+
+    <div class="container text-center">
+            <div class="card mx-auto" style="width: fit-content;">
+                <img class="card-img-top" src="{{ url_for('static', filename='img/500.png') }}" alt="500 Error warning image">
+                <div class="card-body">
+                    <p class="card-text">Something has gone wrong with the website's server.</p>
+                    <div class="break-line"></div>
+                    <p>Take me back to the site please!</p>
+                    <div class="mt-5 mb-3">
+                    <img class="hands bounce" src="{{ url_for('static', filename='img/point-r.png') }}" alt="Monty Python hand icon">
+                    <a href="{{ url_for('home') }}" class="btn btn-primary">HOME</a>
+                    <img class="hands bounce" src="{{ url_for('static', filename='img/point-l.png') }}" alt="Monty Python hand icon">
+                </div>
+                </div>
+            </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+
+</html>
