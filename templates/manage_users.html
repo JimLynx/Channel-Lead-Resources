@@ -12,6 +12,7 @@
             <i class="fas fa-plus"></i>
             Add New User
         </h4>
+        <p class="mb-5"><em>(Please note: Any new user added is assigned standard 'Student/User' accessibility credentials.)</em></p>
         <!-- Add new user -->
         <form action="{{ url_for('add_users', user=session.user) }}" method="POST">
             <div class="row">
@@ -117,7 +118,7 @@
                                                 </div>
                                 </div>
                                 {% endfor %}
-                    </div>
+                    </>
                 </div>
                 {% endif %}
                 {% endblock %}
