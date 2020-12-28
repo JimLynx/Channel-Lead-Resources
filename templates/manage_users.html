@@ -12,7 +12,8 @@
             <i class="fas fa-plus"></i>
             Add New User
         </h4>
-        <p class="mb-5"><em>(Please note: Any new user added is assigned standard 'Student/User' accessibility credentials.)</em></p>
+        <p><i class="fas fa-question-circle"> All new users added are assigned standard 'Student/User' accessibility credentials.</i></p>
+        <br>
         <!-- Add new user -->
         <form action="{{ url_for('add_users', user=session.user) }}" method="POST">
             <div class="row">
@@ -52,9 +53,11 @@
                     <i class="fas fa-trash"></i>
                     Delete Users
                 </h4>
+                <p><i class="fas fa-exclamation-triangle"> IMPORTANT!: Do <u>NOT</u> delete Superuser, Assessor, Student or Lead accounts.</i></p>
                 <div class="container">
                     <div class="row">
                         {% for user in users %}
+
                         <!-- populated table content -->
                         <table>
                             <tr>
