@@ -137,26 +137,26 @@
 
 ### 4. Skeleton
 
-> - [Wireframes](static/wireframes/wireframes.pdf):
 > - Navigation bar - Menu with links pointing to each page.
 >   - Home - Intro button leading to Login Page
 >   - Login Page with basic form with dropdown options for each user type and password field
 >   - Resource page with information on the site, search functionality and collapsible resource posts
 >   - Contact page with feedback/suggestion form
->   - Admin Dashboard with dreopdown links to:
+>   - Admin Dashboard (depending on credentials) with dropdown links to:
 >       - Manage Users page 
->       - Manage Resources page 
->       - Manage Categories page
-> 
+>       - Manage Resources page (with button redirect to Add/Edit Resource page) 
+>       - Manage Categories page (with button redirect to Edit Category page) 
+>
+> - Public (not logged in) [Public Wireframe](static/wireframes/wireframe-public.pdf)
 > - Login credentials and accessibility
->   - Student (User) Login
->       - Access to Resources, Contact and Logout pages
->   - Lead Login
->       - Access to Resources, Manage Resources, Contact and Logout pages
-> - Superuser Login
->       - Access to Resources, Manage Resources, Manage Categories, Manage Users Contact and Logout pages
-> - Assessor Login
->       - Access to same as above mentioned in Superuser Login
+>   - Student (User) Logged in [Student Wireframe](static/wireframes/wireframe-student.pdf) 
+>       - Access to Resources, Contact pages and Logout link
+>   - Lead Logged in [Lead Wireframe](static/wireframes/wireframe-lead.pdf)
+>       - Access to Resources, Manage Resources, Contact pages and Logout link
+> - Superuser Logged in [Superuser Wireframe](static/wireframes/wireframe-superuser-assessor.pdf) 
+>       - Access to Resources, Manage Resources, Manage Categories, Manage Users, Contact pages and Logout link
+> - Assessor Logged in (Wireframe as above for Superuser)
+>       - Access to same as above mentioned in Superuser Logged in
 >
 > - Footer with Useful Links, Information on the Code Institute and Social Media icons
 
