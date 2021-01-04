@@ -5,10 +5,12 @@
 <div class="container">
     <div class="jumbotron">
         <h1>Add Resource</h1>
+        <p>Hi {{ session.user|title }}, please post in all sections and be as detailed as possible</p>
+
+        <div class="break-line"></div>
+
         <form action="{{ url_for('add_resource') }}" method="POST">
             <div class="container">
-                <p>Hi {{ session.user|title }}, please post in all sections and be as detailed as possible</p>
-                <div class="break-line"></div>
 
                 <!-- category selection -->
                 <div class="row">
@@ -26,6 +28,7 @@
                     </select>
                 </div>
                 <br>
+
                 <!-- title -->
                 <div class="row">
                     <label for="title">
@@ -45,7 +48,7 @@
                         <span class="red-asterisk">*</span>
                     </label>
                     <textarea type="text" name="description" id="description" class="form-control mb-4 validate"
-                        placeholder="Please be as detailed as possible" rows="5" minlength="5" maxlength="5000"
+                        placeholder="Detailed resource description" rows="5" minlength="5" maxlength="5000"
                         required></textarea>
                 </div>
 
@@ -61,8 +64,10 @@
                 </div>
 
                 <div class="break-line"></div>
-                <p>Please enter a url for your hosted PDF slideshow <strong style="text-decoration: underline;">AND / OR</strong> a Webinar recording hosted
-                    on YouTube</p>
+                <p>Please enter a url for your hosted PDF
+                    <strong style="text-decoration: underline;">and/or</strong>
+                    a Webinar recording.
+                </p>
                 <p>Click the 'INSTRUCTIONS' buttons for more details on each</p>
                 <br>
 
@@ -70,7 +75,7 @@
                 <div class="row">
                     <label for="document_url">
                         <i class="fas fa-cloud-upload-alt"></i>
-                        PDF (Hosted on Google Drive):
+                        PDF:
 
                         <!-- Trigger Instructions modal on base.html -->
                         <button type="button" class="badge bg-danger ml-3" data-toggle="modal"
@@ -80,35 +85,36 @@
                     </label>
 
                     <input type="url" name="document_url" id="document_url" class="form-control validate mb-4"
-                        placeholder="https://document-source" minlength="5" maxlength="200">
+                        placeholder="Google Drive url" minlength="5" maxlength="200">
                 </div>
 
                 <!-- video url location -->
                 <div class="row">
                     <label for="video_url">
                         <i class="fas fa-cloud-upload-alt"></i>
-                        Video (Hosted on Youtube):
+                        Webinar Recording:
                         <i class="fas fa-info-circle fa-sm text-info" data-toggle="tooltip" data-html="true" title="
-                    <p>Copy the <b>url</b> of the hosted Youtube <b>VIDEO</b> and paste below</p>
-                    <em>For now, only Youtube video urls can be used<em/>">
+                    <p>Copy the <b>url</b> of the hosted <b>Video</b> and paste below</p>
+                    <em>Note: For now, <u>only Youtube</u> video urls can be used<em/>">
                         </i>
                     </label>
                     <input type="text" name="video_url" id="video_url" class="form-control validate mb-4"
-                        placeholder="https://video-source" minlength="5" maxlength="200">
+                        placeholder="Youtube url" minlength="5" maxlength="200">
                 </div>
                 <div class="break-line"></div>
+            </div>
 
-                <!-- submit button -->
-                <button type="submit" class="btn btn-blue">
-                    <i class="far fa-check-circle"></i>
-                    CONFIRM
-                </button>
+            <!-- submit button -->
+            <button type="submit" class="btn btn-blue">
+                <i class="far fa-check-circle"></i>
+                CONFIRM
+            </button>
 
-                <!-- Cancel button - return to resource page -->
-                <a href="{{ url_for('manage_resources') }}" class="btn btn-danger ">
-                    <i class="fas fa-times-circle"></i>
-                    Cancel
-                </a>
+            <!-- Cancel button - return to resource page -->
+            <a href="{{ url_for('manage_resources') }}" class="btn btn-danger ">
+                <i class="fas fa-times-circle"></i>
+                Cancel
+            </a>
         </form>
     </div>
 </div>

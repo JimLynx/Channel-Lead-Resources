@@ -11,34 +11,31 @@
             <strong>Channel Lead Resources</strong>
         </h1>
         <div class="break-line"></div>
-        <br>
 
         {% if session.user %}
-            {% if session.user|lower == session.user|lower %}
-            <p>- You're already logged in -</p>
-            <a class="btn {{ home_btn_resources }}" href="{{ url_for('resources') }}">
-                <i class="fas fa-arrow-alt-circle-right"></i>
-                Back to Resources
+                {% if session.user|lower == session.user|lower %}
+                <p>- You're already logged in -</p>
+                <a class="btn {{ home_btn_resources }}" href="{{ url_for('resources') }}">
+                    <i class="fas fa-arrow-alt-circle-right"></i>
+                    Back to Resources
+                </a>
+                {% endif %}
+            {% else %}
+            <p>This site is intended for Educational use for Students and Alumni of the <a href="https://codeinstitute.net/"
+                    target=" _blank">
+                    Code
+                    Institute</a>
+            </p>
+            <p>
+                <b>
+                    Please login to proceed
+                </b>
+            </p>
+            <a class="btn" href="{{ url_for('login') }}">
+                <i class="fas fa-sign-in-alt"></i>
+                Login
             </a>
-            {% endif %}
-        {% else %}
-        <p>This site is intended for Educational use for Students and Alumni of the <a href="https://codeinstitute.net/"
-                target=" _blank">
-                Code
-                Institute</a>
-        </p>
-        <p>
-            <b>
-                Please login to proceed
-            </b>
-        </p>
-        <a class="btn" href="{{ url_for('login') }}">
-            <i class="fas fa-sign-in-alt"></i>
-            Login
-        </a>
         {% endif %}
-        <br>
-        <br>
     </div>
 </div>
 

@@ -4,64 +4,64 @@
 
 <div class="container">
     <div class="jumbotron">
+        <!-- Site intro  -->
         <h1 class="mb-5">Channel Lead Resources</h1>
         <div class="container">
             <div class="row">
-                <div class="col">
-                    <p class="mb-3">Every 6 weeks a current student is selected as a 'Slack Channel Lead' to represent
-                        each of the four Milestone sections of the
-                        course.
-                    </p>
-                    <p>Channel Leads assist other students by creating learning material in a variety of topics, and
-                        present these via Intructional PDF's and/or scheduling webinars for students.
-                    </p>
-                    <p class="mb-3">
-                        <b>This site provides a central platform to easily access these resources, and more!</b>
-                    </p>
-
-                </div>
+                <!-- <div class="col"> -->
+                <p class="mb-3">Every 6 weeks a current student is selected as a 'Slack Channel Lead' to represent
+                    each of the four Milestone sections of the
+                    course.
+                </p>
+                <p>Channel Leads assist other students by creating learning material in a variety of topics, and
+                    present these via Intructional PDF's and/or scheduling webinars for students.
+                </p>
+                <p class="mb-3">
+                    <b>This site provides a central platform to easily access these resources, and more!</b>
+                </p>
             </div>
         </div>
+
         <div class="break-line"></div>
+
         <!-- search form -->
-        <form action="{{ url_for('search') }}" method="POST" class="col-12">
+        <form action="{{ url_for('search') }}" method="POST">
             <p>Search Resources by keyword, category or both</p>
-            <div class="container">
-                <div class="row">
-                    <div class="col-6">
-                        <label for="search">
-                            Keyword Search
-                        </label>
-                        <input type="text" name="search" id="search" class="form-control mr-sm-2 validate"
-                            placeholder="Search" aria-label="Search">
-                    </div>
-
-                    <!-- FILTER -->
-                    <div class="col-6">
-                        <label for="category_name">
-                            <!-- <i class="fas fa-folder-open"></i> -->
-                            Search by Category:
-                        </label>
-
-                        <select name="category_name" id="category_name" class="browser-default custom-select validate">
-                            <option value="" disabled selected>-Select a Category-</option>
-                            {% for category in categories  %}
-                            <option value="{{ category.category_name }}">{{ category.category_name }}</option>
-                            {% endfor  %}
-                        </select>
-                    </div>
+            <div class="row">
+                <!-- keyword filter  -->
+                <div class="col-12 col-md-6 search-label-wrap">
+                    <label for="search">
+                        Keyword Search
+                    </label>
+                    <input type="text" name="search" id="search" class="form-control mr-sm-2 validate"
+                        placeholder="Search" aria-label="Search">
                 </div>
-                <div class="row my-4">
-                    <div class="col-12">
-                        <button class="btn" type="submit">
-                            <i class="fas fa-search"></i>
-                            Search
-                        </button>
-                        <a href="{{ url_for('resources') }}" class="btn btn-blue">
-                            <i class="fas fa-trash-restore"></i>
-                            Reset
-                        </a>
-                    </div>
+
+                <!-- category filter  -->
+                <div class="col-12 col-md-6 search-label-wrap">
+                    <label for="category_name">
+                        Category Search
+                    </label>
+                    <select name="category_name" id="category_name" class="browser-default custom-select validate">
+                        <option value="" disabled selected>-Select a Category-</option>
+                        {% for category in categories  %}
+                        <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                        {% endfor  %}
+                    </select>
+                </div>
+            </div>
+            
+            <!-- submit/reset buttons  -->
+            <div class="row my-4">
+                <div class="col-12">
+                    <button class="btn" type="submit">
+                        <i class="fas fa-search"></i>
+                        Search
+                    </button>
+                    <a href="{{ url_for('resources') }}" class="btn btn-blue">
+                        <i class="fas fa-trash-restore"></i>
+                        Reset
+                    </a>
                 </div>
             </div>
         </form>
@@ -95,11 +95,10 @@
             data-target={{ "#resource-content" + loop.index|string }}>
             <div class="row">
                 <div class="col-12 p-0">
-                    <!-- TO BE STYLED  -->
                     <div class="resource-badge-wrapper my-2">
                         <span class="resource-badge badge">{{ resource.category_name }} :</span>
                     </div>
-                    <h5>{{ resource.title }}</h5>
+                    <h6>{{ resource.title }}</h6>
                 </div>
             </div>
             <div class="row">
@@ -128,7 +127,7 @@
                         <button type="button" class="btn" data-toggle="modal"
                             data-target={{ "#pdfModal" + loop.index|string }}>
                             <i class="fas fa-file-pdf"></i>
-                            PDF Document
+                            PDF
                         </button>
                     </div>
                     <!-- post VIDEO (opens modal) -->
@@ -136,7 +135,7 @@
                         <button type="button" class="btn" data-toggle="modal"
                             data-target={{ "#videoModal" + loop.index|string }}>
                             <i class="fas fa-film"></i>
-                            Webinar Recording
+                            Webinar
                         </button>
                     </div>
                 </div>

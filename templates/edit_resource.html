@@ -4,106 +4,119 @@
 <div class="container">
     <div class="jumbotron">
         <h1>Edit Resource</h1>
+        <p>Hi {{ session.user|title }}, please edit necessary fields below</p>
+
+        <div class="break-line"></div>
+
         <form id="editConfirm" action="{{ url_for('edit_resource', resource_id=resource._id) }}" method="POST">
-            <p>Hi {{ session.user|title }}, please edit necessary fields below</p>
-            <div class="break-line"></div>
-            <em><small class="text-muted">This resource was last updated by {{ resource.created_by|title }} on
-                    {{ resource.date }}</small></em>
-            <!-- category -->
-            <div class="row">
-                <label for="category_name">
-                    <i class="fas fa-folder-open"></i>
-                    Category Name:
-                    <span class="red-asterisk"> *</span>
-                </label>
-                <select name="category_name" id="category_name" class="browser-default custom-select validate" required>
-                    <option value="" disabled>
-                        -Select a Category-
-                    </option>
-                    {% for category in categories  %}
-                    {% if category.category_name == resource.category_name %}
-                    <option value="{{ category.category_name }}" selected>{{ category.category_name }}
-                    </option>
-                    {% else %}
-                    <option value="{{ category.category_name }}">{{ category.category_name }}
-                    </option>
-                    {% endif %}
-                    {% endfor  %}
-                </select>
+            <!-- last edited  -->
+            <em>
+                <small class="text-muted">This resource was last updated by {{ resource.created_by|title }} on
+                    {{ resource.date }}
+                </small>
+            </em>
+            <div class="container">
+
+                <!-- category selection -->
+                <div class="row">
+                    <label for="category_name">
+                        <i class="fas fa-folder-open"></i>
+                        Category Name:
+                        <span class="red-asterisk"> *</span>
+                    </label>
+                    <select name="category_name" id="category_name" class="browser-default custom-select validate"
+                        required>
+                        <option value="" disabled>
+                            -Select a Category-
+                        </option>
+                        {% for category in categories  %}
+                        {% if category.category_name == resource.category_name %}
+                        <option value="{{ category.category_name }}" selected>{{ category.category_name }}
+                        </option>
+                        {% else %}
+                        <option value="{{ category.category_name }}">{{ category.category_name }}
+                        </option>
+                        {% endif %}
+                        {% endfor  %}
+                    </select>
+                </div>
+                <br>
+
+                <!-- title -->
+                <div class="row">
+                    <label for="title">
+                        <i class="fas fa-file-alt"></i>
+                        Title:
+                        <span class="red-asterisk"> *</span>
+                    </label>
+                    <input type="text" name="title" id="title" class="form-control  validate mb-4"
+                        value="{{- resource.title -}}" minlength="5" maxlength="50" required>
+                </div>
+
+                <!-- description -->
+                <div class="row">
+                    <label for="description">
+                        <i class="fas fa-comments"></i>
+                        Description:
+                        <span class="red-asterisk"> *</span>
+                    </label>
+                    <textarea type="text" name="description" id="description" class="form-control mb-4 validate"
+                        placeholder="Detailed resource description" rows="5" minlength="5" maxlength="5000" required>
+                        {{- resource.description -}}</textarea>
+                </div>
+
+                <!-- channel lead name -->
+                <div class="row">
+                    <label for="created_by">
+                        <i class="fab fa-slack"></i>
+                        Slack Username:
+                        <span class="red-asterisk"> *</span>
+                    </label>
+                    <input type="text" name="created_by" id="created_by" class="form-control validate mb-4"
+                        value="{{ resource.created_by|title }}" minlength=" 5" maxlength="50" required>
+                </div>
+
+                <div class="break-line"></div>
+                <p>Please enter a url for your hosted PDF
+                    <strong style="text-decoration: underline;">and/or</strong>
+                    a Webinar recording.
+                </p>
+                <p>Click the 'INSTRUCTIONS' buttons for more details on each</p>
+                <br>
+
+                <!-- document url location -->
+                <div class="row">
+                    <label for="document_url">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        PDF:
+
+                        <!-- Trigger Instructions modal on base.html -->
+                        <button type="button" class="badge bg-danger ml-3" data-toggle="modal"
+                            data-target="#pdfInstructionModal">
+                            Instructions
+                        </button>
+                    </label>
+                    <input type="url" name="document_url" id="document_url" class="form-control validate mb-4"
+                        value="{{ resource.document_url }}" placeholder="https://document-source" minlength="5"
+                        maxlength="200">
+                </div>
+
+                <!-- video url location -->
+                <div class="row">
+                    <label for="video_url">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        Webinar Recording:
+                        <i class="fas fa-info-circle fa-sm text-info" data-toggle="tooltip" data-html="true" title="
+                    <p>Copy the <b>url</b> of the hosted <b>Video</b> and paste below</p>
+                    <em>Note: For now, <u>only Youtube</u> video urls can be used<em/>">
+                        </i>
+                    </label>
+                    <input type="text" name="video_url" id="video_url" class="form-control validate mb-4"
+                        value="https://www.youtube.com/watch?v={{ resource.video_url }}" placeholder="https://youtube/"
+                        minlength="5" maxlength="200">
+                </div>
+                <div class="break-line"></div>
             </div>
-
-            <!-- title -->
-            <div class="row">
-                <label for="title">
-                    <i class="fas fa-file-alt"></i>
-                    Title:
-                    <span class="red-asterisk"> *</span>
-                </label>
-                <input type="text" name="title" id="title" class="form-control  validate mb-4"
-                    value="{{- resource.title -}}" minlength="5" maxlength="50" required>
-            </div>
-
-            <!-- description -->
-            <div class="row">
-                <label for="description">
-                    <i class="fas fa-comments"></i>
-                    Resource Description:
-                    <span class="red-asterisk"> *</span>
-                </label>
-                <textarea type="text" name="description" id="description" class="form-control mb-4 validate"
-                    placeholder="Please be detailed" rows="5" minlength="5" maxlength="5000" required>
-                        {{- resource.description -}}
-                    </textarea>
-            </div>
-
-            <!-- channel lead name -->
-            <div class="row">
-                <label for="created_by">
-                    <i class="fab fa-slack"></i>
-                    Slack Lead Username:
-                    <span class="red-asterisk"> *</span>
-                </label>
-                <input type="text" name="created_by" id="created_by" class="form-control validate mb-4"
-                    value="{{ resource.created_by|title }}" minlength=" 5" maxlength="50" required>
-            </div>
-
-            <div class="break-line"></div>
-            <p>Please enter a url for your hosted PDF slideshow <strong style="text-decoration: underline;">AND / OR</strong> a Webinar recording hosted
-                on YouTube</p>
-            <p>Click the 'INSTRUCTIONS' buttons for more details on each</p>
-            <br>
-
-            <!-- document url location -->
-            <div class="row">
-                <label for="document_url">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    PDF (Hosted on Google Drive):
-
-                    <!-- Trigger Instructions modal on base.html -->
-                    <button type="button" class="badge bg-danger ml-3" data-toggle="modal"
-                        data-target="#pdfInstructionModal">
-                        Instructions
-                    </button>
-                </label>
-                <input type="url" name="document_url" id="document_url" class="form-control validate mb-4"
-                    value="{{ resource.document_url }}" placeholder="https://document-source" minlength="5"
-                    maxlength="200">
-            </div>
-
-            <!-- video url location -->
-            <div class="row">
-                <label for="video_url">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    Video (Hosted on Youtube):
-                    <i class="fas fa-info-circle fa-sm text-info" data-toggle="tooltip" data-html="true" title="
-                    <p>Copy the <b>url</b> of the hosted <b>VIDEO</b> and paste below</p>
-                    <em>For now, only Youtube video urls can be used<em/>">
-                    </i>
-                </label>
-                <input type="text" name="video_url" id="video_url" class="form-control validate mb-4"
-                    value="https://www.youtube.com/watch?v={{ resource.video_url }}" placeholder="https://youtube/" minlength="5" maxlength="200">
-            </div>
-            <div class="break-line"></div>
 
             <!-- submit button -->
             <!-- Trigger Confirm modal-->
@@ -113,7 +126,7 @@
             </button>
 
             <!-- Cancel button - return to manage resource page -->
-            <a href="{{ url_for('manage_resources') }}" class="btn btn-danger ">
+            <a href="{{ url_for('manage_resources') }}" class="btn btn-danger">
                 <i class="fas fa-times-circle"></i>
                 Cancel
             </a>

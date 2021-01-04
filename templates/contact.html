@@ -5,14 +5,13 @@
 <div class="container">
     <div class="jumbotron">
         <h1>Contact</h1>
+        <p>We'd love to hear from you and any feedback you have on how we're doing.</p>
+        <p>Please feel free to make suggestions of what you'd like covered in future.</p>
+
+        <div class="break-line"></div>
+
         <form action="{{ url_for('contact') }}" method="POST">
             <div class="container">
-                <p>We'd love to hear from you and any feedback you have on how we're doing.</p>
-                <p>Please feel free to make suggestions of what you'd like covered in future.</p>
-                <br>
-                <div class="break-line"></div>
-                <br>
-
                 <!-- category -->
                 <div class="row">
                     <label for="category_name">
@@ -27,7 +26,8 @@
                         <option value="{{ category.category_name }}">{{ category.category_name }}</option>
                         {% endfor  %}
                     </select>
-                </div><br>
+                </div>
+                <br>
 
                 <!-- title -->
                 <div class="row">
@@ -48,8 +48,8 @@
                         <span class="red-asterisk">*</span>
                     </label>
                     <textarea type="text" name="feedback" id="feedback" class="form-control mb-4 validate" rows="5"
-                        placeholder="Your feedback and suggestions are greatly appreciated!"
-                        minlength="5" maxlength="200" required></textarea>
+                        placeholder="Your feedback and suggestions are greatly appreciated!" minlength="5"
+                        maxlength="200" required></textarea>
                 </div>
 
                 <!-- resource url location -->
@@ -93,13 +93,13 @@
                         placeholder="Email Address" minlength=" 5" maxlength="50" required>
                 </div>
             </div>
-
             <!-- submit button -->
             <button class="btn" type="submit">
                 <i class="fas fa-paper-plane"></i>
                 SUBMIT FEEDBACK
             </button>
         </form>
+
     </div>
 </div>
 

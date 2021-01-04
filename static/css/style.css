@@ -31,8 +31,15 @@ body {
     padding-top: 75px;
 }
 
-.container {
-    margin: 0 auto;
+p {
+    font-size: 1rem;
+}
+
+.jumbotron {
+    margin-top: 1rem;
+    align-self: center;
+    text-align: center;
+    box-shadow: none
 }
 
 .break-line {
@@ -40,15 +47,11 @@ body {
     opacity: 50%;
     width: 75%;
     height: 1px;
-    margin: 40px auto;
+    margin: 20px auto;
 }
 
 .fas {
     color: var(--p-orange);
-}
-
-.container {
-    margin: 3rem auto;
 }
 
 .red-asterisk {
@@ -66,6 +69,7 @@ body {
 
 .navbar-brand img {
     height: 50px;
+    width: auto;
     padding: 0 15px;
 }
 
@@ -97,12 +101,6 @@ body {
 }
 
 /* -- INTRO -- */
-.jumbotron {
-    align-self: center;
-    text-align: center;
-    box-shadow: none
-}
-
 .slide-heading {
     text-align: center;
     font-weight: 400;
@@ -124,7 +122,7 @@ body {
     background-color: var(--p-orange);
     border: 1px solid var(--p-dark-grey);
     color: var(--s-light-grey);
-    padding: 5px 40px;
+    padding: 5px 15px;
     min-width: 175px;
 }
 
@@ -141,7 +139,7 @@ body {
 /* -- FORMS -- */
 form {
     text-align: center;
-    padding: 0px 1rem;
+    /* padding: 0px 1rem; */
 }
 
 form i {
@@ -187,6 +185,15 @@ label {
 
 .resource-badge-wrapper {
     text-align: center;
+}
+
+.resource-btn h6:hover {
+    color: var(--p-orange);
+    font-weight: 600;
+}
+
+.search-label-wrap {
+    margin-bottom: 25px;
 }
 
 .none-warning {
@@ -316,6 +323,10 @@ footer i {
     text-align: center;
 }
 
+.lynx-logo {
+    height: 2rem;
+}
+
 .fa-dot-circle {
     color: var(--p-orange);
     box-shadow: var(--box-shadow);
@@ -340,12 +351,15 @@ footer i:hover {
     animation-iteration-count: infinite;
     margin: 0 auto 0 auto;
     transform-origin: bottom;
-
 }
 
 .bounce {
     animation-name: bounce;
     animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+}
+
+.error-btn {
+    min-width: 135px;
 }
 
 @keyframes bounce {
@@ -364,9 +378,31 @@ footer i:hover {
 
 /* -- MEDIA QUERIES -- */
 
+@media only screen and (min-width: 576px) {
+    .jumbotron {
+        margin-top: 2rem;
+    }
+}
+
 @media only screen and (min-width: 768px) {
+    p {
+        font-size: 1.2rem;
+    }
+
+    .jumbotron {
+        margin-top: 3rem;
+    }
+
+    .break-line {
+        margin: 40px auto;
+    }
+
     .resource-badge-wrapper {
         text-align: end;
+    }
+
+    .search-label-wrap {
+        margin: 0;
     }
 
     .btn i {
@@ -399,5 +435,9 @@ footer i:hover {
 @media only screen and (min-width: 992px) {
     form {
         padding: 0px 3rem;
+    }
+
+    .jumbotron {
+        margin-top: 4rem;
     }
 }
