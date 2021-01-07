@@ -6,7 +6,7 @@ from flask_mail import Mail, Message
 email_settings = {
     "TESTNG": False,
     "MAIL_USE_TLS": False,
-    "DEBUG": True,
+    "DEBUG": False,
     "MAIL_SERVER": "smtp.gmail.com",
     "MAIL_PORT": 465,
     "MAIL_USE_SSL": True,
