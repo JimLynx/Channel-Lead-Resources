@@ -270,7 +270,7 @@ footer hr {
 
 footer {
     flex-shrink: 0;
-    font-size: .8rem;
+    /* font-size: .8rem; */
     font-weight: 200;
     letter-spacing: 1px;
     color: var(--p-light-grey);
@@ -284,6 +284,11 @@ footer h4 {
 
 footer p {
     text-align: justify;
+    font-size: .8rem;
+}
+
+footer a {
+    font-size: .8rem; 
 }
 
 footer a:hover {
@@ -419,8 +424,9 @@ footer i:hover {
         width: 80px;
     }
 
-    footer {
-        font-size: 1rem;
+    footer p,
+    footer a {
+        font-size: .83rem; 
     }
 
     .copyright-footer p {
@@ -441,5 +447,10 @@ footer i:hover {
 
     .jumbotron {
         margin-top: 4rem;
+    }
+
+    footer p,
+    footer a {
+        font-size: .92rem; 
     }
 }
