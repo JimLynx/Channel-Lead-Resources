@@ -197,22 +197,18 @@ def manage_resources():
     if admin_2():
         
         page = int(request.args.get('page') or 1)
-        # results limit to find
         num = 5
-        # count documents to calculate number of pagination options
         count = int(math.ceil(cl.count_documents({}) / num))
 
         if page > count or page < 1:
             return render_template('errors/404.html'), 404
         
-        # page - 1 ensures that the first items can be found
-        # multiply the page number  by the item limit for current page results
         resources = list(cl.find({}).skip((page - 1)*num).limit(num))
         categories = cat.find().sort('category_name', 1)
 
-        return render_template('resources.html', resources=resources, categories=categories, page=page, count=count, search=False)
+        return render_template('manage_resources.html', resources=resources, categories=categories, page=page, count=count, search=False)
 
-    return redirect(url_for('manage_resources'))
+    return redirect(url_for('resources'))
 
 
 # === Search function for Manage Resources page
