@@ -18,23 +18,38 @@ cl.users = mongo.db.users
 
 # === Functions for user access groups
 def admin_1():
+    '''
+    Set Admin Level 1 to include 
+    Superuser and Assessor access only
+    '''
     return session['user'] == 'superuser' or session['user'] == 'assessor'
 
 
 def admin_2():
+    '''
+    Set Admin Level 2 to include 
+    Superuser, Assessor and Lead access
+    '''
     return session['user'] == 'superuser' or session['user'] == 'assessor' or session['user'] == 'lead'
 
 
-# === Render Home page
+# === Render Landing page
 @app.route('/')
 @app.route('/home')
 def home():
+    '''
+    Renders default landing page
+    '''
     return render_template('home.html')
 
 
 # === Login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    '''
+    User log in. 
+    Pre-determined username is selected from the dropdown options.
+    '''
     user_types = list(cl.users.find())
     if request.method == 'POST':
         username = cl.users.find_one(
@@ -44,7 +59,6 @@ def login():
             flash(
                 "Welcome, you've successfully logged in to Channel Lead Resources!", "success")
             return redirect(url_for('resources'))
-
         else:
             flash("Incorrect password please try again", "danger")
     return render_template('login.html', users=user_types)
@@ -53,6 +67,10 @@ def login():
 # === Logout
 @app.route('/logout')
 def logout():
+    '''
+    Logs out user and provides 
+    confirmation flash message
+    '''
     session.pop('user', None)
     flash("Successfully LOGGED OUT - Please visit again soon!", "success")
     return redirect(url_for('home'))
@@ -64,10 +82,10 @@ def logout():
 @app.route('/resources')
 def resources():
     '''
-
+    Render Resources page with pagination
     '''
     # If there are logged in users
-    if session['user']:
+    if 'user' in session:
         # Pagination:
         # get the page number from request or set the page 1 if first page
         page = int(request.args.get('page') or 1)
@@ -75,25 +93,34 @@ def resources():
         num = 5
         # count documents to calculate number of pagination options
         count = int(math.ceil(cl.count_documents({}) / num))
+
         if page > count or page < 1:
             return render_template('errors/404.html'), 404
+        
         # page - 1 ensures that the first items can be found
         # multiply the page number  by the item limit for current page results
-        resources = list(cl.find(
-            {}).skip((page - 1)*num).limit(num))
+        resources = list(cl.find({}).skip((page - 1)*num).limit(num))
         categories = cat.find().sort('category_name', 1)
+
         return render_template('resources.html', resources=resources, categories=categories, page=page, count=count, search=False)
-    return redirect(url_for('login'))
+
+    flash("You need to Log in!", "danger")
+    return redirect(url_for('home'))
 
 
-# === Search function for Resources page
-@app.route('/search', methods=['GET', 'POST'])
-def search():
+def default_search(request):
+    '''
+    Cycle through mongo DB and
+    search by keyword or category or both
+    '''
     resources = []
+    categories = cat.find().sort('category_name', 1)
+
     if request.method == 'POST':
         # parse values from form
         search = request.form.get('search', '')
         select = request.form.get('category_name', '')
+
         # perform mongo with search only
         if search and not select:
             resources = cl.find({'$text': {'$search': search}})
@@ -108,9 +135,14 @@ def search():
             resources = cl.find({})
         resources = [item for item in resources]
 
-    categories = cat.find().sort('category_name', 1)
-    print(resources)
-    return render_template('resources.html', resources=resources, categories=categories)
+    return (resources, categories)
+
+
+# === Search function for Resources page
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    new_search = default_search(request)
+    return render_template('resources.html', resources=new_search[0], categories=new_search[1])
 
 
 # -------- MANAGE USERS PAGE -------- #
@@ -118,6 +150,10 @@ def search():
 # === Render Manage Users page
 @app.route('/manage_users')
 def manage_users():
+    '''
+    Render manage Users page and 
+    find all users in Mongo users' collection
+    '''
     if admin_1():
         users = list(cl.users.find().sort('user_type', 1))
         return render_template('manage_users.html', users=users)
@@ -142,6 +178,10 @@ def add_users():
 # === Delete User
 @app.route('/delete_user/<user_id>')
 def delete_user(user_id):
+    '''
+    Removes selected user.
+    Access granted to Admin 1 level only
+    '''
     if admin_1():
         cl.users.remove({'_id': ObjectId(user_id)})
         flash("Selected User Successfully Deleted.", "info")
@@ -155,37 +195,31 @@ def delete_user(user_id):
 @app.route('/manage_resources')
 def manage_resources():
     if admin_2():
+        
         page = int(request.args.get('page') or 1)
+        # results limit to find
         num = 5
+        # count documents to calculate number of pagination options
         count = int(math.ceil(cl.count_documents({}) / num))
+
         if page > count or page < 1:
             return render_template('errors/404.html'), 404
-        resources = list(cl.find(
-            {}).skip((page - 1) * num).limit(num))
-        return render_template('manage_resources.html', resources=resources, page=page, count=count, search=False)
+        
+        # page - 1 ensures that the first items can be found
+        # multiply the page number  by the item limit for current page results
+        resources = list(cl.find({}).skip((page - 1)*num).limit(num))
+        categories = cat.find().sort('category_name', 1)
+
+        return render_template('resources.html', resources=resources, categories=categories, page=page, count=count, search=False)
+
     return redirect(url_for('manage_resources'))
 
 
 # === Search function for Manage Resources page
 @app.route('/search_manage_resources', methods=['GET', 'POST'])
 def search_manage_resources():
-    resources = []
-    if request.method == 'POST':
-        search = request.form.get('search', '')
-        select = request.form.get('category_name', '')
-        if search and not select:
-            resources = cl.find({'$text': {'$search': search}})
-        elif select and not search:
-            resources = cl.find({'category_name': select})
-        elif search and select:
-            resources = cl.find(
-                {'$and': [{'category_name':  select}, {'$text': {'$search': search}}]})
-        else:
-            resources = cl.find({})
-        resources = [item for item in resources]
-
-    categories = cat.find().sort('category_name', 1)
-    return render_template('manage_resources.html', resources=resources, categories=categories)
+    new_search = default_search(request)
+    return render_template('manage_resources.html', resources=new_search[0], categories=new_search[1])
 
 
 # === Add resource
@@ -213,10 +247,9 @@ def add_resource():
             if upload["video_url"] != None:
                 upload["video_url"] = ''.join(re.findall(
                     '(?<=v=)(.{11})', upload["video_url"]))
-
             cl.insert_one(upload)
-            flash(
-                "Thanks, Your Awesome Resource Was Successfully Added!", "success")
+
+            flash("Thanks, Your Awesome Resource Was Successfully Added!", "success")
             return redirect(url_for('manage_resources'))
 
         categories = cat.find().sort('category_name', 1)
@@ -244,6 +277,7 @@ def edit_resource(resource_id):
                 upload["document_url"] = upload["document_url"].replace(
                     "/view?usp=sharing", "/preview")
 
+            # use regular expression to post only id of video to video_url
             if upload["video_url"] != None:
                 upload["video_url"] = ''.join(re.findall(
                     '(?<=v=)(.{11})', upload["video_url"]))
@@ -321,8 +355,7 @@ def edit_category(category_id):
 # === Delete Category
 @app.route('/delete_category/<category_id>')
 def delete_category(category_id):
-
-    if session['user'] == 'superuser' or session['user'] == 'assessor':
+    if admin_1():
         cat.remove({'_id': ObjectId(category_id)})
         flash("Selected Category Successfully Deleted.", "info")
         return redirect(url_for('manage_categories'))
@@ -333,6 +366,10 @@ def delete_category(category_id):
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
+    '''
+    Contact page, accessible to all logged in users.
+    Fetches for inputs and connects to Flask Mail.
+    '''
     if session['user']:
         if request.method == 'POST':
             result = {
