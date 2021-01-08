@@ -2,7 +2,7 @@ import os
 from app import app
 from flask_mail import Mail, Message
 
-# email server
+# email server variable
 email_settings = {
     "TESTNG": False,
     "MAIL_USE_TLS": False,
@@ -24,13 +24,12 @@ mail = Mail(app)
 
 def sendEmail(result):
     '''
-    Populate results from contact form entries and 
+    Populate results from contact form entries and
     return results via Flask Mail to specified email
-    address. 
+    address.
     '''
     msg = Message("Contact form submission from Channel Lead Resources",
-                recipients=[email_settings["ADMIN_EMAIL"]]
-                )
+                  recipients=[email_settings["ADMIN_EMAIL"]])
 
     msg.body = """
     Hi there,
@@ -49,12 +48,12 @@ def sendEmail(result):
     The CI Channel Lead team
 
     """.format(result['category'],
-            result['subject'],
-            result['feedback'],
-            result['feedback_url'],
-            result['name'],
-            result['slackName'],
-            result['emailAddress']
-            )
+               result['subject'],
+               result['feedback'],
+               result['feedback_url'],
+               result['name'],
+               result['slackName'],
+               result['emailAddress']
+               )
 
     mail.send(msg)
