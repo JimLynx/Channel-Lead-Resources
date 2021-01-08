@@ -1,9 +1,17 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
 
 * {
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
 }
 
 /* -- SITE COLOURS --*/
@@ -19,8 +27,13 @@
 
 /* -- GENERAL -- */
 body {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     background-color: var(--p-dark-grey);
     font-family: 'Montserrat', sans-serif;
     color: var(--p-dark-grey);
@@ -39,9 +52,12 @@ p {
 
 .jumbotron {
     margin-top: 1rem;
-    align-self: center;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
     text-align: center;
-    box-shadow: none
+    -webkit-box-shadow: none;
+            box-shadow: none
 }
 
 .break-line {
@@ -76,7 +92,9 @@ p {
 }
 
 #mainNav {
-    justify-content: flex-end;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
 }
 
 .nav-item.active>.nav-link {
@@ -87,12 +105,19 @@ p {
 
 .nav-link {
     border-radius: 5px;
+    -webkit-transition: -webkit-transform .4s;
+    transition: -webkit-transform .4s;
+    -o-transition: transform .4s;
     transition: transform .4s;
-    box-shadow: var(--box-shadow);
+    transition: transform .4s, -webkit-transform .4s;
+    -webkit-box-shadow: var(--box-shadow);
+            box-shadow: var(--box-shadow);
 }
 
 .nav-link:hover {
-    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+        -ms-transform: scale(1.05);
+            transform: scale(1.05);
 }
 
 #active_page {
@@ -108,13 +133,24 @@ p {
     font-weight: 400;
     letter-spacing: 5px;
     margin-bottom: 3rem;
-    animation: 1s header-slider 1s forwards;
-    transform: translateX(-100%);
+    -webkit-animation: 1s header-slider 1s forwards;
+            animation: 1s header-slider 1s forwards;
+    -webkit-transform: translateX(-100%);
+        -ms-transform: translateX(-100%);
+            transform: translateX(-100%);
+}
+
+@-webkit-keyframes header-slider {
+    to {
+        -webkit-transform: translateX(0);
+                transform: translateX(0);
+    }
 }
 
 @keyframes header-slider {
     to {
-        transform: translateX(0);
+        -webkit-transform: translateX(0);
+                transform: translateX(0);
     }
 }
 
@@ -150,6 +186,7 @@ form i {
 }
 
 label {
+    font-size: 1.1rem;
     width: 100%;
     text-align: left;
     font-weight: 500;
@@ -165,11 +202,19 @@ label {
     width: 100%;
     margin: 10px 0 0 0;
     padding: 5px;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .resource-btn i {
     font-size: 1.5rem
+}
+
+.badge {
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
 }
 
 .resource-btn i:hover {
@@ -199,6 +244,8 @@ label {
 }
 
 .none-warning {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
     margin: auto;
 }
@@ -209,10 +256,14 @@ label {
 }
 
 .modal-fullscreen {
+    min-width: -webkit-fit-content;
+    min-width: -moz-fit-content;
     min-width: fit-content;
 }
 
 .pdfContainer {
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
     height: fit-content;
 }
 
@@ -269,7 +320,8 @@ footer hr {
 }
 
 footer {
-    flex-shrink: 0;
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
     /* font-size: .8rem; */
     font-weight: 200;
     letter-spacing: 1px;
@@ -307,8 +359,11 @@ footer i {
 }
 
 .social-footer {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-around;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
     text-align: center;
 }
 
@@ -336,50 +391,85 @@ footer i {
 
 .fa-dot-circle {
     color: var(--p-orange);
-    box-shadow: var(--box-shadow);
+    -webkit-box-shadow: var(--box-shadow);
+            box-shadow: var(--box-shadow);
 }
 
 footer i {
     font-size: 150%;
     margin: 0 20px 0 0;
+    -webkit-transition: -webkit-transform .4s;
+    transition: -webkit-transform .4s;
+    -o-transition: transform .4s;
     transition: transform .4s;
-    box-shadow: var(--box-shadow);
+    transition: transform .4s, -webkit-transform .4s;
+    -webkit-box-shadow: var(--box-shadow);
+            box-shadow: var(--box-shadow);
 }
 
 footer i:hover {
-    transform: scale(1.3);
+    -webkit-transform: scale(1.3);
+        -ms-transform: scale(1.3);
+            transform: scale(1.3);
 }
 
 /* Credit: Adapted from https://css-tricks.com/making-css-animations-feel-natural/ */
 /* 404 error page hand bounce animation */
 .hands {
-    align-self: flex-end;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
+    -ms-flex-item-align: end;
+        align-self: flex-end;
+    -webkit-animation-duration: 2s;
+            animation-duration: 2s;
+    -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
     margin: 0 auto 0 auto;
-    transform-origin: bottom;
+    -webkit-transform-origin: bottom;
+        -ms-transform-origin: bottom;
+            transform-origin: bottom;
 }
 
 .bounce {
-    animation-name: bounce;
-    animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+    -webkit-animation-name: bounce;
+            animation-name: bounce;
+    -webkit-animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+            animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
 }
 
 .error-btn {
     min-width: 135px;
 }
 
-@keyframes bounce {
+@-webkit-keyframes bounce {
     0% {
-        transform: scale(1, 1) translateY(0);
+        -webkit-transform: scale(1, 1) translateY(0);
+                transform: scale(1, 1) translateY(0);
     }
 
     50% {
-        transform: scale(.9, 1.1) translateY(-5px);
+        -webkit-transform: scale(.9, 1.1) translateY(-5px);
+                transform: scale(.9, 1.1) translateY(-5px);
     }
 
     100% {
-        transform: scale(1, 1) translateY(0);
+        -webkit-transform: scale(1, 1) translateY(0);
+                transform: scale(1, 1) translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0% {
+        -webkit-transform: scale(1, 1) translateY(0);
+                transform: scale(1, 1) translateY(0);
+    }
+
+    50% {
+        -webkit-transform: scale(.9, 1.1) translateY(-5px);
+                transform: scale(.9, 1.1) translateY(-5px);
+    }
+
+    100% {
+        -webkit-transform: scale(1, 1) translateY(0);
+                transform: scale(1, 1) translateY(0);
     }
 }
 
@@ -436,7 +526,9 @@ footer i:hover {
     .social-footer {
         display: block;
         text-align: right;
-        order: 2;
+        -webkit-box-ordinal-group: 3;
+            -ms-flex-order: 2;
+                order: 2;
     }
 }
 
