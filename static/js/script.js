@@ -22,7 +22,7 @@ $(document).ready(function () {
 
   // enable Bootstrap tooltips
   $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="tooltip"]').tooltip();
   });
 
   // stop videos playing when cancel button on modal clicked
@@ -32,6 +32,6 @@ $(document).ready(function () {
     $iframes.each(function (index, iframe) {
       $(iframe).attr('src', $(iframe).attr('src'));
     });
-  })
+  });
 
 });

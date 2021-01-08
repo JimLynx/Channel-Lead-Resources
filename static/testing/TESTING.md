@@ -95,22 +95,22 @@
 > ### HTML
 >
 > Passed code through [Nu Html Checker](https://validator.w3.org/#validate_by_uri) by entering the 'Validate by URI method.
->
-> - Warning for 'Section lacks heading. Consider using h2-h6 elements to add identifying headings to all sections.'
-> - 4 x Warnings for 'The type attribute is unnecessary for JavaScript resources'. Safely Ignored.
-> - Error: 'The aria-labelledby attribute must point to an element in the same document'. As the modal is repeated, this is stored in the base.html, hence not on the same file. Removed attribute.
+> - (----------removed direct input as too many errors from templating language - HTML tyo be tested again after final deployment-------------------)
 >
 > ### CSS
 >
 > Passed code through [W3C CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input) by pasting code in by direct input method
 >
 > - No errors found
-> - 8 warnings relating to custom colour variables, safely ignored.
+> - 8 warnings relating to custom colour variables - safely ignored.
 >
 > ![Image](../testing/css-validation.png)
 >
 > ### JavaScript
->
+> Passed code through [JSHint](https://jshint.com/)
+> - Two warnings for missing semi-colons(resolved)
+> - Warning for ''let' is available in ES6 (use 'esversion: 6') or Mozilla JS extensions (use moz).' - Safely ignored.
+> - JSHint flags Jquery $ symbol as undefined variable - safely ignored.
 > ### Python
 >
 > Autopepe8 installed as a dependency for checking code as written
