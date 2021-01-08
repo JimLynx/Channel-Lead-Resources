@@ -4,7 +4,7 @@
 
 <img src="static/img/responsive.png" />
 
-# SITE DEPLOYED LIVE ON HEROKU [HERE](https://channel-lead-resources.herokuapp.com/)
+Site deployed on Heroku [HERE](https://channel-lead-resources.herokuapp.com/)
 
 ## Table of Contents
 
@@ -43,7 +43,7 @@
 >   - **refer to them if I cannot make the live presentations**
 > - As a user I would like to **be able to search the site**, so that I can **easily find resources that I am looking for**
 > - As a user I would like to **leave a comment** so that I can **recommend future topics to cover**
-> - As a user I would like to **rate a post** (like/dislike-emojis) so that I can **visibly show how valuable the particular resource is to me**
+> - As a user I would like to **rate a post** (like/dislike-emojis) so that I can **visibly show how valuable the particular resource is to me** (Moved to [Features Left to Implement](#features-left-to-implement))
 > - As a user I would like to **access the information from anywhere**, so that I can **watch and read presentations on my mobile phone/tablet**
 >
 > ### :white_circle: Admin_(Code institute Slack Channel Leads)_
@@ -130,10 +130,9 @@
 > The overall structure is for ease of navigation to each section
 >
 > - Top navigation menu for general public displays only Home and Login links
-> - Logged in Users have access to various topic pages
->   - Each topic page is the same format to ensure consistency
->   - Top Navigation menu allows for easy navigation to desired sections
-> - Logged in Superuser and Assessor have further access to superuser page where account management is possible
+> - Logged in Student user account has additional access to Resources and Contact pages.
+> - Logged in Lead user account has additional access to Manage Resources and Manage Categories pages
+> - Logged in Superuser and Assessor user accounts have additional access to Manage Users page.
 
 ### 4. Skeleton
 
@@ -143,17 +142,17 @@
 >   - Resource page with information on the site, search functionality and collapsible resource posts
 >   - Contact page with feedback/suggestion form
 >   - Admin Dashboard (depending on credentials) with dropdown links to:
->       - Manage Users page 
->       - Manage Resources page (with button redirect to Add/Edit Resource page) 
->       - Manage Categories page (with button redirect to Edit Category page) 
+>       - Manage Users page
+>       - Manage Resources page (with button redirect to Add/Edit Resource page)
+>       - Manage Categories page (with button redirect to Edit Category page)
 >
 > - Public (not logged in) [Public Wireframe](static/wireframes/wireframe-public.pdf)
 > - Login credentials and accessibility
->   - Student (User) Logged in [Student Wireframe](static/wireframes/wireframe-student.pdf) 
+>   - Student (User) Logged in [Student Wireframe](static/wireframes/wireframe-student.pdf)
 >       - Access to Resources, Contact pages and Logout link
 >   - Lead Logged in [Lead Wireframe](static/wireframes/wireframe-lead.pdf)
 >       - Access to Resources, Manage Resources, Contact pages and Logout link
-> - Superuser Logged in [Superuser Wireframe](static/wireframes/wireframe-superuser-assessor.pdf) 
+> - Superuser Logged in [Superuser Wireframe](static/wireframes/wireframe-superuser-assessor.pdf)
 >       - Access to Resources, Manage Resources, Manage Categories, Manage Users, Contact pages and Logout link
 > - Assessor Logged in (Wireframe as above for Superuser)
 >       - Access to same as above mentioned in Superuser Logged in
@@ -179,12 +178,12 @@
 >
 > #### Images
 >
-> - I've decided not to use images, which would distract from the simple, direct communication of the information provided. The only images used are on the 404 and 500 error pages.
+> - I've decided not to use images, which would distract from the simple, direct communication of the information provided. Besides the main logo, the only other images used are on the 404 and 500 error pages.
 >
 > #### Design Choices
 >
 > - As the project developed, so did the learning of the Flask framework and knowledge of what could further be implemented. For this reason the initial wireframes differ from the final version as new pages, features and functionality were introduced in the process.
-> - TBA
+> - The Manage Users page and functionality has been added to enable further development at a later stage
 
 ---
 
@@ -198,11 +197,11 @@
 > - Footer with useful links and social media links
 > - Contact Form
 >
-> ### Features Left to Implement when skills develop
+> ### Features Left to Implement
 >
 > - Integrate with Slack
 > - Scalability - Vision to use the project as an open-source project for Code Instutute Students & Alumni to add and improve features. This could be a good project for a Hackathon event.
-> - Review/Rating of individual resource posts
+> - Review/Rating of individual resource posts (i.e. like/star rating option). For current scope, the review via contact form will suffice.
 
 ---
 
@@ -322,9 +321,8 @@
 ## Version Control
 
 > - Used Git for version control.
-> - Branches were created to work on alternative layout and buttons.
->   - user-confirmation branch > for implementing and testing confirmation modal dialogues.
-> - The branches were then merged with the master branch after any conflicts were addressed.
+> - User-confirmation branch for implementing and testing confirmation modal dialogues.
+> - The branch was then merged with the main branch after any conflicts were addressed.
 
 ---
 
@@ -405,6 +403,3 @@ This project has been deployed on GitHub Pages with the following process:
 > For any issue resolution or assistance, please email  Jim Morel :e-mail: jim.lynx@gmail.com :e-mail:
 
 ---
-
-## Known Bugs
-> - 
