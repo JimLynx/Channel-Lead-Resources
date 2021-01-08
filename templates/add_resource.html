@@ -36,7 +36,7 @@
                         Title:
                         <span class="red-asterisk">*</span>
                     </label>
-                    <input type="text" name="title" id="title" class="form-control  validate mb-4"
+                    <input type="text" name="title" id="title" class="form-control validate mb-4"
                         placeholder="Resource Title" minlength="5" maxlength="50" required>
                 </div>
 
@@ -47,7 +47,7 @@
                         Description:
                         <span class="red-asterisk">*</span>
                     </label>
-                    <textarea type="text" name="description" id="description" class="form-control mb-4 validate"
+                    <textarea name="description" id="description" class="form-control mb-4 validate"
                         placeholder="Detailed resource description" rows="5" minlength="5" maxlength="5000"
                         required></textarea>
                 </div>
@@ -60,29 +60,28 @@
                         <span class="red-asterisk">*</span>
                     </label>
                     <input type="text" name="created_by" id="created_by" class="form-control validate mb-4"
-                        placeholder="Slack Username" minlength=" 5" maxlength="50" required>
+                        placeholder="Slack Username" minlength="5" maxlength="50" required>
                 </div>
 
                 <div class="break-line"></div>
-                <p>Please enter a url for your hosted PDF
-                    <strong style="text-decoration: underline;">and/or</strong>
-                    a Webinar recording.
+                <p>Please enter a url for your hosted PDF<strong style="text-decoration: underline;"> and/or
+                    </strong>Webinar recording.
                 </p>
-                <p>Click the 'INSTRUCTIONS' buttons for more details on each</p>
                 <br>
 
                 <!-- document url location -->
                 <div class="row">
-                    <label for="document_url">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        PDF:
-
+                    <div class="d-flex mb-2">
+                        <label for="document_url">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            PDF:
+                        </label>
                         <!-- Trigger Instructions modal on base.html -->
                         <button type="button" class="badge bg-danger ml-3" data-toggle="modal"
                             data-target="#pdfInstructionModal">
                             Instructions
                         </button>
-                    </label>
+                    </div>
 
                     <input type="url" name="document_url" id="document_url" class="form-control validate mb-4"
                         placeholder="Google Drive url" minlength="5" maxlength="200">

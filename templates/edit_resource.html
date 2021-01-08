@@ -10,11 +10,13 @@
 
         <form id="editConfirm" action="{{ url_for('edit_resource', resource_id=resource._id) }}" method="POST">
             <!-- last edited  -->
-            <em>
-                <small class="text-muted">This resource was last updated by {{ resource.created_by|title }} on
-                    {{ resource.date }}
-                </small>
-            </em>
+            <p>
+                <em>
+                    <small class="text-muted">(This resource was last updated by {{ resource.created_by|title }} on
+                        {{ resource.date }})
+                    </small>
+                </em>
+            </p>
             <div class="container">
 
                 <!-- category selection -->
@@ -77,25 +79,25 @@
                 </div>
 
                 <div class="break-line"></div>
-                <p>Please enter a url for your hosted PDF
-                    <strong style="text-decoration: underline;">and/or</strong>
-                    a Webinar recording.
+                <p>Please enter a url for your hosted PDF<strong style="text-decoration: underline;"> and/or
+                    </strong>Webinar recording.
                 </p>
-                <p>Click the 'INSTRUCTIONS' buttons for more details on each</p>
                 <br>
 
                 <!-- document url location -->
                 <div class="row">
-                    <label for="document_url">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        PDF:
-
+                    <div class="d-flex mb-2">
+                        <label for="document_url">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            PDF:
+                        </label>
                         <!-- Trigger Instructions modal on base.html -->
                         <button type="button" class="badge bg-danger ml-3" data-toggle="modal"
                             data-target="#pdfInstructionModal">
                             Instructions
                         </button>
-                    </label>
+                    </div>
+
                     <input type="url" name="document_url" id="document_url" class="form-control validate mb-4"
                         value="{{ resource.document_url }}" placeholder="https://document-source" minlength="5"
                         maxlength="200">
