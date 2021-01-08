@@ -1,4 +1,3 @@
-
 ## Table of Contents
 
 > - [User Stories](#user-stories)
@@ -11,7 +10,7 @@
 ---
 
 ## User Stories
->
+
 > ### Users _(Code Institute Students)_
 >
 > 1. As a user I would like to **have access to past Channel Lead presentations** in one place, so that I can:
@@ -59,7 +58,6 @@
 >
 > #### **TESTING:** Users are able to review posts from the Contact Page by submitting a review and/or suggestion. The 'rate/review' functionality for individual posts has been moved to 'Features Left to Implement' due to time constraints
 >
->
 > ### Superuser _(Developer-Site Creator)_
 >
 > In addition to the above,
@@ -89,36 +87,64 @@
 > 1. As an Assessor, I will require full access to all Superuser privileges, so that I can gain full access in order to assess all aspects of the project.
 >
 > #### **TESTING:** The **'Assessor'** username and password created to allow a Project Assessor full access to the project with all priveledges of a Superuser, but with dedicated login details
->
 
 ---
 
 ## Code Validity
+
+> ### HTML
 >
-> #### **TESTING:** 
+> Passed code through [Nu Html Checker](https://validator.w3.org/#validate_by_uri) by entering the 'Validate by URI method.
 >
+> - Warning for 'Section lacks heading. Consider using h2-h6 elements to add identifying headings to all sections.'
+> - 4 x Warnings for 'The type attribute is unnecessary for JavaScript resources'. Safely Ignored.
+> - Error: 'The aria-labelledby attribute must point to an element in the same document'. As the modal is repeated, this is stored in the base.html, hence not on the same file. Removed attribute.
+>
+> ### CSS
+>
+> Passed code through [W3C CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input) by pasting code in by direct input method
+>
+> - No errors found
+> - 8 warnings relating to custom colour variables, safely ignored.
+>
+> ![Image](../testing/css-validation.png)
+>
+> ### JavaScript
+>
+> ### Python
+>
+> Autopepe8 installed as a dependency for checking code as written
+> All Python code passed through [ExtendsClass Python Syntax Checker](https://extendsclass.com/python-tester.html)
+>
+> - app
+>   ![Image](../testing/app-check.png)
+> - routes
+>   ![Image](../testing/routes-check.png)
+> - errors
+>   ![Image](../testing/errors-check.png)
+> - mail_settings
+>   ![Image](../testing/mail_settings-check.png)
 
 ---
 
 ## Search Function (Resources, Manage Categories and Manage Resources pages)
->
-> #### **TESTING:** 
+
+> #### **TESTING:**
 >
 > - Clicked submit with no entries in fields - page resets to show all resources.
 > - Entered valid keyword and page returns relevant resource(s) containing that keyword.
 > - Entered invalid keyword and page returns the message: 'No results found, please try another search'.
 > - Entered keyword and selected category:
 >   - If keyword is valid and category is valid, page returns relevant resource(s) containing that keyword within the category selected.
->   - If keyword is valid but not in the selected category,  page returns the message: 'No results found, please try another search'.
+>   - If keyword is valid but not in the selected category, page returns the message: 'No results found, please try another search'.
 > - Selected category only with no keyword entered, page returns a list of resources of the selected category.
 > - Clicked Reset button and this resets the page to default view as expected.
->
 
 ---
 
 ## Contact Form
->
-> #### **TESTING:** 
+
+> #### **TESTING:**
 >
 > - All required fields are working fine. When Submit button is clicked and 'required' fields are empty, the user receives a notification to fill in the relevant field.
 > - When submitting a completed form, user receives a flash message notification that the feedback/suggestion has been sent.
@@ -129,7 +155,7 @@
 ---
 
 ## Responsive Tests
->
+
 > When select element is viewed on mobile in DevTools, the option elements extend offscreen. However, this is not an issue on physical mobile devices as the browser renders it's own native form elements.
 
 ![Image](../testing/test-select-devtools.png)
@@ -138,5 +164,5 @@
 ---
 
 ## Deployment
->
+
 >
