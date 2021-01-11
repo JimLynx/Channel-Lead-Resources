@@ -102,47 +102,7 @@ def logout():
     return redirect(url_for('home'))
 
 
-# -------- RESOURCES PAGE-------- #
-
-# === Render Resources page.
-@app.route('/resources')
-def resources():
-    """
-        Set access for logged in session users.
-
-        Pagination functionality.
-    """
-
-    if 'user' in session:
-        """
-        Pagination:
-        get the page number from request or set the page 1 if first page
-        limit results to find
-        count documents to calculate number of pagination options
-        """
-        page = int(request.args.get('page') or 1)
-        num = 5
-        count = int(math.ceil(cl.count_documents({}) / num))
-
-        if page > count or page < 1:
-            return render_template('errors/404.html'), 404
-
-        # page - 1 ensures that the first items can be found
-        # multiply the page number  by the item limit for current page results
-        resources = list(cl.find({}).skip((page - 1)*num).limit(num))
-        categories = cat.find().sort('category_name', 1)
-
-        return render_template(
-            'resources.html',
-            resources=resources,
-            categories=categories,
-            page=page, count=count,
-            search=False
-        )
-
-    flash("You need to Log in!", "danger")
-    return redirect(url_for('home'))
-
+# -------- MAIN SEARCH FUNCTION -------- #
 
 def default_search(request):
     """
@@ -179,11 +139,62 @@ def default_search(request):
     return resources, categories
 
 
+# -------- PAGINATION -------- #
+
+def pagination(request, items_to_count, num_of_pages):
+    """
+    Pagination:
+    get the page number from request or set the page 1 if first page
+    limit results to find
+    count documents to calculate number of pagination options
+    """
+
+    page = int(request.args.get('page') or 1)
+    count = int(math.ceil(items_to_count.count_documents({}) / num))
+
+    if page > count or page < 1:
+        return False
+
+    resources = list(cl.find({}).skip((page - 1)*num).limit(num))
+    categories = cat.find().sort('category_name', 1)
+
+    return (resources, categories, page, count)
+
+
+# -------- RESOURCES PAGE-------- #
+
+# === Render Resources page.
+@app.route('/resources')
+def get_resources():
+    """
+        Set access for logged in session users.
+
+        Call "pagination()" function.
+    """
+
+    if 'user' in session:
+        pages = pagination(request, cl, 5)
+
+        if not pages:
+            return render_template('errors/404.html'), 404
+
+        return render_template(
+            'resources.html',
+            resources=pages[0],
+            categories=pages[1],
+            page=pages[2],
+            count=pages[3],
+            search=False)
+
+    flash("You need to Log in!", "danger")
+    return redirect(url_for('home'))
+
+
 # === Search function for Resources page
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     """
-        Reuse search function "default_search(request)"
+        Call search function "default_search(request)"
         for new search on Resources page.
     """
 
@@ -267,28 +278,22 @@ def manage_resources():
     """
         Set access for Admin level 2.
 
-        Pagination functionality.
+        Call "pagination()" function.
     """
 
     if admin_2():
-        page = int(request.args.get('page') or 1)
-        num = 5
-        count = int(math.ceil(cl.count_documents({}) / num))
+        pages = pagination(request, cl, 5)
 
-        if page > count or page < 1:
+        if not pages:
             return render_template('errors/404.html'), 404
-
-        resources = list(cl.find({}).skip((page - 1)*num).limit(num))
-        categories = cat.find().sort('category_name', 1)
 
         return render_template(
             'manage_resources.html',
-            resources=resources,
-            categories=categories,
-            page=page,
-            count=count,
-            search=False
-        )
+            resources=pages[0],
+            categories=pages[1],
+            page=pages[2],
+            count=pages[3],
+            search=False)
 
     return redirect(url_for('resources'))
 
@@ -297,7 +302,7 @@ def manage_resources():
 @app.route('/search_manage_resources', methods=['GET', 'POST'])
 def search_manage_resources():
     """
-    Reuse search function default_search(request)
+    Call search function "default_search(request)"
     for new search on manage Resources page.
     """
 
@@ -430,23 +435,23 @@ def delete_resource(resource_id):
 def manage_categories():
     """
         Set access for Admin level 2.
-        Add pagination
+
+        Call "pagination()" function.
     """
 
     if admin_2():
-        page = int(request.args.get('page') or 1)
-        num = 5
-        count = int(math.ceil(cat.count_documents({}) / num))
-        if page > count or page < 1:
+        pages = pagination(request, cat, 5)
+
+        if not pages:
             return render_template('errors/404.html'), 404
-        categories = list(cat.find(
-            {}).skip((page - 1)*num).limit(num))
 
         return render_template(
             'manage_categories.html',
-            categories=categories,
-            page=page, count=count,
-            search=False)
+            categories=pages[0],
+            page=page[1],
+            count=page[2],
+            search=False
+            )
 
     return redirect(url_for('resources'))
 
