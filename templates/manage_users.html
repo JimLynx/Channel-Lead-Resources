@@ -60,8 +60,7 @@
                 </h4>
                 <p>
                     <i class="fas fa-exclamation-triangle text-left">
-                    IMPORTANT!: Do <u>NOT</u> delete Superuser, Assessor, Student
-                        or Lead accounts.
+                        (Superuser, Assessor, Student and Lead accounts cannot be deleted.)
                     </i>
                 </p>
                 <div class="container">
@@ -78,6 +77,9 @@
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <td class="table-btn-col">
+                                        <!-- Using Jinja set keyword to check user types for if statement -->
+                                        {% set user_types = ["superuser", "assessor", "lead", "student"] %}
+                                        {% if user.user_type not in user_types %}
                                         <form class="btn-col" id="deleteConfirm{{ user._id }}"
                                             action="{{ url_for('delete_user', user_id=user._id) }}">
                                             <!-- Trigger delete confirmation modal-->
@@ -87,6 +89,7 @@
                                             DELETE
                                             </button>
                                         </form>
+                                        {% endif %}
                                     </td>
                                 </div>
                             </tr>
@@ -101,36 +104,36 @@
 
 <!-- Delete Item Modal -->
     {% for user in users %}
-        <div class=" modal fade" id="modalDelete{{ user._id }}" tabindex="-1" 
-        role="dialog" aria-labelledby="modalDelete" aria-hidden="true">
-            <div class="modal-dialog modal-md modal-notify modal-danger"
-                role="document">
-                <div class="modal-content text-center">
-                    <div class="modal-header d-flex justify-content-center">
-                        <p class="heading">Are you sure you want to DELETE this
-                            user?</p>
-                    </div>
-                    <div class="modal-body">
-                        <p><i class="fas fa-exclamation-circle"></i> WARNING:</p>
-                        <p>This action cannot be undone!</p>
-                        <div class="modal-footer flex-center">
+        <div class=" modal fade" id="modalDelete{{ user._id }}" tabindex="-1" role="dialog"
+                                                aria-labelledby="modalDelete" aria-hidden="true">
+                                                <div class="modal-dialog modal-md modal-notify modal-danger"
+                                                    role="document">
+                                                    <div class="modal-content text-center">
+                                                        <div class="modal-header d-flex justify-content-center">
+                                                            <p class="heading">Are you sure you want to DELETE this
+                                                                user?</p>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p><i class="fas fa-exclamation-circle"></i> WARNING:</p>
+                                                            <p>This action cannot be undone!</p>
+                                                            <div class="modal-footer flex-center">
 
-                            <button class="btn btn-outline-danger" type="submit"
-                                form="deleteConfirm{{ user._id }}">
-                                Confirm
-                            </button>
+                                                                <button class="btn btn-outline-danger" type="submit"
+                                                                    form="deleteConfirm{{ user._id }}">
+                                                                    Confirm
+                                                                </button>
 
-                            <button class="btn btn-danger waves-effect"
-                                type="button" data-dismiss="modal">
-                                <i class="fas fa-times animated rotateIn"></i>
-                                Cancel
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endfor %}
+                                                                <button class="btn btn-danger waves-effect"
+                                                                    type="button" data-dismiss="modal">
+                                                                    <i class="fas fa-times animated rotateIn"></i>
+                                                                    Cancel
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                </div>
+                                {% endfor %}
 
-{% endif %}
-{% endblock %}
+                                {% endif %}
+                                {% endblock %}
