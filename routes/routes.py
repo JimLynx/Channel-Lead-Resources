@@ -75,17 +75,13 @@ def login():
         if check_password_hash(username['password'],
                                request.form.get('password')):
             session['user'] = request.form.get('username')
-            flash(
-                "Welcome, you've successfully logged in to \
+            flash("Welcome, you've successfully logged in to\
                 Channel Lead Resources!", "success")
-            return redirect(url_for('resources'))
+            return redirect(url_for('get_resources'))
         else:
             flash("Incorrect password please try again", "danger")
 
-    return render_template(
-        'login.html',
-        users=user_types
-    )
+    return render_template('login.html', users=user_types)
 
 
 # === Logout
@@ -141,7 +137,7 @@ def default_search(request):
 
 # -------- PAGINATION -------- #
 
-def pagination(request, items_to_count, num_of_pages):
+def pagination(request, items_to_find, num_of_pages):
     """
     Pagination:
     get the page number from request or set the page 1 if first page
@@ -150,12 +146,15 @@ def pagination(request, items_to_count, num_of_pages):
     """
 
     page = int(request.args.get('page') or 1)
-    count = int(math.ceil(items_to_count.count_documents({}) / num_of_pages))
+    count = int(math.ceil(items_to_find.count_documents({}) / num_of_pages))
 
     if page > count or page < 1:
         return False
 
-    resources = list(cl.find({}).skip((page - 1)*num_of_pages).limit(num_of_pages))
+    resources = list(
+        items_to_find.find({}).skip(
+            (page - 1)*num_of_pages).limit(num_of_pages)
+    )
     categories = cat.find().sort('category_name', 1)
 
     return (resources, categories, page, count)
@@ -188,7 +187,7 @@ def get_form_data(request):
 # -------- RESOURCES PAGE-------- #
 
 # === Render Resources page.
-@app.route('/resources')
+@app.route('/get_resources')
 def get_resources():
     """
         Set access for logged in session users.
@@ -246,7 +245,7 @@ def manage_users():
         users = list(cl.users.find().sort('user_type', 1))
         return render_template('manage_users.html', users=users)
 
-    return redirect(url_for('resources'))
+    return redirect(url_for('get_resources'))
 
 
 # === Add User
@@ -273,7 +272,7 @@ def add_users():
 
         return render_template('add_users.html')
 
-    return redirect(url_for('resources'))
+    return redirect(url_for('get_resources'))
 
 
 # === Delete User
@@ -291,7 +290,7 @@ def delete_user(user_id):
         flash("Selected User Successfully Deleted.", "info")
 
         return redirect(url_for('manage_users'))
-    return redirect(url_for('resources'))
+    return redirect(url_for('get_resources'))
 
 
 # -------- MANAGE RESOURCES PAGE -------- #
@@ -319,7 +318,7 @@ def manage_resources():
             count=pages[3],
             search=False)
 
-    return redirect(url_for('resources'))
+    return redirect(url_for('get_resources'))
 
 
 # === Search function for Manage Resources page
@@ -367,7 +366,7 @@ def add_resource():
             categories=categories
         )
 
-    return redirect(url_for('resources'))
+    return redirect(url_for('get_resources'))
 
 
 # === Edit resources
@@ -397,7 +396,7 @@ def edit_resource(resource_id):
             categories=categories
         )
 
-    return redirect(url_for('resources'))
+    return redirect(url_for('get_resources'))
 
 
 # === Delete resources
@@ -415,7 +414,7 @@ def delete_resource(resource_id):
         flash("Selected Resource Successfully Deleted.", "info")
         return redirect(url_for('manage_resources'))
 
-    return redirect(url_for('resources'))
+    return redirect(url_for('get_resources'))
 
 
 # -------- MANAGE CATEGORIES PAGE -------- #
@@ -438,12 +437,12 @@ def manage_categories():
         return render_template(
             'manage_categories.html',
             categories=pages[0],
-            page=page[1],
-            count=page[2],
+            page=pages[2],
+            count=pages[3],
             search=False
         )
 
-    return redirect(url_for('resources'))
+    return redirect(url_for('get_resources'))
 
 
 # === Add new category
@@ -466,7 +465,7 @@ def add_category():
             return redirect(url_for('manage_categories'))
 
         return render_template('manage_categories.html')
-    return redirect(url_for('resources'))
+    return redirect(url_for('get_resources'))
 
 
 # === Edit category
@@ -491,7 +490,7 @@ def edit_category(category_id):
         category = cat.find_one({'_id': ObjectId(category_id)})
         return render_template('edit_category.html', category=category)
 
-    return redirect(url_for('resources'))
+    return redirect(url_for('get_resources'))
 
 
 # === Delete Category
@@ -509,7 +508,7 @@ def delete_category(category_id):
         flash("Selected Category Successfully Deleted.", "info")
         return redirect(url_for('manage_categories'))
 
-    return redirect(url_for('resources'))
+    return redirect(url_for('get_resources'))
 
 
 # -------- CONTACT PAGE-------- #
