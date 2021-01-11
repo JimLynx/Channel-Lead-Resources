@@ -15,7 +15,7 @@
         {% if session.user %}
                 {% if session.user|lower == session.user|lower %}
                 <p>- You're already logged in -</p>
-                <a class="btn {{ home_btn_resources }}" href="{{ url_for('resources') }}">
+                <a class="btn {{ home_btn_resources }}" href="{{ url_for('get_resources') }}">
                     <i class="fas fa-arrow-alt-circle-right"></i>
                     Back to Resources
                 </a>

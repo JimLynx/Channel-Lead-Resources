@@ -41,7 +41,7 @@
                 </li>
                 {% if session.user %}
                 <li class="nav-item {{ 'active' if active_page == 'resources' }}">
-                    <a class="nav-link" href="{{ url_for('resources') }}">Resources</a>
+                    <a class="nav-link" href="{{ url_for('get_resources') }}">Resources</a>
                 </li>
                 <!-- Admin Dropdown -->
                 {% if session.user|lower == 'lead' or session.user|lower == 'superuser' or session.user|lower == 'assessor' %}
