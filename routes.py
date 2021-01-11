@@ -11,28 +11,32 @@ from werkzeug.security import generate_password_hash, check_password_hash
 currentDate = datetime.today().strftime('%d-%m-%Y')
 
 # === Variables for MongoDB collections
+
+# Resources Collection
 cl = mongo.db.cl_resources
+
+# Categories Collection
 cat = mongo.db.categories
+
+# Users Collection
 cl.users = mongo.db.users
 
 
 # === Functions for user access groups
 def admin_1():
-
-    '''
+    """
         Set Admin Level 1 to include
         Superuser and Assessor access only
-    '''
+    """
 
     return session['user'] == 'superuser' or session['user'] == 'assessor'
 
 
 def admin_2():
-
-    '''
+    """
         Set Admin Level 2 to include
         Superuser, Assessor and Lead access
-    '''
+    """
 
     return session['user'] == 'superuser' or \
         session['user'] == 'assessor' or session['user'] == 'lead'
@@ -42,10 +46,9 @@ def admin_2():
 @app.route('/')
 @app.route('/home')
 def home():
-
-    '''
+    """
         Renders default landing page
-    '''
+    """
 
     return render_template('home.html')
 
@@ -53,16 +56,15 @@ def home():
 # === Login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-
-    '''
+    """
         User log in.
 
         Pre-determined username is selected from
         the dropdown options.
 
         If user password is not correct
-        flash error message to user
-    '''
+        flash error message to user.
+    """
 
     user_types = list(cl.users.find())
 
@@ -80,17 +82,19 @@ def login():
         else:
             flash("Incorrect password please try again", "danger")
 
-    return render_template('login.html', users=user_types)
+    return render_template(
+        'login.html',
+        users=user_types
+    )
 
 
 # === Logout
 @app.route('/logout')
 def logout():
-
-    '''
+    """
         Remove user from session using
         pop() method.
-    '''
+    """
 
     session.pop('user', None)
     flash("Successfully LOGGED OUT - Please visit again soon!", "success")
@@ -103,12 +107,11 @@ def logout():
 # === Render Resources page.
 @app.route('/resources')
 def resources():
-
-    '''
+    """
         Set access for logged in session users.
 
         Pagination functionality.
-    '''
+    """
 
     if 'user' in session:
         """
@@ -129,25 +132,24 @@ def resources():
         resources = list(cl.find({}).skip((page - 1)*num).limit(num))
         categories = cat.find().sort('category_name', 1)
 
-        return render_template('resources.html',
-                               resources=resources,
-                               categories=categories,
-                               page=page,
-                               count=count,
-                               search=False
-                               )
+        return render_template(
+            'resources.html',
+            resources=resources,
+            categories=categories,
+            page=page, count=count,
+            search=False
+        )
 
     flash("You need to Log in!", "danger")
     return redirect(url_for('home'))
 
 
 def default_search(request):
-
-    '''
+    """
         Cycle through DB resource
         and categories collections and
         search by keyword or category or both
-    '''
+    """
 
     resources = []
     categories = cat.find().sort('category_name', 1)
@@ -167,31 +169,31 @@ def default_search(request):
         elif search and select:
             resources = cl.find(
                 {'$and': [{'category_name': select},
-                 {'$text': {'$search': search}}]})
+                          {'$text': {'$search': search}}]})
         # if no search and no filter
         else:
             resources = cl.find({})
 
         resources = [item for item in resources]
 
-    return (resources, categories)
+    return resources, categories
 
 
 # === Search function for Resources page
 @app.route('/search', methods=['GET', 'POST'])
 def search():
-
-    '''
+    """
         Reuse search function "default_search(request)"
         for new search on Resources page.
-    '''
+    """
 
     new_search = default_search(request)
 
-    return render_template('resources.html',
-                           resources=new_search[0],
-                           categories=new_search[1]
-                           )
+    return render_template(
+        'resources.html',
+        resources=new_search[0],
+        categories=new_search[1]
+    )
 
 
 # -------- MANAGE USERS PAGE -------- #
@@ -199,12 +201,11 @@ def search():
 # === Render Manage Users page
 @app.route('/manage_users')
 def manage_users():
-
-    '''
+    """
         Set access for Admin level 1.
 
         Find all users in DB "users" collection.
-    '''
+    """
 
     if admin_1():
         users = list(cl.users.find().sort('user_type', 1))
@@ -216,13 +217,12 @@ def manage_users():
 # === Add User
 @app.route('/add_users', methods=['GET', 'POST'])
 def add_users():
-
-    '''
+    """
         Set access for Admin level 1.
 
         Insert new username and password
         to DB "users" collection
-    '''
+    """
 
     if admin_1():
         if request.method == 'POST':
@@ -244,13 +244,12 @@ def add_users():
 # === Delete User
 @app.route('/delete_user/<user_id>')
 def delete_user(user_id):
-
-    '''
+    """
         Set access for Admin level 1.
 
         Use remove() method to delete
         selected user ID from DB
-    '''
+    """
 
     if admin_1():
         cl.users.remove({'_id': ObjectId(user_id)})
@@ -265,12 +264,11 @@ def delete_user(user_id):
 # === Render Manage Resources page
 @app.route('/manage_resources')
 def manage_resources():
-
-    '''
+    """
         Set access for Admin level 2.
 
         Pagination functionality.
-    '''
+    """
 
     if admin_2():
         page = int(request.args.get('page') or 1)
@@ -283,13 +281,14 @@ def manage_resources():
         resources = list(cl.find({}).skip((page - 1)*num).limit(num))
         categories = cat.find().sort('category_name', 1)
 
-        return render_template('manage_resources.html',
-                               resources=resources,
-                               categories=categories,
-                               page=page,
-                               count=count,
-                               search=False
-                               )
+        return render_template(
+            'manage_resources.html',
+            resources=resources,
+            categories=categories,
+            page=page,
+            count=count,
+            search=False
+        )
 
     return redirect(url_for('resources'))
 
@@ -297,29 +296,29 @@ def manage_resources():
 # === Search function for Manage Resources page
 @app.route('/search_manage_resources', methods=['GET', 'POST'])
 def search_manage_resources():
-
-    '''
+    """
     Reuse search function default_search(request)
     for new search on manage Resources page.
-    '''
+    """
 
     new_search = default_search(request)
 
-    return render_template('manage_resources.html',
-                           resources=new_search[0],
-                           categories=new_search[1])
+    return render_template(
+        'manage_resources.html',
+        resources=new_search[0],
+        categories=new_search[1]
+    )
 
 
 # === Add resource
 @app.route('/add_resource', methods=['GET', 'POST'])
 def add_resource():
-
-    '''
+    """
         Set access for Admin level 2.
 
         Get user input from form and create
         new resource entries in DB collection.
-    '''
+    """
 
     if admin_2():
         if request.method == 'POST':
@@ -353,7 +352,8 @@ def add_resource():
         categories = cat.find().sort('category_name', 1)
         return render_template('add_resource.html',
                                resources=resources,
-                               categories=categories)
+                               categories=categories
+                               )
 
     return redirect(url_for('resources'))
 
@@ -361,12 +361,11 @@ def add_resource():
 # === Edit resources
 @app.route('/edit_resource/<resource_id>', methods=['GET', 'POST'])
 def edit_resource(resource_id):
-
-    '''
+    """
         Set access for Admin level 2.
 
         Get resources from DB and update.
-    '''
+    """
 
     if admin_2():
         if request.method == 'POST':
@@ -399,10 +398,9 @@ def edit_resource(resource_id):
         resource = cl.find_one({'_id': ObjectId(resource_id)})
         categories = cat.find().sort('category_name', 1)
 
-        return render_template('edit_resource.html',
-                               resource=resource,
-                               categories=categories
-                               )
+        return render_template(
+            'edit_resource.html', resource=resource, categories=categories
+        )
 
     return redirect(url_for('resources'))
 
@@ -410,17 +408,16 @@ def edit_resource(resource_id):
 # === Delete resources
 @app.route('/delete_resource/<resource_id>')
 def delete_resource(resource_id):
-
-    '''
+    """
         Set access for Admin level 2.
 
         Use remove() method to delete
         selected resource ID from DB.
-    '''
+    """
 
     if admin_2():
         cl.remove({'_id': ObjectId(resource_id)})
-        flash("Selected Resource Successfuly Deleted.", "info")
+        flash("Selected Resource Successfully Deleted.", "info")
         return redirect(url_for('manage_resources'))
 
     return redirect(url_for('resources'))
@@ -431,11 +428,10 @@ def delete_resource(resource_id):
 # === Render Manage Categories page
 @app.route('/manage_categories')
 def manage_categories():
-
-    '''
+    """
         Set access for Admin level 2.
         Add pagination
-    '''
+    """
 
     if admin_2():
         page = int(request.args.get('page') or 1)
@@ -446,11 +442,11 @@ def manage_categories():
         categories = list(cat.find(
             {}).skip((page - 1)*num).limit(num))
 
-        return render_template('manage_categories.html',
-                               categories=categories,
-                               page=page,
-                               count=count,
-                               search=False)
+        return render_template(
+            'manage_categories.html',
+            categories=categories,
+            page=page, count=count,
+            search=False)
 
     return redirect(url_for('resources'))
 
@@ -458,13 +454,12 @@ def manage_categories():
 # === Add new category
 @app.route('/add_category', methods=['GET', 'POST'])
 def add_category():
-
-    '''
+    """
         Set access for Admin level 2.
 
         Get user input from form to  insert new
         category name into DB collection.
-    '''
+    """
 
     if admin_2():
         if request.method == "POST":
@@ -482,13 +477,12 @@ def add_category():
 # === Edit category
 @app.route('/edit_category/<category_id>', methods=['GET', 'POST'])
 def edit_category(category_id):
-
-    '''
+    """
         Set access for Admin level 2.
 
         Use update() method to update
         selected category
-    '''
+    """
 
     if admin_2():
         if request.method == "POST":
@@ -500,9 +494,7 @@ def edit_category(category_id):
             return redirect(url_for('manage_categories'))
 
         category = cat.find_one({'_id': ObjectId(category_id)})
-        return render_template('edit_category.html',
-                               category=category
-                               )
+        return render_template('edit_category.html', category=category)
 
     return redirect(url_for('resources'))
 
@@ -510,13 +502,12 @@ def edit_category(category_id):
 # === Delete Category
 @app.route('/delete_category/<category_id>')
 def delete_category(category_id):
-
-    '''
+    """
         Set access for Admin level 1.
 
         Use remove() method to delete
         selected category ID from DB
-    '''
+    """
 
     if admin_1():
         cat.remove({'_id': ObjectId(category_id)})
@@ -530,13 +521,12 @@ def delete_category(category_id):
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
-
-    '''
+    """
         Set access to all session users.
 
         Fetch form user inputs and connect to Flask Mail
         to send email.
-    '''
+    """
 
     if session['user']:
         if request.method == 'POST':
@@ -558,9 +548,8 @@ def contact():
         resources = list(cl.find())
         categories = cat.find().sort('category_name', 1)
 
-        return render_template('contact.html',
-                               resources=resources,
-                               categories=categories
-                               )
+        return render_template(
+            'contact.html', resources=resources, categories=categories
+        )
 
     return redirect(url_for('login'))

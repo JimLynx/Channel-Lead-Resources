@@ -24,11 +24,11 @@ mail = Mail(app)
 
 def sendEmail(result):
 
-    '''
+    """
     Populate results from contact form entries and
     return results via Flask Mail to specified email
     address.
-    '''
+    """
 
     msg = Message("Contact form submission from Channel Lead Resources",
                   recipients=[email_settings["ADMIN_EMAIL"]])
