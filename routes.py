@@ -150,15 +150,39 @@ def pagination(request, items_to_count, num_of_pages):
     """
 
     page = int(request.args.get('page') or 1)
-    count = int(math.ceil(items_to_count.count_documents({}) / num))
+    count = int(math.ceil(items_to_count.count_documents({}) / num_of_pages))
 
     if page > count or page < 1:
         return False
 
-    resources = list(cl.find({}).skip((page - 1)*num).limit(num))
+    resources = list(cl.find({}).skip((page - 1)*num_of_pages).limit(num_of_pages))
     categories = cat.find().sort('category_name', 1)
 
     return (resources, categories, page, count)
+
+
+# -------- FORM DATA RETRIEVAL -------- #
+def get_form_data(request):
+    upload = {
+        "category_name": request.form.get("category_name"),
+        "title": request.form.get("title"),
+        "description": request.form.get("description"),
+        "video_url": request.form.get("video_url"),
+        "document_url": request.form.get("document_url"),
+        "created_by": request.form.get("created_by"),
+        "date": currentDate
+    }
+    # replace end of returned url string from
+    # user link to 'preview' for embedded PDF
+    if upload["document_url"] is not None:
+        upload["document_url"] = upload["document_url"].replace(
+            "/view?usp=sharing", "/preview")
+    # use regular expression to post only id of video to video_url
+    if upload["video_url"] is not None:
+        upload["video_url"] = ''.join(re.findall(
+            '(?<=v=)(.{11})', upload["video_url"]))
+
+    return upload
 
 
 # -------- RESOURCES PAGE-------- #
@@ -327,38 +351,21 @@ def add_resource():
 
     if admin_2():
         if request.method == 'POST':
-            upload = {
-                "category_name": request.form.get("category_name"),
-                "title": request.form.get("title"),
-                "description": request.form.get("description"),
-                "video_url": request.form.get("video_url"),
-                "document_url": request.form.get("document_url"),
-                "created_by": request.form.get("created_by"),
-                "date": currentDate
-            }
+            upload = get_form_data(request)
 
-            # replace end of returned url string from user
-            # link to 'preview' for embedded PDF
-            if upload["document_url"] is not None:
-                upload["document_url"] = upload["document_url"].replace(
-                    "/view?usp=sharing", "/preview")
-
-            # use regular expression to post only id of video to video_url
-            # Credit:Sean Murphy : regex code
-            if upload["video_url"] is not None:
-                upload["video_url"] = ''.join(re.findall(
-                    '(?<=v=)(.{11})', upload["video_url"]))
             cl.insert_one(upload)
-
             flash("Thanks, Your Awesome Resource Was Successfully Added!",
                   "success")
             return redirect(url_for('manage_resources'))
 
-        categories = cat.find().sort('category_name', 1)
-        return render_template('add_resource.html',
-                               resources=resources,
-                               categories=categories
-                               )
+        resources = cl.find({})
+        categories = cat.find({}).sort('category_name', 1)
+
+        return render_template(
+            'add_resource.html',
+            resources=resources,
+            categories=categories
+        )
 
     return redirect(url_for('resources'))
 
@@ -374,29 +381,10 @@ def edit_resource(resource_id):
 
     if admin_2():
         if request.method == 'POST':
-            upload = {
-                "category_name": request.form.get("category_name"),
-                "title": request.form.get("title"),
-                "description": request.form.get("description"),
-                "video_url": request.form.get("video_url"),
-                "document_url": request.form.get("document_url"),
-                "created_by": request.form.get("created_by"),
-                "date": currentDate
-            }
+            upload = get_form_data(request)
 
-            # replace end of returned url string from
-            # user link to 'preview' for embedded PDF
-            if upload["document_url"] is not None:
-                upload["document_url"] = upload["document_url"].replace(
-                    "/view?usp=sharing", "/preview")
+            cl.update({'_id': ObjectId(resource_id)}, upload)
 
-            # use regular expression to post only id of video to video_url
-            if upload["video_url"] is not None:
-                upload["video_url"] = ''.join(re.findall(
-                    '(?<=v=)(.{11})', upload["video_url"]))
-
-            cl.update(
-                {'_id': ObjectId(resource_id)}, upload)
             flash("Selected Resource Successfully Updated.", "success")
             return redirect(url_for('manage_resources'))
 
@@ -404,7 +392,9 @@ def edit_resource(resource_id):
         categories = cat.find().sort('category_name', 1)
 
         return render_template(
-            'edit_resource.html', resource=resource, categories=categories
+            'edit_resource.html',
+            resource=resource,
+            categories=categories
         )
 
     return redirect(url_for('resources'))
@@ -451,7 +441,7 @@ def manage_categories():
             page=page[1],
             count=page[2],
             search=False
-            )
+        )
 
     return redirect(url_for('resources'))
 
