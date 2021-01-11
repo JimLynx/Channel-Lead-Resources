@@ -2,8 +2,8 @@ import os
 from flask import Flask
 from flask_pymongo import PyMongo
 
-if os.path.exists("env.py"):
-    import env
+if os.path.exists("config/env.py"):
+    from config import env
 
 app = Flask(__name__)
 
@@ -13,8 +13,8 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
-from routes import *
-from errors import *
+from routes.routes import *
+from routes.errors import *
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

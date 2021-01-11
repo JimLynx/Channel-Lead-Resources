@@ -1,4 +1,4 @@
-import mail_settings
+from config import mail_settings
 import math
 import re
 from datetime import datetime
