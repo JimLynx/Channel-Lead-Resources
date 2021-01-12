@@ -95,7 +95,12 @@
 > ### HTML
 >
 > Passed code through [Nu Html Checker](https://validator.w3.org/#validate_by_uri) by entering the 'Validate by URI method.
-> - (----------removed direct input as too many errors from templating language - HTML tyo be tested again after final deployment-------------------)
+> - Error given for **br** tag in **li** item in the footer on base.html - resolved by removing <br> tags and using Bootstrap margin class instead.
+> - 2 x errors regarding modals on the base.html (for the form target and aria-labelled-by)- resolved by moving these modals to their respective pages.
+>
+> After resolving the above, all errors and warnings are cleared.
+>
+> ![Image](../testing/html-validation.png)
 >
 > ### CSS
 >
