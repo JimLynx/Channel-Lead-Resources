@@ -136,4 +136,47 @@
     </div>
 </div>
 
+    <!-- Edit Confirm Modal -->
+    <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalEdit" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-notify modal-info" role="document">
+            <div class="modal-content text-center">
+                <!--Header-->
+                <div class="modal-header d-flex justify-content-center">
+                    <p class="heading">Are you sure you want to EDIT this item?</p>
+                </div>
+                <div class="modal-body">
+                    <i class="far fa-edit fa-4x animated rotateIn mb-4"></i>
+                    <div class="modal-footer flex-center">
+                        <button class="btn btn-success" type="submit" form="editConfirm">
+                            <i class="fas fa-check"></i>
+                            YES
+                        </button>
+                        <button class="btn btn-danger waves-effect" type="button" data-dismiss="modal">
+                            <i class="fas fa-times animated rotateIn"></i>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF Instruction Modal -->
+    <div class="modal fade" id="pdfInstructionModal" tabindex="-1" role="dialog" aria-labelledby="pdfModal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content pdfContainer">
+                <div class="modal-body mb-0 p-0">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe src="{{ url_for('static', filename='instructions/pdf-intructions.pdf') }}"></iframe>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center flex-column flex-md-row">
+                    <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4"
+                        data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
