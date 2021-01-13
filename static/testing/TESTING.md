@@ -126,23 +126,23 @@ Passed code through [JSHint](https://jshint.com/)
 Autopepe8 installed as a dependency for checking code as written
 All Python code passed through [ExtendsClass Python Syntax Checker](https://extendsclass.com/python-tester.html)
 
-- [app.py](./app.py)
+- [app.py](../../app.py)
 
 ![Screenshot of app.py code validation test](../testing/app-check.png)
 
-- [routes.py](../routes/errors.py)
+- [routes.py](../../routes/routes.py)
 
 ![Screenshot of routes.py code validation test](../testing/routes-check.png)
 
-- [errors.py](../routes/errors.py)
+- [errors.py](../../routes/errors.py)
 
 ![Screenshot of errors.py code validation test](../testing/errors-check.png)
 
-- [mail_settings.py](../config/mail_settings.py)
+- [mail_settings.py](../../config/mail_settings.py)
 
 ![Screenshot of mail_settings.py code validation test](../testing/mail_settings-check.png)
 
-[Back to Top](#table-of-contents)  
+> [Back to Top](#table-of-contents)  
 
 ## Search Function
 
