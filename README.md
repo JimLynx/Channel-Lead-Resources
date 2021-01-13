@@ -33,6 +33,9 @@ Site deployed on Heroku [HERE](https://channel-lead-resources.herokuapp.com/)
 >
 > The aim of this project is to provide a single resource platform for the Code Institute Slack community to easily access these valuable and helpful resources. Not only will this increase learning process for students, but also aims to minimise the amount of questions raised in Slack Channels, and relieve congestion on the Tutor Support platform.
 >
+> &nbsp;  
+> [Back to Top](#table-of-contents)  
+> &nbsp;
 
 ## User Stories
 
@@ -69,17 +72,17 @@ Site deployed on Heroku [HERE](https://channel-lead-resources.herokuapp.com/)
 > ### :large_blue_circle: Assessor (_Milestone Project Assessor account_)
 >
 > - As an Assessor, I will require full access to all Superuser privileges, so that I can gain full access in order to assess all aspects of the project
-
----
+>
+> &nbsp;  
+> [Back to Top](#table-of-contents)  
+> &nbsp;
 
 ## UX
 
 > This website project will target Code Institute Students undertaking the Diploma in Full Stack Software Development. The priority focus is on providing a fluent and structured resource and catalogue of current and past Channel Lead presentations.
-
----
-
-### 1. Strategy
-
+>
+> ### 1. Strategy
+>
 > #### Project and User Goals
 >
 > - Provide an easy to navigate resource platform for hosting Channel Lead presentations and videos
@@ -103,9 +106,8 @@ Site deployed on Heroku [HERE](https://channel-lead-resources.herokuapp.com/)
 > - **:file_folder: Version Control** - All topics relating to Git, IDE's, Repositories and Deployment
 > - **:file_folder: General** - All other topics
 >
-
-### 2. Scope
-
+> ### 2. Scope
+>
 > - Fits in with my current skill-set of HTML, CSS, JavaScript, Python, Flask and MongoDB
 > - Implement platform for **links** to PDF content
 > - Implement platform for **links** to Video content
@@ -158,11 +160,9 @@ Site deployed on Heroku [HERE](https://channel-lead-resources.herokuapp.com/)
 >       - Access to same as above mentioned in Superuser Logged in
 >
 > - Footer with Useful Links, Information on the Code Institute and Social Media icons
-
----
-
-### 5. Surface
-
+>
+> ### 5. Surface
+>
 > The overall UX is clean and coordinates well with the official Code Institute and Slack themes for consistency and relatability.
 >
 > #### Colours
@@ -185,13 +185,15 @@ Site deployed on Heroku [HERE](https://channel-lead-resources.herokuapp.com/)
 >
 > - As the project developed, so did the learning of the Flask framework and knowledge of what could further be implemented. For this reason the initial wireframes differ from the final version as new pages, features and functionality were introduced in the process.
 > - The Manage Users page and functionality has been added to enable further development at a later stage
-
----
+>
+> &nbsp;  
+> [Back to Top](#table-of-contents)  
+> &nbsp;
 
 ## Features
 
 ### Existing Features
-
+>
 > - Designed with HTML5, CSS3, JavaScript, Python3, Flask, MongoDB and Bootstrap
 > - Home/Landing page with redirection to Login Page
 > - Responsive Bootstrap Navigation bar
@@ -205,8 +207,10 @@ Site deployed on Heroku [HERE](https://channel-lead-resources.herokuapp.com/)
 > - Review/Rating of individual resource posts (i.e. like/star rating option). For current scope, the review via contact form will suffice.
 > - Spent a lot of time with PDF inputs. Tried a self-hosted option through Google Scripts (and got it working), but this gave endless errors and security issues. Resorted to instructing Leads to host PDF's on their own Google Drives and posting the url link into the form. At a later stage, a better method could be implemented with either paid hosting service or file upload to a Database.
 > - For now Videos must be hosted on Youtube as any other source would require seperate url string manipulation in order for them to work as an embedded video. This went far beyond the scope of the project and will be implemented at a later stage.
-
----
+>
+> &nbsp;  
+> [Back to Top](#table-of-contents)  
+> &nbsp;
 
 ## Technologies Used
 
@@ -277,8 +281,10 @@ Site deployed on Heroku [HERE](https://channel-lead-resources.herokuapp.com/)
 > - Markdown Lint
 > - Python
 > - JSHint
-
----
+>
+> &nbsp;  
+> [Back to Top](#table-of-contents)  
+> &nbsp;
 
 ## Resources
 
@@ -304,9 +310,10 @@ Site deployed on Heroku [HERE](https://channel-lead-resources.herokuapp.com/)
 
 > - Created a branch for the modal confirmations. Modal templates for 'Add', 'Edit', 'Delete' and 'Add User' placed in base.html. The Add buttons on the modals work fine, but the Edit and Delete submit buttons will not work. Assumed issue stems from it being on the same page as the Add modal, causing a submit conflict with that form. Resolved by creating seperate ID's for the template modals, which relate to the form value on each modal, and then wrapping buttons/a tags in form elements, using 'form' attribute on modals to target the ID of the relevant forms. The Delete modals were still deleting the first item on the list, rather than  the specific item selected. Rectified this by moving the delete modal code from the base.html to each relevant file and providing id-targeting via Jinja.
 > - Videos in iframes in modals continued playing after modal closed. Solution found on Stack Overflow - See [Credits](#credits)
-
----
-
+>
+> &nbsp;  
+> [Back to Top](#table-of-contents)  
+> &nbsp;
 ## Code validity
 
 > HTML - [W3C](https://validator.w3.org/) - Markup Validation
@@ -318,27 +325,29 @@ Site deployed on Heroku [HERE](https://channel-lead-resources.herokuapp.com/)
 > Python - [Pyton Tester](https://extendsclass.com/python-tester.html) Python code syntax checker
 >
 > TAGS - [Closing Tag Checker for HTML5](https://www.aliciaramirez.com/closing-tags-checker/) - Validates all tags are opening and closing correctly.
-
----
+>
+> &nbsp;
 
 ## Version Control
 
 > - Used Git for version control.
 > - User-confirmation branch for implementing and testing confirmation modal dialogues.
 > - The branch was then merged with the main branch after any conflicts were addressed.
-
----
-
+>
 > ### IDE
 >
 > - All code was written on [Visual Studio Code](https://code.visualstudio.com/), a local IDE (Integrated Development Environment).
 > - A virtual environment was created on VSCode to ensure that the packages installed are only installed in the virtual environment folder.
-> - Sensitive information (passwords etc) is stored in an env.py file, which is added to the .gitignore file, to ensure this information is not pushed to the repository.
-> - 
 > - The code was then pushed to GitHub where it is stored in my [Repository](https://github.com/JimLynx/Channel-Lead-Resources).
 >
+> &nbsp;  
+> [Back to Top](#table-of-contents)  
+> &nbsp;
+>
 # Deployment
-> ## Local Installation 
+>
+> ## Local Installation
+>
 > ### 1. Cloning the project
 >
 > - The code can be run locally through clone or download from the repository on [GitHub](https://github.com/JimLynx/Channel-Lead-Resources).
@@ -351,9 +360,10 @@ Site deployed on Heroku [HERE](https://channel-lead-resources.herokuapp.com/)
 > ### 2. Create a Virtual Environment
 >
 > In the Terminal window:
->   - Navigate to the folder of the installed files with `cd <path>`
->   - Create the virtual environment folder with `python -m venv venv`
->   - Activate the virtual environment with `venv\Scripts\activate.bat`
+>
+> - Navigate to the folder of the installed files with `cd <path>`
+> - Create the virtual environment folder with `python -m venv venv`
+> - Activate the virtual environment with `venv\Scripts\activate.bat`
 >
 > *Note: The above commands were used on Visual Studio Code on Windows. For other IDE's and Linux, please refer to [Creation of Virtual Environments](https://docs.python.org/3/library/venv.html)*
 >
@@ -453,6 +463,9 @@ Site deployed on Heroku [HERE](https://channel-lead-resources.herokuapp.com/)
 > - Click on the 'Open App' button on the top-right to open the deployed app.
 > - There is no difference between the deployed version and the development version.
 >
+> &nbsp;  
+> [Back to Top](#table-of-contents)  
+> &nbsp;
 >
 ## Credits
 
@@ -477,8 +490,8 @@ Site deployed on Heroku [HERE](https://channel-lead-resources.herokuapp.com/)
 > - Prevent spaces in username and password entries, adapted from post on Stack Overflow found [HERE](https://stackoverflow.com/a/14236954)
 > - Javascript solution for cancelling video playback after closing modal from Stack Overflow found [HERE](https://stackoverflow.com/a/54845883)
 > - Regex code solution for capturing only the hosted Youtube video ID written by [Sean Murphy](https://github.com/nazarja)
-
----
+>
+> &nbsp;
 
 ## Acknowledgments
 >
@@ -493,5 +506,7 @@ Site deployed on Heroku [HERE](https://channel-lead-resources.herokuapp.com/)
 ## Support
 
 > For any issue resolution or assistance, please email  Jim Morel :e-mail: jim.lynx@gmail.com :e-mail:
-
----
+>
+> &nbsp;  
+> [Back to Top](#table-of-contents)  
+> &nbsp;

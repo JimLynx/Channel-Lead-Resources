@@ -1,4 +1,4 @@
-# Table of Contents - TESTING
+# Table of Contents
 
 > &nbsp;
 >
@@ -96,7 +96,9 @@
 > 1. As an Assessor, I will require full access to all Superuser privileges, so that I can gain full access in order to assess all aspects of the project.
 >
 > #### **TESTING:** The **'Assessor'** username and password created to allow a Project Assessor full access to the project with all priveledges of a Superuser, but with dedicated login details
->
+>  
+> &nbsp;  
+> [Back to Top](#table-of-contents)  
 > &nbsp;
 
 ## Code Validation
@@ -152,6 +154,8 @@
 > - [mail_settings.py](../config/mail_settings.py)
 >
 > ![Screenshot of mail_settings.py code validation test](../testing/mail_settings-check.png)  
+> &nbsp;  
+> [Back to Top](#table-of-contents)  
 > &nbsp;
 
 ## Search Function
@@ -168,6 +172,8 @@
 >   - If keyword is valid but not in the selected category, page returns the message: 'No results found, please try another search'.
 > - Selected category only with no keyword entered, page returns a list of resources of the selected category.
 > - Clicked Reset button and this clears the search inputs to default.  
+> &nbsp;  
+> [Back to Top](#table-of-contents)  
 > &nbsp;
 
 ## Manual Site Testing
@@ -291,11 +297,7 @@
 > - Entered a series of invalid url suffixes and user is redirected to 404 error page.
 > - Tested button on 404 error page to ensure it links back to the Home page
 >
-> &nbsp;
->
-### Contact page
->
-> &nbsp;
+> ### Contact page
 >
 > - When Submit button is clicked and 'required' fields are empty, the user receives a notification to fill in the relevant fields.
 > - When submitting a completed form, user receives a flash message notification that the feedback/suggestion has been sent.
@@ -306,6 +308,8 @@
 >
 > ![Screenshot of email received in inbox](../testing/email-test.png)
 >
+> &nbsp;  
+> [Back to Top](#table-of-contents)  
 > &nbsp;
 
 ## Responsive Tests
@@ -343,8 +347,11 @@
 
 > &nbsp;
 >
-> Ensured deployed page on Heroku loads up correctly.
-> Ensured Debug variable in app.py file is set to False
-> Ensure Debug variable in mail_settings.py is set to False
+> - Ensured deployed page on Heroku loads up correctly.
+> - Ensured Debug variable in app.py file is set to False.
+> - Ensure Debug variable in mail_settings.py is set to False.
+> - Confirmed that there is no difference between the deployed version and the development version.  
+> &nbsp;  
+> [Back to Top](#table-of-contents)  
 > &nbsp;
 >
