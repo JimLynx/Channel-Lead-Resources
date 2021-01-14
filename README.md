@@ -251,10 +251,10 @@ Colour palette has been chosen to align with the Code Institute and Slack UX for
 
 ### 5. Other
 
-    - [Autoprefixer](https://autoprefixer.github.io/) Parses CSS and adds vendor prefixes.
-    - [Google Mobile-Friendly Test](https://search.google.com/test/mobile-friendly) Mobile-friendly check on site.
-    - [Website Page Test](https://www.webpagetest.org/) Runs a website speed test from multiple locations around the globe using real browsers (IE and Chrome) and at real consumer connection speeds.
-    - [Online-Spellcheck](https://www.online-spellcheck.com/) Online spelling and grammar checks.
+- [Autoprefixer](https://autoprefixer.github.io/) Parses CSS and adds vendor prefixes.
+- [Google Mobile-Friendly Test](https://search.google.com/test/mobile-friendly) Mobile-friendly check on site.
+- [Website Page Test](https://www.webpagetest.org/) Runs a website speed test from multiple locations around the globe using real browsers (IE and Chrome) and at real consumer connection speeds.
+- [Online-Spellcheck](https://www.online-spellcheck.com/) Online spelling and grammar checks.
 
 ### 6. IDE Extensions used in VSCode
 
@@ -347,6 +347,7 @@ In the Terminal window:
 
 - Create an env.py file in the the **config** folder. In this file enter the Environmental Variables (**replace values with your own**) as follows:
 
+```python
         import os
 
         # base project
@@ -360,12 +361,14 @@ In the Terminal window:
         os.environ.setdefault("ADMIN_EMAIL", "ADMIN_EMAIL")
         os.environ.setdefault("MAIL_DEFAULT_SENDER", "MAIL_DEFAULT_SENDER")
         os.environ.setdefault("MAIL_PASSWORD", "MAIL_PASSWORD")
-        os.environ.setdefault("MAIL_USERNAME", ""MAIL_USERNAME")
+        os.environ.setdefault("MAIL_USERNAME", "MAIL_USERNAME")
+```
 
 #### 4. Create a .gitignore file
 
 - Create a file called **.gitignore** in the root directory and ensure it contains the following git exclusions:
 
+```text
           core.Microsoft*
           core.mongo*
           core.python*
@@ -374,6 +377,7 @@ In the Terminal window:
           *.py[cod]
           .venv
           .vscode
+```
 
 #### 5. Install project dependencies
 
@@ -387,12 +391,17 @@ Register for a free account with [MongoDB](https://account.mongodb.com/account/r
 - Creater a Cluster, choose the free tier option and select your region
 - Create a new database and call it 'channel_leads'
 - Create three Collections named 'categories', cl_resources' and 'users' an enter key/values as follows:  
-  - categories
 
+- **categories** collection
+
+```json
             _id: <ObjectId>
             category_name: "<string>"
-  - cl_resources
+```
 
+- **cl_resources** collection
+
+```json
             _id: <ObjectId>
             category_name: "<string>"
             title: "<string>"
@@ -401,12 +410,15 @@ Register for a free account with [MongoDB](https://account.mongodb.com/account/r
             document_url: "<string>"
             created_by: "<string>"
             date: "<string>"
+```
 
-  - users
+- **users** collection
 
+```json
             _id: <ObjectId>
             user_type: "<string>"
             password: "<string>"
+```
 
 #### 7. Deploy locally
 

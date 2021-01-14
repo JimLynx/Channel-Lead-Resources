@@ -174,7 +174,7 @@
                 <div class="modal-content pdfContainer">
                     <div class="modal-body mb-0 p-0">
                         <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="pdf-embed" src={{ resource.document_url }}></iframe>
+                            <iframe loading="lazy" class="pdf-embed" src={{ resource.document_url }}></iframe>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-center flex-column flex-md-row">
@@ -209,7 +209,7 @@
                 <div class="modal-content">
                     <div class="modal-body mb-0 p-0">
                         <div class="embed-responsive embed-responsive-16by9">
-                            <iframe src="https://www.youtube.com/embed/{{ resource.video_url }}"
+                            <iframe loading="lazy" src="https://www.youtube.com/embed/{{ resource.video_url }}"
                                 allowfullscreen></iframe>
                         </div>
                     </div>
