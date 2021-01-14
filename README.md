@@ -46,7 +46,6 @@ The aim of this project is to provide a single resource platform for the Code In
 
 - As a user I would like to **be able to search the site**, so that I can **easily find resources that I am looking for**
 - As a user I would like to **leave a comment** so that I can **recommend future topics to cover**
-- As a user I would like to **rate a post** (like/dislike-emojis) so that I can **visibly show how valuable the particular resource is to me** (Moved to [Features Left to Implement](#features-left-to-implement))
 - As a user I would like to **access the information from anywhere**, so that I can **watch and read presentations on my mobile phone/tablet**
 
 ### :white_circle: Admin_(Code institute Slack Channel Leads)_
@@ -419,6 +418,10 @@ Register for a free account with [MongoDB](https://account.mongodb.com/account/r
             user_type: "<string>"
             password: "<string>"
 ```
+
+ERD - Entity Relational Diagram
+
+![database Entity Relational Diagram](static/img/mongodb-erd.png)
 
 #### 7. Deploy locally
 
