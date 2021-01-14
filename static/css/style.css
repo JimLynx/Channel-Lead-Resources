@@ -85,10 +85,10 @@ p {
     padding: 0 15px;
 }
 
-.navbar-brand img {
+.main-logo {
     height: 50px;
-    width: auto;
-    padding: 0 15px;
+    width: 50px;
+    margin: 0 15px;
 }
 
 #mainNav {
@@ -159,7 +159,7 @@ p {
 .btn {
     background-color: var(--p-orange);
     border: 1px solid var(--p-dark-grey);
-    color: var(--s-light-grey);
+    color: var(--off-white);
     padding: 5px 15px;
     min-width: 175px;
 }
@@ -328,8 +328,9 @@ footer {
     color: var(--p-light-grey);
 }
 
-footer h4 {
+footer h2 {
     margin: 20px 0;
+    font-size: 1.5rem;
     font-weight: 400;
     letter-spacing: 2px;
 }
@@ -388,6 +389,7 @@ footer i {
 
 .lynx-logo {
     height: 2rem;
+    width: 2rem;
 }
 
 .fa-dot-circle {
