@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="Channel Lead Resources"
-        content="A platform for Code Institute Slack Community Channel Leads to upload presentation materials for students" />
+    <meta name="description" content="A platform for Code Institute's Slack Community to access resource materials">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
@@ -21,10 +20,10 @@
 
 <body>
     <!--Navbar-->
-    <!-- CREDIT: Navbar template customised from MDBootstrap https://mdbootstrap.com/-->
+    <!-- CREDIT: Navbar template customised from MDBootstrap https://mdbootstrap.com/ -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <a class="navbar-brand" href="{{ url_for('home') }}">
-            <img src="{{ url_for('static', filename='img/circle-logo.png') }}"
+            <img loading="lazy" class="main-logo" src="{{ url_for('static', filename='img/circle-logo.png') }}"
                 alt="Code Institute and Slack circle logo">
         </a>
         <!-- Collapse button -->
@@ -98,28 +97,30 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-6">
-                    <h4>Useful Links</h4>
+                    <h2>Useful Links</h2>
                     <ul>
                         <li class="mb-2">
-                            <a href="https://codeinstitute.net/" target=" _blank"><i class="fas fa-dot-circle"></i>
+                            <a href="https://codeinstitute.net/" rel="noreferrer nofollow" target=" _blank"><i
+                                    class="fas fa-dot-circle"></i>
                                 Code
                                 Institute</a>
                         </li>
                         <li class="mb-2">
                             <a href="https://codeinstitute.net/5-day-coding-challenge/" target=" _blank"><i
-                                    class="fas fa-dot-circle"></i> 5-Day Coding Challenge</a>
+                                    rel="noreferrer nofollow" class="fas fa-dot-circle"></i> 5-Day Coding Challenge</a>
                         </li>
                         <li class="mb-2">
                             <a href="https://codeinstitute.net/full-stack-software-development-diploma/"
-                                target=" _blank"><i class="fas fa-dot-circle"></i> Full-Stack Software
+                                rel="noreferrer nofollow" target=" _blank"><i class="fas fa-dot-circle"></i> Full-Stack
+                                Software
                                 Development</a>
                         </li>
                     </ul>
                 </div>
                 <div class="col-12 col-md-6">
-                    <h4>
+                    <h2>
                         Code Institute
-                    </h4>
+                    </h2>
                     <p>
                         Code Institute is the leading global provider
                         of online coding education. Credit-rated by Edinburgh Napier University and validated by the
@@ -137,25 +138,25 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-6 social-footer">
-                    <a href="https://www.facebook.com/Code.InstituteIRL/" target="_blank">
+                    <a href="https://www.facebook.com/Code.InstituteIRL/" rel="noreferrer nofollow" target="_blank">
                         <i class="fab fa-facebook-square"></i>
                     </a>
-                    <a href="https://slack.com/" target="_blank">
+                    <a href="https://slack.com/" rel="noreferrer nofollow" target="_blank">
                         <i class="fab fa-slack"></i>
                     </a>
-                    <a href="https://www.linkedin.com/school/code-institute/" target="_blank">
+                    <a href="https://www.linkedin.com/school/code-institute/" rel="noreferrer nofollow" target="_blank">
                         <i class="fab fa-linkedin"></i>
                     </a>
-                    <a href="https://github.com/JimLynx/Channel-Lead-Resources" target=" _blank">
+                    <a href="https://github.com/JimLynx/Channel-Lead-Resources" rel="noreferrer nofollow"
+                        target=" _blank">
                         <i class="fab fa-github-square"></i>
 
                     </a>
                 </div>
                 <div class="col-12 col-md-6 copyright-footer">
                     <p>
-                        <em><small>A resource site by JimLynx</small></em>
-                        <img class="lynx-logo" src="{{ url_for('static', filename='img/lynx.png') }}"
-                            alt="lynx-logo">
+                        <em><small>An educational resource site by JimLynx</small></em>
+                        <img class="lynx-logo" src="{{ url_for('static', filename='img/lynx.png') }}" alt="lynx-logo">
                     </p>
                 </div>
             </div>
